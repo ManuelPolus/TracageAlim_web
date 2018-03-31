@@ -10,6 +10,7 @@ using System.Web.Helpers;
 using System.Xml;
 using LinqToDB;
 using Newtonsoft.Json;
+using TracageAlmentaireWeb.Models;
 
 namespace TracageAlmentaireWeb.DAL
 {
@@ -57,7 +58,7 @@ namespace TracageAlmentaireWeb.DAL
 
         public IEnumerable<T> All()
         {
-            List<T> dataList = new List<T>();
+            IEnumerable<T> dataList = new List<T>();
             var result = "";
 
             using (_connexion)
@@ -68,20 +69,15 @@ namespace TracageAlmentaireWeb.DAL
                 using (var reader = command.ExecuteReader())
                 {
 
-                    int i = 0;
                     while (reader.Read())
                     {
-                        result += reader.GetName(i) + reader.GetString(i);
-                        i++;
+                        result += reader.GetName(0) + reader.GetString(0);
                     }
 
-                    result = result.Substring(
-                        result.IndexOf('{'),
-                        result.LastIndexOf('}')+1- result.IndexOf('{')
-                    );
+                    var deserializedResult = DataConverter<T>.ConvertToModels(result);
 
-                    var deserializedResult = JsonConvert.DeserializeObject<T>(result);
-                    dataList.Add(deserializedResult);
+                    dataList = deserializedResult;
+
                 }
             }
             //TODO serialization
@@ -90,7 +86,56 @@ namespace TracageAlmentaireWeb.DAL
 
         public T GetByIdentifier(object identifier)
         {
-            throw new NotImplementedException();
+            T item;
+            var result = "";
+
+            using (_connexion)
+            {
+                _connexion.Open();
+                var command = new SqlCommand("SELECT * FROM RoleUtilisateur WHERE Id =\'"+identifier+"\' FOR JSON AUTO", _connexion);
+
+                using (var reader = command.ExecuteReader())
+                {
+      
+                    while (reader.Read())
+                    {
+                        result += reader.GetName(0) + reader.GetString(0);
+                    }
+
+                    var deserializedResult = DataConverter<T>.ConvertToModel(result);
+                    item = deserializedResult;
+                }
+
+            }
+            //TODO serialization
+            return item;
+        }
+
+        public T GetByIdentifier(object identifier,string identifierName)
+        {
+            T item;
+            var result = "";
+
+            using (_connexion)
+            {
+                _connexion.Open();
+                var command = new SqlCommand("SELECT * FROM RoleUtilisateur WHERE "+identifierName+" =\'" + identifier + "\' FOR JSON AUTO", _connexion);
+
+                using (var reader = command.ExecuteReader())
+                {
+
+                    while (reader.Read())
+                    {
+                        result += reader.GetName(0) + reader.GetString(0);
+                    }
+        
+                    var deserializedResult = DataConverter<T>.ConvertToModel(result);
+                    item = deserializedResult;
+                }
+
+            }
+            //TODO serialization
+            return item;
         }
 
     }

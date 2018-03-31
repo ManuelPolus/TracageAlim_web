@@ -7,32 +7,31 @@ using System.Web.Http;
 
 namespace TracageAlmentaireWeb.Controllers
 {
-    public class ValuesController : ApiController
+    public class ValuesController<T> : ApiController
     {
         // GET api/values
-        public IEnumerable<string> Get()
+        public IEnumerable<T> Get()
         {
-            return new string[] { "value1", "value2" };
+           return new List<T>();
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        public T Get<T>(int id)
         {
-            return "value";
+            
         }
 
         // POST api/values
-        public void Post([FromBody]string value)
+        public void Post(T data)
         {
         }
 
         // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id,T data)
         {
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        public bool Delete(int id)
         {
         }
     }
