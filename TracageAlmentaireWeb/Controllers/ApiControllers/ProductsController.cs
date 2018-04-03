@@ -20,6 +20,7 @@ namespace TracageAlmentaireWeb.Controllers
            return dao.Get();
         }
 
+        [Route("api/Produit/{identifier}")]
         public EntiteProduit Get(object identifier)
         {
             return dao.GetByIdentifier(identifier);

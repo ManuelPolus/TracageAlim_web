@@ -197,9 +197,16 @@
     <Compile Include="BL\Entities\EntiteSousTraitant.cs" />
     <Compile Include="BL\Entities\EntiteTraitement.cs" />
     <Compile Include="BL\Entities\EntiteUtilisateur.cs" />
-    <Compile Include="BL\Entities\Organisation.cs" />
+    <Compile Include="BL\Entities\EntiteOrganisation.cs" />
+    <Compile Include="Controllers\ApiControllers\AdressesController.cs" />
     <Compile Include="Controllers\ApiControllers\EtapesController.cs" />
+    <Compile Include="Controllers\ApiControllers\EtatsController.cs" />
+    <Compile Include="Controllers\ApiControllers\OrganisationsController.cs" />
+    <Compile Include="Controllers\ApiControllers\ProcessController.cs" />
+    <Compile Include="Controllers\ApiControllers\RolesController.cs" />
+    <Compile Include="Controllers\ApiControllers\SousTraitantController.cs" />
     <Compile Include="Controllers\ApiControllers\TraitementsController.cs" />
+    <Compile Include="Controllers\ApiControllers\UtilisateursController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ApiControllers\ProductsController.cs" />
     <Compile Include="DAL\FoodTrackerDAO.cs" />

@@ -18,7 +18,7 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
             return dao.Get();
         }
 
-        [Route ("api/Traitements/{identifier}")]
+        [Route ("api/Traitement/{identifier}")]
         public EntiteTraitement Get(object identifier)
         {
             return dao.GetByIdentifier(identifier);

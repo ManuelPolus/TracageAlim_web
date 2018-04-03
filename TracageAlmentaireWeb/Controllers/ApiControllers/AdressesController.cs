@@ -3,34 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-using Tracage.Models;
 using TracageAlmentaireWeb.BL.Entities;
 using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers
 {
-    public class EtapesController : ApiController
+    public class AdressesController : ApiController
     {
-        FoodTrackerDao<EntiteEtape> dao = new FoodTrackerDao<EntiteEtape>("Etapes");
 
-        [Route("api/Etapes")]
-        public IEnumerable<EntiteEtape> Get()
+        FoodTrackerDao<EntiteAdresse> dao = new FoodTrackerDao<EntiteAdresse>("adresse");
+
+        [Route("api/Adresses")]
+        public IEnumerable<EntiteAdresse> Get()
         {
             return dao.Get();
         }
 
-        [Route("api/Etape/{identifier}")]
-        public EntiteEtape Get(object identifier)
+        [Route("api/Adresse/{identifier}")]
+        public EntiteAdresse Get(object identifier)
         {
             return dao.GetByIdentifier(identifier);
         }
 
-        public void Post(EntiteEtape data)
+        public void Post(EntiteAdresse data)
         {
             dao.Add(data);
         }
 
-        public void Put(object identifier, EntiteEtape data)
+        public void Put(object identifier, EntiteAdresse data)
         {
             dao.Update(data, identifier);
         }
@@ -39,6 +39,6 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
         {
             dao.Delete(identifier);
         }
-    }
 
+    }
 }

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace TracageAlmentaireWeb.BL.Entities
 {
-    public class Organisation
+    public class EntiteOrganisation
     {
         [Key]
         public long Id { get; set; }
