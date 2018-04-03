@@ -17,7 +17,7 @@ namespace TracageAlmentaireWeb.DAL
     {
         //TODO : eventually replace with azure sql server's url
         private const string ConnexionString =
-            "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False";
+            "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTrackerr;Integrated Security=True;Pooling=False";
 
         private SqlConnection _connexion;
 
@@ -67,21 +67,20 @@ namespace TracageAlmentaireWeb.DAL
 
                 using (var reader = command.ExecuteReader())
                 {
-
-                    int i = 0;
+                   
                     while (reader.Read())
                     {
-                        result += reader.GetName(i) + reader.GetString(i);
-                        i++;
+                        result += reader.GetName(0) + reader.GetString(0);
+                        
                     }
 
                     result = result.Substring(
-                        result.IndexOf('{'),
-                        result.LastIndexOf('}')+1- result.IndexOf('{')
+                        result.IndexOf('['),
+                        result.LastIndexOf(']')+1- result.IndexOf('[')
                     );
 
-                    var deserializedResult = JsonConvert.DeserializeObject<T>(result);
-                    dataList.Add(deserializedResult);
+                    var deserializedResult = JsonConvert.DeserializeObject<List<T>>(result);
+                    dataList = deserializedResult;
                 }
             }
             //TODO serialization

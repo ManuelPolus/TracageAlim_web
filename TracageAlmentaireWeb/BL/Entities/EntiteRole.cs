@@ -12,6 +12,6 @@ namespace TracageAlmentaireWeb.BL.Entities
         public string Nom { get; set; }
 
         [MaxLength(500)]
-        public string Description { get; set; }
+        public string DescriptionRole { get; set; }
     }
 }

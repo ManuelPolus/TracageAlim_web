@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Web;
-using LinqToDB.Mapping;
 
 namespace TracageAlmentaireWeb.BL.Entities
 {
-    public class EntiteEtat
+    public class Organisation
     {
-        [PrimaryKey]
+        [Key]
         public long Id { get; set; }
+
+        [MaxLength(100)]
+        public string Nom { get; set; }
+
+        [MaxLength(100)]
+        public string Email { get; set; }
+
         [MaxLength(20)]
-        public string Status { get; set; }
+        public string Telephone { get; set; }
     }
 }
