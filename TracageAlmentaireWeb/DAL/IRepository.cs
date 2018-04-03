@@ -8,8 +8,8 @@ namespace TracageAlmentaireWeb.DAL
     public interface IRepository<T>
     {
         void Add(T entity);
-        void Delete(T entity);
-        void Update(T entity);
+        void Delete(object entityIdendtifier);
+        void Update(T newStateOfEntity, object entityIdendtifier);
         IEnumerable<T> All();
 
     }

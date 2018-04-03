@@ -16,9 +16,9 @@ namespace TracageAlmentaireWeb.DAL
 {
     public class FoodTrackerDao<T> : IRepository<T>
     {
+        //TODO : trouver comment changer le nom de la table. L'intégrer aux args et raccourcir dans la business layer ?
         //TODO : eventually replace with azure sql server's url
-        private const string ConnexionString =
-            "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False";
+        private const string ConnexionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False";
 
         private SqlConnection _connexion;
 
@@ -32,29 +32,65 @@ namespace TracageAlmentaireWeb.DAL
         {
             using (_connexion)
             {
-                _connexion.Open();
             }
         }
 
-        public void Delete(T entity)
+        public void Delete(object identifier)
         {
             using (_connexion)
             {
+
                 _connexion.Open();
 
+                var command = new SqlCommand(
+                    "DELETE FROM RoleUtilisateur" +
+                    " WHERE Id =\'" + identifier +
+                    "\' FOR JSON AUTO ;"
+                    , _connexion);
 
+                command.ExecuteReader();
             }
         }
 
-        public void Update(T entity)
+        public void Delete(object identifier, string identifierName)
         {
             using (_connexion)
             {
+
                 _connexion.Open();
 
+                var command = new SqlCommand(
+                    "DELETE FROM RoleUtilisateur" +
+                    " WHERE " + identifierName + " =\'" + identifier +
+                    "\' FOR JSON AUTO ;"
+                    , _connexion);
+
+                command.ExecuteReader();
+            }
+        }
+
+
+
+        public void Update(T newStateOfEntity, object entityIdentifier)
+        {
+
+            using (_connexion)
+            {
+                var currentStateOfEntity = GetByIdentifier(entityIdentifier);
+                //If the current state and wished state are different, something is indeed different and we actually need an update
+                if (!currentStateOfEntity.Equals(newStateOfEntity))
+                {
+                    var command = new SqlCommand(
+                        "UPDATE " + typeof(T)
+                        + ""
+                        , _connexion);
+
+                }
 
             }
         }
+
+
 
         public IEnumerable<T> All()
         {
@@ -84,6 +120,8 @@ namespace TracageAlmentaireWeb.DAL
             return dataList;
         }
 
+
+        
         public T GetByIdentifier(object identifier)
         {
             T item;
@@ -92,11 +130,11 @@ namespace TracageAlmentaireWeb.DAL
             using (_connexion)
             {
                 _connexion.Open();
-                var command = new SqlCommand("SELECT * FROM RoleUtilisateur WHERE Id =\'"+identifier+"\' FOR JSON AUTO", _connexion);
+                var command = new SqlCommand("SELECT * FROM RoleUtilisateur WHERE Id =\'" + identifier + "\' FOR JSON AUTO", _connexion);
 
                 using (var reader = command.ExecuteReader())
                 {
-      
+
                     while (reader.Read())
                     {
                         result += reader.GetName(0) + reader.GetString(0);
@@ -111,7 +149,7 @@ namespace TracageAlmentaireWeb.DAL
             return item;
         }
 
-        public T GetByIdentifier(object identifier,string identifierName)
+        public T GetByIdentifier(object identifier, string identifierName)
         {
             T item;
             var result = "";
@@ -119,7 +157,7 @@ namespace TracageAlmentaireWeb.DAL
             using (_connexion)
             {
                 _connexion.Open();
-                var command = new SqlCommand("SELECT * FROM RoleUtilisateur WHERE "+identifierName+" =\'" + identifier + "\' FOR JSON AUTO", _connexion);
+                var command = new SqlCommand("SELECT * FROM RoleUtilisateur WHERE " + identifierName + " =\'" + identifier + "\' FOR JSON AUTO", _connexion);
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -128,7 +166,7 @@ namespace TracageAlmentaireWeb.DAL
                     {
                         result += reader.GetName(0) + reader.GetString(0);
                     }
-        
+
                     var deserializedResult = DataConverter<T>.ConvertToModel(result);
                     item = deserializedResult;
                 }
