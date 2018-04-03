@@ -8,6 +8,7 @@ namespace TracageAlmentaireWeb.BL.Entities
 {
     public class EntiteAdresse
     {
+
         [Key, MaxLength(5)] public string Numero { get; set; }
 
         [Key, MaxLength(163)] public string Rue { get; set; }

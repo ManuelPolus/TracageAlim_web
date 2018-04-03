@@ -10,12 +10,12 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
 {
     public class TraitementsController : ApiController
     {
-        FoodTrackerDao<EntiteTraitement> dao = new FoodTrackerDao<EntiteTraitement>();
+        FoodTrackerDao<EntiteTraitement> dao = new FoodTrackerDao<EntiteTraitement>("Traitements");
 
         [Route("api/Traitements")]
         public IEnumerable<EntiteTraitement> Get()
         {
-            return dao.All();
+            return dao.Get();
         }
 
         [Route ("api/Traitements/{identifier}")]

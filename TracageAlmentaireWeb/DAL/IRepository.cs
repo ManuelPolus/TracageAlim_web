@@ -10,7 +10,7 @@ namespace TracageAlmentaireWeb.DAL
         void Add(T entity);
         void Delete(object entityIdendtifier);
         void Update(T newStateOfEntity, object entityIdendtifier);
-        IEnumerable<T> All();
+        IEnumerable<T> Get();
 
     }
 }

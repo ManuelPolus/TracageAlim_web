@@ -19,7 +19,7 @@ namespace TracageAlimentaireXamarin.BL.Components
 
         public DaoAccessor(object dataType)
         {
-            Dao = new FoodTrackerDao<object>();
+            Dao = new FoodTrackerDao<object>(typeof(object).ToString());
             this.DataType = dataType;
         }
 
@@ -31,7 +31,7 @@ namespace TracageAlimentaireXamarin.BL.Components
 
         public IEnumerable<T> GetAsList<T>()
         {
-           return  (IEnumerable<T>) Dao.All();
+           return  (IEnumerable<T>) Dao.Get();
         }
 
         public object GetByIdentifier<T>(T identifier)

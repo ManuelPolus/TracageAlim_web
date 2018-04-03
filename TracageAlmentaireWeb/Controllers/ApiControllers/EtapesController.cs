@@ -11,12 +11,12 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
 {
     public class EtapesController : ApiController
     {
-        FoodTrackerDao<EntiteEtape> dao = new FoodTrackerDao<EntiteEtape>();
+        FoodTrackerDao<EntiteEtape> dao = new FoodTrackerDao<EntiteEtape>("Etapes");
 
         [Route("api/Etapes")]
         public IEnumerable<EntiteEtape> Get()
         {
-            return dao.All();
+            return dao.Get();
         }
 
         public EntiteEtape Get(object identifier)

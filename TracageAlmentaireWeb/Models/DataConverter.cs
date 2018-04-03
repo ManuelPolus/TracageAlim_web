@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Caching;
 using Newtonsoft.Json;
@@ -41,6 +42,18 @@ namespace TracageAlmentaireWeb.Models
 
             return deserializedResult;
 
+        }
+
+        public static List<string> GetObjectproperties(T theObject)
+        {
+            List<string> properties = new List<string>();
+
+            foreach (PropertyInfo property in theObject.GetType().GetProperties())
+            {
+                properties.Add(property.Name);
+            }
+
+            return properties;
         }
 
 
