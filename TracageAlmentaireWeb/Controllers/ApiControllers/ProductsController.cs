@@ -17,14 +17,34 @@ namespace TracageAlmentaireWeb.Controllers
         [Route("api/Produits")]
         public IEnumerable<EntiteProduit> Get()
         {
-           return dao.Get();
+            return dao.Get();
         }
 
-        [Route("api/Produit/{identifier}")]
-        public EntiteProduit Get(object identifier)
+        //TODO : coller ces méthodes dans les autres api controllers en adaptant les routes
+       [Route("api/Produits/{identifier}")]
+        public IHttpActionResult Get(string identifier)
         {
-            return dao.GetByIdentifier(identifier);
+            var result = dao.GetByIdentifier(identifier);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+
+            return NotFound();
         }
+
+        [Route("api/Produits/{identifier}/{identifierName}")]
+        public IHttpActionResult Get(string identifier, string identifierName)
+        {
+            var result = dao.GetByIdentifier(identifier, identifierName);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+
+            return NotFound();
+        }
+
 
         public void Post(EntiteProduit data)
         {
@@ -33,12 +53,12 @@ namespace TracageAlmentaireWeb.Controllers
 
         public void Put(object identifier, EntiteProduit data)
         {
-            dao.Update(data,identifier);
+            dao.Update(data, identifier);
         }
 
         public void Delete(object identifier)
         {
-            dao.Delete(identifier); 
+            dao.Delete(identifier);
         }
     }
 }

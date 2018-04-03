@@ -1,18 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Web;
-using System.Web.Helpers;
-using System.Xml;
-using LinqToDB;
-using LinqToDB.SqlQuery;
-using Microsoft.SqlServer.Server;
-using Newtonsoft.Json;
-using TracageAlmentaireWeb.Controllers;
+using System.Diagnostics;
 using TracageAlmentaireWeb.Models;
 
 namespace TracageAlmentaireWeb.DAL
@@ -28,6 +17,8 @@ namespace TracageAlmentaireWeb.DAL
         public FoodTrackerDao(string tableName)
         {
             table = tableName;
+            _connexion = _connexion =
+            new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False");
         }
 
         /// <summary>
@@ -36,35 +27,45 @@ namespace TracageAlmentaireWeb.DAL
         /// <param name="entity"></param>
         public void Add(T entity)
         {
-            using (_connexion = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False"))
+            try
             {
-                _connexion.Open();
-                List<string> properties = DataConverter<T>.GetObjectproperties(entity);
-                string propertiesName = "(";
-                string newValues = "VALUES (";
-                foreach (string property in properties)
+                using (_connexion)
                 {
-                    if (property != "Id")
+                    _connexion.Open();
+                    List<string> properties = DataConverter<T>.GetObjectproperties(entity);
+                    string propertiesName = "(";
+                    string newValues = "VALUES (";
+                    foreach (string property in properties)
                     {
-                        propertiesName += property + ",";
-                        newValues += "'" + entity.GetType().GetProperty(property).GetValue(entity) + "',";
+                        if (property != "Id")
+                        {
+                            propertiesName += property + ",";
+                            newValues += "'" + entity.GetType().GetProperty(property).GetValue(entity) + "',";
+                        }
                     }
+
+                    propertiesName = propertiesName.Substring(0, propertiesName.Length - 1);
+                    propertiesName += ")";
+                    newValues = newValues.Substring(0, newValues.Length - 1);
+                    newValues += ")";
+
+                    var command = new SqlCommand(
+                        "INSERT INTO " + table +
+                        propertiesName +
+                        newValues
+                        , _connexion);
+
+                    command.ExecuteReader();
                 }
-
-                propertiesName = propertiesName.Substring(0, propertiesName.Length - 1);
-                propertiesName += ")";
-                newValues = newValues.Substring(0, newValues.Length - 1);
-                newValues += ")";
-
-                var command = new SqlCommand(
-                    "INSERT INTO " + table +
-                    propertiesName +
-                    newValues
-                    , _connexion);
-
-                command.ExecuteReader();
             }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
+            }
+
         }
+
+
 
         /// <summary>
         /// Update an object with matching Id. If the object have a diffrent primary key than "Id",
@@ -75,70 +76,87 @@ namespace TracageAlmentaireWeb.DAL
         public virtual void Update(T newStateOfEntity, object entityIdentifier)
         {
             var currentStateOfEntity = GetByIdentifier(entityIdentifier);
-
-            using (_connexion = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False"))
+            try
             {
-                _connexion.Open();
-
-                if (!currentStateOfEntity.Equals(newStateOfEntity))
+                using (_connexion = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False"))
                 {
-                    List<string> properties = DataConverter<T>.GetObjectproperties(newStateOfEntity);
-                    string queryBody = "SET ";
+                    _connexion.Open();
 
-                    foreach (string property in properties)
+                    if (!currentStateOfEntity.Equals(newStateOfEntity))
                     {
-                        if (property != "Id")
+                        List<string> properties = DataConverter<T>.GetObjectproperties(newStateOfEntity);
+                        string queryBody = "SET ";
+
+                        foreach (string property in properties)
                         {
-                            queryBody += property + " = '" + newStateOfEntity.GetType().GetProperty(property).GetValue(newStateOfEntity) + "',";
+                            if (property != "Id")
+                            {
+                                queryBody += property + " = '" + newStateOfEntity.GetType().GetProperty(property)
+                                                 .GetValue(newStateOfEntity) + "',";
+                            }
                         }
+
+                        queryBody = queryBody.Substring(0, queryBody.Length - 1);
+
+                        var command = new SqlCommand(
+                            "UPDATE " + table + " "
+                            + queryBody
+                            + " WHERE Id = '" + entityIdentifier + "'"
+                            , _connexion);
+
+                        command.ExecuteReader();
                     }
 
-                    queryBody = queryBody.Substring(0, queryBody.Length - 1);
-
-                    var command = new SqlCommand(
-                        "UPDATE " + table + " "
-                        + queryBody
-                        + " WHERE Id = '" + entityIdentifier + "'"
-                        , _connexion);
-
-                    command.ExecuteReader();
                 }
-
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
             }
         }
 
-        public virtual void Update(T newStateOfEntity, object entityIdentifier,string identifierName)
+        public virtual void Update(T newStateOfEntity, object entityIdentifier, string identifierName)
         {
             var currentStateOfEntity = GetByIdentifier(entityIdentifier);
-
-            using (_connexion = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False"))
+            try
             {
-                _connexion.Open();
-
-                if (!currentStateOfEntity.Equals(newStateOfEntity))
+                using (_connexion =
+                    new SqlConnection(
+                        "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False")
+                )
                 {
-                    List<string> properties = DataConverter<T>.GetObjectproperties(newStateOfEntity);
-                    string queryBody = "SET ";
+                    _connexion.Open();
 
-                    foreach (string property in properties)
+                    if (!currentStateOfEntity.Equals(newStateOfEntity))
                     {
-                        if (property != "Id")
+                        List<string> properties = DataConverter<T>.GetObjectproperties(newStateOfEntity);
+                        string queryBody = "SET ";
+
+                        foreach (string property in properties)
                         {
-                            queryBody += property + " = '" + newStateOfEntity.GetType().GetProperty(property).GetValue(newStateOfEntity) + "',";
+                            if (property != "Id")
+                            {
+                                queryBody += property + " = '" + newStateOfEntity.GetType().GetProperty(property)
+                                                 .GetValue(newStateOfEntity) + "',";
+                            }
                         }
+
+                        queryBody = queryBody.Substring(0, queryBody.Length - 1);
+
+                        var command = new SqlCommand(
+                            "UPDATE " + table + " "
+                            + queryBody
+                            + " WHERE " + identifierName + " = '" + entityIdentifier + "'"
+                            , _connexion);
+
+                        command.ExecuteReader();
                     }
 
-                    queryBody = queryBody.Substring(0, queryBody.Length - 1);
-
-                    var command = new SqlCommand(
-                        "UPDATE " + table + " "
-                        + queryBody
-                        + " WHERE "+identifierName+" = '" + entityIdentifier + "'"
-                        , _connexion);
-
-                    command.ExecuteReader();
                 }
-
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
             }
         }
 
@@ -153,28 +171,36 @@ namespace TracageAlmentaireWeb.DAL
         {
             IEnumerable<T> dataList = new List<T>();
             var result = "";
-
-            using (_connexion = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False"))
+            try
             {
-                _connexion.Open();
-
-                var command = new SqlCommand("SELECT * FROM " + table + " FOR JSON AUTO", _connexion);
-
-                using (var reader = command.ExecuteReader())
+                using (_connexion =
+                    new SqlConnection(
+                        "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False")
+                )
                 {
+                    _connexion.Open();
 
-                    while (reader.Read())
+                    var command = new SqlCommand("SELECT * FROM " + table + " FOR JSON AUTO", _connexion);
+
+                    using (var reader = command.ExecuteReader())
                     {
-                        result += reader.GetName(0) + reader.GetString(0);
+
+                        while (reader.Read())
+                        {
+                            result += reader.GetName(0) + reader.GetString(0);
+                        }
+
+                        var deserializedResult = DataConverter<T>.ConvertToModels(result);
+
+                        dataList = deserializedResult;
+
                     }
-
-                    var deserializedResult = DataConverter<T>.ConvertToModels(result);
-
-                    dataList = deserializedResult;
-
                 }
             }
-            //TODO serialization
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
+            }
             return dataList;
         }
 
@@ -182,28 +208,37 @@ namespace TracageAlmentaireWeb.DAL
         {
             IEnumerable<T> dataList = new List<T>();
             var result = "";
-
-            using (_connexion = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False"))
+            try
             {
-                _connexion.Open();
-
-                var command = new SqlCommand("SELECT * FROM " + table + " FOR JSON AUTO", _connexion);
-
-                using (var reader = command.ExecuteReader())
+                using (_connexion =
+                    new SqlConnection(
+                        "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False")
+                )
                 {
+                    _connexion.Open();
 
-                    while (reader.Read())
+                    var command = new SqlCommand("SELECT * FROM " + table + " FOR JSON AUTO", _connexion);
+
+                    using (var reader = command.ExecuteReader())
                     {
-                        result += reader.GetName(0) + reader.GetString(0);
+
+                        while (reader.Read())
+                        {
+                            result += reader.GetName(0) + reader.GetString(0);
+                        }
+
+                        var deserializedResult = DataConverter<T>.ConvertToModels(result);
+
+                        dataList = deserializedResult;
+
                     }
-
-                    var deserializedResult = DataConverter<T>.ConvertToModels(result);
-
-                    dataList = deserializedResult;
-
                 }
             }
-            //TODO serialization
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
+            }
+
             return dataList;
         }
 
@@ -219,27 +254,39 @@ namespace TracageAlmentaireWeb.DAL
         {
             T item;
             var result = "";
-
-            using (_connexion = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False"))
+            try
             {
-                _connexion.Open();
-                var command = new SqlCommand("SELECT * FROM " + table + " WHERE Id =\'" + identifier + "\' FOR JSON AUTO", _connexion);
-
-                using (var reader = command.ExecuteReader())
+                using (_connexion =
+                    new SqlConnection(
+                        "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False")
+                )
                 {
+                    _connexion.Open();
+                    var command =
+                        new SqlCommand("SELECT * FROM " + table + " WHERE Id =\'" + identifier + "\' FOR JSON AUTO",
+                            _connexion);
 
-                    while (reader.Read())
+                    using (var reader = command.ExecuteReader())
                     {
-                        result += reader.GetName(0) + reader.GetString(0);
+
+                        while (reader.Read())
+                        {
+                            result += reader.GetName(0) + reader.GetString(0);
+                        }
+
+                        var deserializedResult = DataConverter<T>.ConvertToModel(result);
+                        item = deserializedResult;
                     }
 
-                    var deserializedResult = DataConverter<T>.ConvertToModel(result);
-                    item = deserializedResult;
                 }
-
+                return item;
             }
-            //TODO serialization
-            return item;
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
+            }
+
+            return default(T); //throw new Exception("db request failed");
         }
 
         public virtual T GetByIdentifier(object identifier, string identifierName)
@@ -279,33 +326,55 @@ namespace TracageAlmentaireWeb.DAL
         /// <returns></returns>
         public void Delete(object identifier)
         {
-            using (_connexion = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False"))
+            try
             {
 
-                _connexion.Open();
 
-                var command = new SqlCommand(
-                    "DELETE FROM " + table +
-                    " WHERE Id =\'" + identifier + "\';"
-                    , _connexion);
+                using (_connexion =
+                    new SqlConnection(
+                        "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False")
+                )
+                {
 
-                command.ExecuteReader();
+                    _connexion.Open();
+
+                    var command = new SqlCommand(
+                        "DELETE FROM " + table +
+                        " WHERE Id =\'" + identifier + "\';"
+                        , _connexion);
+
+                    command.ExecuteReader();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
             }
         }
 
         public void Delete(object identifier, string identifierName)
         {
-            using (_connexion = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False"))
+            try
             {
+                using (_connexion =
+                    new SqlConnection(
+                        "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False")
+                )
+                {
 
-                _connexion.Open();
+                    _connexion.Open();
 
-                var command = new SqlCommand(
-                    "DELETE FROM " + table +
-                    " WHERE " + identifierName + " =\'" + identifier + "\';"
-                    , _connexion);
+                    var command = new SqlCommand(
+                        "DELETE FROM " + table +
+                        " WHERE " + identifierName + " =\'" + identifier + "\';"
+                        , _connexion);
 
-                command.ExecuteReader();
+                    command.ExecuteReader();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
             }
         }
 
