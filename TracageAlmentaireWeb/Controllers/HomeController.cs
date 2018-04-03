@@ -16,13 +16,26 @@ namespace TracageAlmentaireWeb.Controllers
         {
             ViewBag.Title = "Home Page";
 
-            FoodTrackerDao<EntiteProduit> dao = new FoodTrackerDao<EntiteProduit>("Produits");
-            EntiteProduit p = new EntiteProduit("bob le poireau","salement défoncé");
-            dao.Add(p);
-            p = dao.GetByIdentifier("bob le poireau","Nom");
-            EntiteProduit p2 = new EntiteProduit("bob le poireau", "il est dech");
-            dao.Update(p2,p.Id);
+           
             return View();
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        public ActionResult CreateAdresse()
+        {
+            return View();
+        }
+
+        public ActionResult AllProducts()
+        {
+            IEnumerable<EntiteProduit> list = new List<EntiteProduit>();
+            FoodTrackerDao<EntiteProduit> dao = new FoodTrackerDao<EntiteProduit>("produits");
+            list =  dao.Get();
+            return View(list);
         }
     }
 }
