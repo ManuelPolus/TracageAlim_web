@@ -198,6 +198,8 @@
     <Compile Include="BL\Entities\EntiteTraitement.cs" />
     <Compile Include="BL\Entities\EntiteUtilisateur.cs" />
     <Compile Include="BL\Entities\Organisation.cs" />
+    <Compile Include="Controllers\ApiControllers\EtapesController.cs" />
+    <Compile Include="Controllers\ApiControllers\TraitementsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ApiControllers\ProductsController.cs" />
     <Compile Include="DAL\FoodTrackerDAO.cs" />

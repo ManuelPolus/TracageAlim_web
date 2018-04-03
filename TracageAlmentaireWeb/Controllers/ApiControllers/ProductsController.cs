@@ -5,31 +5,32 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Tracage.Models;
+using TracageAlmentaireWeb.BL.Entities;
 using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlmentaireWeb.Controllers
 {
     public class ProductsController : ApiController
     {
-        FoodTrackerDao<Produit> dao = new FoodTrackerDao<Produit>();
+        FoodTrackerDao<EntiteProduit> dao = new FoodTrackerDao<EntiteProduit>();
 
         [Route("api/Produits")]
-        public IEnumerable<Produit> Get()
+        public IEnumerable<EntiteProduit> Get()
         {
            return dao.All();
         }
 
-        public Produit Get(object identifier)
+        public EntiteProduit Get(object identifier)
         {
             return dao.GetByIdentifier(identifier);
         }
 
-        public void Post(Produit data)
+        public void Post(EntiteProduit data)
         {
             dao.Add(data);
         }
 
-        public void Put(object identifier,Produit data)
+        public void Put(object identifier, EntiteProduit data)
         {
             dao.Update(data,identifier);
         }
