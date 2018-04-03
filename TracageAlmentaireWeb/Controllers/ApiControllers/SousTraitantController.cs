@@ -11,7 +11,7 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
     public class SousTraitantController : ApiController
     {
 
-        FoodTrackerDao<EntiteSousTraitant> dao = new FoodTrackerDao<EntiteSousTraitant>("SousTraitant");
+        FoodTrackerDao<EntiteSousTraitant> dao = new FoodTrackerDao<EntiteSousTraitant>("SousTraitants");
 
         [Route("api/SousTraitants")]
         public IEnumerable<EntiteSousTraitant> Get()

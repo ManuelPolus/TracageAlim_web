@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace TracageAlmentaireWeb.BL.Entities
 {
+    [Serializable]
     public class EntiteEtape
     {
         [Key]

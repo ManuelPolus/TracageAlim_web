@@ -11,7 +11,7 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
     public class RolesController : ApiController
     {
 
-        FoodTrackerDao<EntiteRole> dao = new FoodTrackerDao<EntiteRole>("role");
+        FoodTrackerDao<EntiteRole> dao = new FoodTrackerDao<EntiteRole>("RolesUtilisateurs");
 
         [Route("api/Roles")]
         public IEnumerable<EntiteRole> Get()

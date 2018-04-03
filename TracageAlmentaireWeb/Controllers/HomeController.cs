@@ -16,7 +16,7 @@ namespace TracageAlmentaireWeb.Controllers
         {
             ViewBag.Title = "Home Page";
 
-            FoodTrackerDao<EntiteProduit> dao = new FoodTrackerDao<EntiteProduit>("produits");
+            FoodTrackerDao<EntiteProduit> dao = new FoodTrackerDao<EntiteProduit>("Produits");
             EntiteProduit p = new EntiteProduit("bob le poireau","salement défoncé");
             dao.Add(p);
             p = dao.GetByIdentifier("bob le poireau","Nom");

@@ -11,7 +11,7 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
     public class EtatsController : ApiController
     {
 
-        FoodTrackerDao<EntiteEtat> dao = new FoodTrackerDao<EntiteEtat>("etat");
+        FoodTrackerDao<EntiteEtat> dao = new FoodTrackerDao<EntiteEtat>("etats");
 
         [Route("api/Etats")]
         public IEnumerable<EntiteEtat> Get()

@@ -5,8 +5,9 @@ using System.Linq;
 using System.Web;
 using LinqToDB.Mapping;
 
-namespace TracageAlmentaireWeb.BL.Entities
+namespace TracageAlmentaireWeb.BL.Entities 
 {
+    [Serializable]
     public class EntiteProduit
     {
 

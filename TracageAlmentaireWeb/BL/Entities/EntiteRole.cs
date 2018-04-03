@@ -6,6 +6,7 @@ using System.Web;
 
 namespace TracageAlmentaireWeb.BL.Entities
 {
+    [Serializable]
     public class EntiteRole
     {
         [Key, MaxLength(50)]

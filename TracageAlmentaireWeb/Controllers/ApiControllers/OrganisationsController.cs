@@ -11,7 +11,7 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
     public class OrganisationsController : ApiController
     {
 
-        FoodTrackerDao<EntiteOrganisation> dao = new FoodTrackerDao<EntiteOrganisation>("organisation");
+        FoodTrackerDao<EntiteOrganisation> dao = new FoodTrackerDao<EntiteOrganisation>("organisations");
 
         [Route("api/Organisations")]
         public IEnumerable<EntiteOrganisation> Get()

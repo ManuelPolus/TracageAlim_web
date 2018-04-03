@@ -11,7 +11,7 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
     public class UtilisateursController : ApiController
     {
 
-        FoodTrackerDao<EntiteUtilisateur> dao = new FoodTrackerDao<EntiteUtilisateur>("Utilisateur");
+        FoodTrackerDao<EntiteUtilisateur> dao = new FoodTrackerDao<EntiteUtilisateur>("Utilisateurs");
 
         [Route("api/Utilisateurs")]
         public IEnumerable<EntiteUtilisateur> Get()

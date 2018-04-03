@@ -8,6 +8,7 @@ using LinqToDB.Mapping;
 
 namespace TracageAlmentaireWeb.BL.Entities
 {
+    [Serializable]
     public class EntiteEtat
     {
         [PrimaryKey]
