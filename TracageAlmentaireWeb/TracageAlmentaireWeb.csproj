@@ -188,13 +188,21 @@
     <Compile Include="BL\Components\IDataAccessor.cs" />
     <Compile Include="BL\Components\ProductChecker.cs" />
     <Compile Include="BL\Components\DaoAccessor.cs" />
+    <Compile Include="BL\Entities\EntiteAdresse.cs" />
+    <Compile Include="BL\Entities\EntiteEtape.cs" />
     <Compile Include="BL\Entities\EntiteEtat.cs" />
+    <Compile Include="BL\Entities\EntiteProcess.cs" />
+    <Compile Include="BL\Entities\EntiteProduit.cs" />
     <Compile Include="BL\Entities\EntiteRole.cs" />
-    <Compile Include="Controllers\FoodTrackerContext.cs" />
+    <Compile Include="BL\Entities\EntiteSousTraitant.cs" />
+    <Compile Include="BL\Entities\EntiteTraitement.cs" />
+    <Compile Include="BL\Entities\EntiteUtilisateur.cs" />
+    <Compile Include="BL\Entities\Organisation.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\ApiControllers\ProductsController.cs" />
     <Compile Include="DAL\FoodTrackerDAO.cs" />
     <Compile Include="DAL\IRepository.cs" />
+    <Compile Include="DAL\TrackingDataContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

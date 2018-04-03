@@ -10,6 +10,7 @@ using System.Web.Helpers;
 using System.Xml;
 using LinqToDB;
 using Newtonsoft.Json;
+using TracageAlmentaireWeb.Controllers;
 using TracageAlmentaireWeb.Models;
 
 namespace TracageAlmentaireWeb.DAL
@@ -21,6 +22,7 @@ namespace TracageAlmentaireWeb.DAL
         private const string ConnexionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FoodTracker;Integrated Security=True;Pooling=False";
 
         private SqlConnection _connexion;
+        private TrackingDataContext context;
 
         public FoodTrackerDao()
         {
@@ -30,9 +32,9 @@ namespace TracageAlmentaireWeb.DAL
 
         public void Add(T entity)
         {
-            using (_connexion)
-            {
-            }
+            //TODO : complete
+            context.Database.ExecuteSqlCommand("");
+            context.SaveChanges();
         }
 
         public void Delete(object identifier)
@@ -120,8 +122,6 @@ namespace TracageAlmentaireWeb.DAL
             return dataList;
         }
 
-
-        
         public T GetByIdentifier(object identifier)
         {
             T item;
