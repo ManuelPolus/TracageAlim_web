@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using Tracage.Models;
 using TracageAlmentaireWeb.BL.Entities;
 using TracageAlmentaireWeb.DAL;
 
@@ -11,18 +12,18 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
     public class UtilisateursController : ApiController
     {
 
-        FoodTrackerDao<EntiteUtilisateur> dao = new FoodTrackerDao<EntiteUtilisateur>("Utilisateurs");
+        private Mapper mapper = new Mapper("FTDb");
 
         [Route("api/Utilisateurs")]
-        public IEnumerable<EntiteUtilisateur> Get()
+        public IEnumerable<Utilisateur> Get()
         {
-            return dao.Get();
+            return mapper.GetUsers();
         }
 
-        [Route("api/Utilisateurs/{identifier}")]
-        public IHttpActionResult Get(string identifier)
+        [Route("api/Utilisateurs/{id}")]
+        public IHttpActionResult Get(long id)
         {
-            var result = dao.GetByIdentifier(identifier);
+            var result = mapper.GetUser(id);
             if (result != null)
             {
                 return Ok(result);
@@ -31,31 +32,19 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
             return NotFound();
         }
 
-        [Route("api/Utilsateurs/{identifier}/{identifierName}")]
-        public IHttpActionResult Get(string identifier, string identifierName)
+        public void Post(Utilisateur data)
         {
-            var result = dao.GetByIdentifier(identifier, identifierName);
-            if (result != null)
-            {
-                return Ok(result);
-            }
-
-            return NotFound();
+            mapper.CreateUser(data);
         }
 
-        public void Post(EntiteUtilisateur data)
+        public void Put(long id, Utilisateur data)
         {
-            dao.Add(data);
+            mapper.UpdateUser(id, data);
         }
 
-        public void Put(object identifier, EntiteUtilisateur data)
+        public void Delete(long id)
         {
-            dao.Update(data, identifier);
-        }
-
-        public void Delete(object identifier)
-        {
-            dao.Delete(identifier);
+            mapper.DeleteUser(id);
         }
 
     }
