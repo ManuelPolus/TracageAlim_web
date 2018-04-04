@@ -227,7 +227,7 @@
     <Compile Include="Models\Processus.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\SousTraitant.cs" />
+    <Compile Include="Models\SubContractor.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\Treatement.cs" />
     <Compile Include="Models\Utilisateur.cs" />

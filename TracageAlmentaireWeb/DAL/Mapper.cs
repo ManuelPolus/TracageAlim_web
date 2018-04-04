@@ -96,6 +96,7 @@ namespace TracageAlmentaireWeb.DAL
                         bob.MotDePasse = newBob.MotDePasse;
                         bob.Telephone = newBob.Telephone;
                         bob.CurrentRole = newBob.CurrentRole;
+
                         context.SaveChanges();
                     }
 
@@ -195,7 +196,13 @@ namespace TracageAlmentaireWeb.DAL
 
                     if (!product.Equals(updatedProduct))
                     {
-                        product = updatedProduct;
+                        product.Id = updatedProduct.Id;
+                        product.CurrentTreatement = updatedProduct.CurrentTreatement;
+                        product.Description = updatedProduct.Description;
+                        product.Name = updatedProduct.Name;
+                        product.QRCode = updatedProduct.QRCode;
+                        product.States = updatedProduct.States;
+
                         context.SaveChanges();
                     }
                 }
@@ -272,6 +279,7 @@ namespace TracageAlmentaireWeb.DAL
         {
 
             using (context)
+            {
                 try
                 {
                     context.Treatements.Add(newTreatment);
@@ -280,6 +288,8 @@ namespace TracageAlmentaireWeb.DAL
                 {
                     Console.Error.WriteLine(e.StackTrace);
                 }
+            }
+                
         }
 
         public void UpdateTreatment(long id, Treatement updatedTreatement)
@@ -287,13 +297,19 @@ namespace TracageAlmentaireWeb.DAL
             Treatement treatement = new Treatement();
 
             using (context)
+            {
                 try
                 {
                     treatement = context.Treatements.FirstOrDefault(t => t.Id == id);
 
                     if (!treatement.Equals(updatedTreatement))
                     {
-                        treatement = updatedTreatement;
+                        treatement.Id = updatedTreatement.Id;
+                        treatement.Desrciption = updatedTreatement.Desrciption;
+                        treatement.Name = updatedTreatement.Name;
+                        treatement.OutgoingState = updatedTreatement.OutgoingState;
+                        treatement.Position = updatedTreatement.Position;
+
                         context.SaveChanges();
 
                     }
@@ -302,6 +318,8 @@ namespace TracageAlmentaireWeb.DAL
                 {
                     Console.Error.WriteLine(e.StackTrace);
                 }
+            }
+                
         }
 
         public void DeleteTreatment(long id)
@@ -390,18 +408,61 @@ namespace TracageAlmentaireWeb.DAL
 
                     if (!step.Equals(updatedStep))
                     {
-                        step = updatedStep;
+                        step.Treatements = updatedStep.Treatements;
+                        step.Id = updatedStep.Id;
+                        step.Name = updatedStep.Name;
+                        step.Position = updatedStep.Position;
 
+                        context.SaveChanges();
                     }
 
                 }
-                catch (Exception)
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void DeleteStep(long id)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Steps.Delete(s => s.Id == id);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+
+        }
+        #endregion
+
+        #region Subtractor
+
+        public List<SubContractor> SubContractors()
+        {
+            List<SubContractor> subContractors = new List<SubContractor>();
+
+            using (context)
+            {
+                try
+                {
+                    subContractors = context.SubContractors.ToList();
+
+                }
+                catch
                 {
 
                 }
             }
         }
         #endregion
+
 
 
     }

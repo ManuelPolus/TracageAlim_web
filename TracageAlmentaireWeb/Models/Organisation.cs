@@ -16,7 +16,7 @@ namespace Tracage.Models
 
         public Adresse Adresse { get; set; }
 
-        public List<SousTraitant> SousTraitants { get; set; }
+        public List<SubContractor> SubContractors { get; set; }
 
         public List<Utilisateur> Workers { get; set; }
 

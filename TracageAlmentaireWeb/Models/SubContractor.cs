@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tracage.Models
 {
-    public class SousTraitant
+    public class SubContractor
     {
         public int Id { get; set; }
 

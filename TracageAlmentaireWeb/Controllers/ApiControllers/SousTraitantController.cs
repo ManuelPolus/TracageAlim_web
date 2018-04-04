@@ -11,15 +11,15 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
     public class SousTraitantController : ApiController
     {
 
-        FoodTrackerDao<EntiteSousTraitant> dao = new FoodTrackerDao<EntiteSousTraitant>("SousTraitants");
+        FoodTrackerDao<EntiteSousTraitant> dao = new FoodTrackerDao<EntiteSousTraitant>("SubContractors");
 
-        [Route("api/SousTraitants")]
+        [Route("api/SubContractors")]
         public IEnumerable<EntiteSousTraitant> Get()
         {
             return dao.Get();
         }
 
-        [Route("api/SousTraitants/{identifier}")]
+        [Route("api/SubContractors/{identifier}")]
         public IHttpActionResult Get(string identifier)
         {
             var result = dao.GetByIdentifier(identifier);
@@ -31,7 +31,7 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
             return NotFound();
         }
 
-        [Route("api/SousTraitants/{identifier}/{identifierName}")]
+        [Route("api/SubContractors/{identifier}/{identifierName}")]
         public IHttpActionResult Get(string identifier, string identifierName)
         {
             var result = dao.GetByIdentifier(identifier, identifierName);

@@ -29,6 +29,7 @@ namespace TracageAlmentaireWeb.DAL
         public DbSet<Utilisateur> Users { get; set; }
         public DbSet<Scan> Scans { get; set; }
         public DbSet<ProductStateDefinition> ProductStateDefinitions { get; set; }
+        public DbSet<SubContractor> SubContractors { get; set; }
 
 
 
@@ -45,6 +46,7 @@ namespace TracageAlmentaireWeb.DAL
             modelBuilder.Entity<Utilisateur>().ToTable("Users");
             modelBuilder.Entity<Scan>().ToTable("Scanner");
             modelBuilder.Entity<ProductStateDefinition>().ToTable("posseder");
+            modelBuilder.Entity<SubContractor>().ToTable("SubTractors");
 
             //keys
 
@@ -56,6 +58,7 @@ namespace TracageAlmentaireWeb.DAL
             modelBuilder.Entity<Utilisateur>().HasKey(u => u.Id);
             modelBuilder.Entity<Scan>().HasKey(s => new{s.TreatmentId,s.UserId});
             modelBuilder.Entity<ProductStateDefinition>().HasKey(psd => new {psd.ProductId,psd.Stateid});
+            modelBuilder.Entity<SubContractor>().HasKey(sc => sc.Id);
 
             //Required
             modelBuilder.Entity<Adresse>().Property(a => a.Numero).IsRequired();
@@ -91,9 +94,9 @@ namespace TracageAlmentaireWeb.DAL
                 .HasRequired(t => t.OutgoingState);
 
 
-            //Organisation -> SousTraitants
+            //Organisation -> SubContractors
             modelBuilder.Entity<Organisation>()
-                .HasMany(o => o.SousTraitants);
+                .HasMany(o => o.SubContractors);
             modelBuilder.Entity<Organisation>()
                 .HasMany(o => o.Workers);
             modelBuilder.Entity<Organisation>()
@@ -101,12 +104,12 @@ namespace TracageAlmentaireWeb.DAL
             modelBuilder.Entity<Organisation>()
                 .HasMany(o => o.Processes);
 
-            //Soustraitants -> le cul
-            modelBuilder.Entity<SousTraitant>()
+            //SubContractors -> Steps
+            modelBuilder.Entity<SubContractor>()
                 .HasMany(s => s.StepsInCharge);
-            modelBuilder.Entity<SousTraitant>()
+            modelBuilder.Entity<SubContractor>()
                 .HasOptional(s => s.Adress);
-            modelBuilder.Entity<SousTraitant>()
+            modelBuilder.Entity<SubContractor>()
                 .HasMany(s => s.Workers);
 
             //Users -> roles
