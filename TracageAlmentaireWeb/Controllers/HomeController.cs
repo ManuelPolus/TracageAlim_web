@@ -22,7 +22,7 @@ namespace TracageAlmentaireWeb.Controllers
            // bob.CurrentRole = new Role();
            // bob.MotDePasse = "abcd1234";
            // bob.Telephone = "12345890";
-
+           Console.WriteLine("coucou");
            Mapper mapper = new Mapper("FTDb");
            // mapper.CreateUser(bob);
 
