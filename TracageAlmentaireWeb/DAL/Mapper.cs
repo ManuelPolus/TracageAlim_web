@@ -444,7 +444,7 @@ namespace TracageAlmentaireWeb.DAL
 
         #region Subtractor
 
-        public List<SubContractor> SubContractors()
+        public List<SubContractor> GetSubContractors()
         {
             List<SubContractor> subContractors = new List<SubContractor>();
 
@@ -455,9 +455,28 @@ namespace TracageAlmentaireWeb.DAL
                     subContractors = context.SubContractors.ToList();
 
                 }
-                catch
+                catch(Exception e)
                 {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
 
+                return subContractors;
+            }
+        }
+
+        public SubContractor GetSubContractor(long id)
+        {
+            SubContractor subContractor = new SubContractor();
+
+            using (context)
+            {
+                try
+                {
+                    subContractor = context
+                }
+                catch(Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
                 }
             }
         }
