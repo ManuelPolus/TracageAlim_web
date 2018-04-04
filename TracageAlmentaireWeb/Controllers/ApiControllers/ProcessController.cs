@@ -20,9 +20,27 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
         }
 
         [Route("api/Process/{identifier}")]
-        public EntiteProcess Get(object identifier)
+        public IHttpActionResult Get(string identifier)
         {
-            return dao.GetByIdentifier(identifier);
+            var result = dao.GetByIdentifier(identifier);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+
+            return NotFound();
+        }
+
+        [Route("api/Process/{identifier}/{identifierName}")]
+        public IHttpActionResult Get(string identifier, string identifierName)
+        {
+            var result = dao.GetByIdentifier(identifier, identifierName);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+
+            return NotFound();
         }
 
         public void Post(EntiteProcess data)

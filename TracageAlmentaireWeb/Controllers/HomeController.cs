@@ -16,7 +16,15 @@ namespace TracageAlmentaireWeb.Controllers
         {
             ViewBag.Title = "Home Page";
 
-           
+           Utilisateur bob = new Utilisateur();
+            bob.Nom = "bob";
+            bob.Email = "bobobobobobo@boobboob.com";
+            bob.CurrentRole = new Role();
+            bob.MotDePasse = "abcd1234";
+            bob.Telephone = "12345890";
+
+            Mapper mapper = new Mapper("FTDb");
+            mapper.CreateUser(bob);
             return View();
         }
 
@@ -32,9 +40,11 @@ namespace TracageAlmentaireWeb.Controllers
 
         public ActionResult AllProducts()
         {
-            IEnumerable<EntiteProduit> list = new List<EntiteProduit>();
-            FoodTrackerDao<EntiteProduit> dao = new FoodTrackerDao<EntiteProduit>("produits");
-            list =  dao.Get();
+            IEnumerable<Utilisateur> list = new List<Utilisateur>();
+            Mapper mapper = new Mapper("FTDb");
+            list = mapper.GetUsers();
+            //FoodTrackerDao<EntiteProduit> dao = new FoodTrackerDao<EntiteProduit>("produits");
+            //list =  dao.Get();
             return View(list);
         }
     }

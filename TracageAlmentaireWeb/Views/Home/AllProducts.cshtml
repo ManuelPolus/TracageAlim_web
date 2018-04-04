@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TracageAlmentaireWeb.BL.Entities.EntiteProduit>
+﻿@model IEnumerable<Tracage.Models.Product>
 
 @{
     ViewBag.Title = "AllProducts";
@@ -15,10 +15,10 @@
             @Html.DisplayNameFor(model => model.QRCode)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Nom)
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Etat)
+            @Html.DisplayNameFor(model => model.Description)
         </th>
         <th></th>
     </tr>
@@ -29,10 +29,10 @@
             @Html.DisplayFor(modelItem => item.QRCode)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Nom)
+            @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Etat)
+            @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

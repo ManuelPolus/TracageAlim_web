@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TracageAlmentaireWeb.Models;
 
 namespace Tracage.Models
 {
-    public class Traitement
+    public class Treatement
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string Desrciption { get; set; }
 
-        public string Etat { get; set; }
+        public State OutgoingState { get; set; }
 
-        public string Nom { get; set; }
+        public string Name { get; set; }
 
         public int Position { get; set; }
 

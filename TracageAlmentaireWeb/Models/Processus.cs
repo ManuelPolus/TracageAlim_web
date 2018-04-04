@@ -11,7 +11,7 @@ namespace Tracage.Models
 
         public string Nom { get; set; }
 
-        public List<Etape> Etapes { get; set; }
+        public List<Step> Etapes { get; set; }
 
         public string Description { get; set; }
     }

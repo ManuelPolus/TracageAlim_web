@@ -4,15 +4,15 @@ using System.Text;
 
 namespace Tracage.Models
 {
-    public class Etape
+    public class Step
     {
         public int Id { get; set; }
 
-        public string Nom { get; set; }
+        public string Name { get; set; }
 
         public int Position { get; set; }
 
-        public List<Traitement> Traitements { get; set; }
+        public List<Treatement> Treatements { get; set; }
 
 
     }

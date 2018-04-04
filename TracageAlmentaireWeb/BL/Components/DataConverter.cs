@@ -56,6 +56,18 @@ namespace TracageAlmentaireWeb.Models
             return properties;
         }
 
+        public static Dictionary<string, object> GetObjectpropertiesAndValues(T theObject)
+        {
+            Dictionary<string, object> properties = new Dictionary<string, object>();
+           
+            foreach (PropertyInfo property in theObject.GetType().GetProperties())
+            {
+                properties.Add(property.Name, theObject.GetType().GetProperty(property.Name));
+            }
+
+            return properties;
+        }
+
 
         private static string FormatRawResult(string stringToFormat,char beginningChar,char endingChar)
         {

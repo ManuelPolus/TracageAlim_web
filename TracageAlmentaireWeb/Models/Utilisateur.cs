@@ -17,5 +17,7 @@ namespace Tracage.Models
         public string Telephone { get; set; }
 
         public Adresse Adresse { get; set; }
+
+        public Role CurrentRole { get; set; }
     }
 }

@@ -18,6 +18,10 @@ namespace Tracage.Models
 
         public List<SousTraitant> SousTraitants { get; set; }
 
+        public List<Utilisateur> Workers { get; set; }
+
+        public List<Processus> Processes { get; set; }
+
 
     }
 }

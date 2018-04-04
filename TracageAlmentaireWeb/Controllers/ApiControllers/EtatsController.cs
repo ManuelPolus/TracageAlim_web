@@ -19,12 +19,29 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
             return dao.Get();
         }
 
-        [Route("api/Etat/{identifier}")]
-        public EntiteEtat Get(object identifier)
+        [Route("api/Etats/{identifier}")]
+        public IHttpActionResult Get(string identifier)
         {
-            return dao.GetByIdentifier(identifier);
+            var result = dao.GetByIdentifier(identifier);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+
+            return NotFound();
         }
 
+        [Route("api/Etats/{identifier}/{identifierName}")]
+        public IHttpActionResult Get(string identifier, string identifierName)
+        {
+            var result = dao.GetByIdentifier(identifier, identifierName);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+
+            return NotFound();
+        }
         public void Post(EntiteEtat data)
         {
             dao.Add(data);

@@ -8,10 +8,10 @@ namespace TracageAlimentaireXamarin.BL.Components
     public class ProductChecker
     {
 
-        public static bool produitFini(Produit p)
+        public static bool produitFini(Product p)
         {
             //TODO décider de la liste des états pouvant être pris par un produit. + ma nière de les enregistrer
-            return p.Etat == "produitFini" ? true : false;
+            return false;
         }
 
     }
