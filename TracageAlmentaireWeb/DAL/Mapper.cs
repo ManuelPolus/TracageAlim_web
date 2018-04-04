@@ -8,6 +8,7 @@ using System.Web.Http.ModelBinding;
 using LinqToDB;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Tracage.Models;
+using TracageAlmentaireWeb.Models;
 using ModelState = System.Web.Mvc.ModelState;
 
 namespace TracageAlmentaireWeb.DAL
@@ -472,7 +473,53 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    subContractor = context
+                    subContractor = context.SubContractors.FirstOrDefault(sc => sc.Id == id);
+                }
+                catch(Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return subContractor;
+            }
+        }
+
+        public void CreateSubContractor(SubContractor newSubContractor)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.SubContractors.Add(newSubContractor);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void UpdateSubContractor(long id, SubContractor updatedContractor)
+        {
+            SubContractor subContractor = new SubContractor();
+
+            using (context)
+            {
+                try
+                {
+                    subContractor = context.SubContractors.FirstOrDefault(sc => sc.Id == id);
+
+                    if (!subContractor.Equals(updatedContractor))
+                    {
+                        subContractor.Id = updatedContractor.Id;
+                        subContractor.Adress = updatedContractor.Adress;
+                        subContractor.Nom = updatedContractor.Nom;
+                        subContractor.StepsInCharge = updatedContractor.StepsInCharge;
+                        subContractor.Workers = updatedContractor.Workers;
+
+                        context.SaveChanges();
+                    }
                 }
                 catch(Exception e)
                 {
@@ -480,9 +527,714 @@ namespace TracageAlmentaireWeb.DAL
                 }
             }
         }
+
+        public void DeleteSubContractor(long id)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.SubContractors.Delete(sc => sc.Id == id);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
         #endregion
 
+        #region Organization
+        public List<Organisation> GetOrganizations()
+        {
+            List<Organisation> organization = new List<Organisation>();
 
+            using (context)
+            {
+                try
+                {
+                    organization = context.Organisations.ToList();
+
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return organization;
+            }
+        }
+
+        public Organisation GetOrganization(long id)
+        {
+            Organisation organization = new Organisation();
+
+            using (context)
+            {
+                try
+                {
+                    organization = context.Organisations.FirstOrDefault(o => o.Id == id);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return organization;
+            }
+        }
+
+        public void CreateOrganization(Organisation newOrganization)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Organisations.Add(newOrganization);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void UpdateOrganization(long id, Organisation updatedOrganization)
+        {
+            Organisation organization = new Organisation();
+
+            using (context)
+            {
+                try
+                {
+                    organization = context.Organisations.FirstOrDefault(o => o.Id == id);
+
+                    if (!organization.Equals(updatedOrganization))
+                    {
+                        organization.Id = updatedOrganization.Id;
+                        organization.Adresse = updatedOrganization.Adresse;
+                        organization.Email = updatedOrganization.Email;
+                        organization.Nom = updatedOrganization.Nom;
+                        organization.Processes = updatedOrganization.Processes;
+                        organization.SubContractors = updatedOrganization.SubContractors;
+                        organization.Telephone = updatedOrganization.Telephone;
+                        organization.Workers = updatedOrganization.Workers;
+
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void DeleteOrganization(long id)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Organisations.Delete(o => o.Id == id);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+        #endregion
+
+        #region Address
+
+        public List<Adresse> GetAddress()
+        {
+            List<Adresse> address = new List<Adresse>();
+
+            using (context)
+            {
+                try
+                {
+                    address = context.Adresses.ToList();
+
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return address;
+            }
+        }
+
+        public Adresse GetAddress(long id)
+        {
+            Adresse address = new Adresse();
+
+            using (context)
+            {
+                try
+                {
+                    address = context.Adresses.FirstOrDefault(o => o.Id == id);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return address;
+            }
+        }
+
+        public void CreateAddress(Adresse newAddress)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Organisations.Add(newAddress);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void UpdateAddress(long id, Adresse updatedAddress)
+        {
+            Adresse address = new Adresse();
+
+            using (context)
+            {
+                try
+                {
+                    address = context.Adresses.FirstOrDefault(a => a.Id == id);
+
+                    if (!address.Equals(updatedAddress))
+                    {
+                        address.Id = updatedAddress.Id;
+                        address.CodePostal = updatedAddress.CodePostal;
+                        address.Numero = updatedAddress.Numero;
+                        address.Pays = updatedAddress.Pays;
+                        address.Rue = updatedAddress.Rue;
+
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void DeleteAddress(long id)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Adresses.Delete(a => a.Id == id);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Process
+
+        public List<Processus> GetProcesses()
+        {
+            List<Processus> processes = new List<Processus>();
+
+            using (context)
+            {
+                try
+                {
+                    processes = context.Processes.ToList();
+
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return processes;
+            }
+        }
+
+        public Processus GetProcess(long id)
+        {
+            Processus process = new Processus();
+
+            using (context)
+            {
+                try
+                {
+                    process = context.Processes.FirstOrDefault(p => p.Id == id);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return process;
+            }
+        }
+
+        public void CreateProcess(Processus newProcess)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Processes.Add(newProcess);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void UpdateProcess(long id, Processus updatedProcess)
+        {
+            Processus process = new Processus();
+
+            using (context)
+            {
+                try
+                {
+                    process = context.Processes.FirstOrDefault(p => p.Id == id);
+
+                    if (!process.Equals(updatedProcess))
+                    {
+                        process.Id = updatedProcess.Id;
+                        process.Description = updatedProcess.Description;
+                        process.Etapes = updatedProcess.Etapes;
+                        process.Nom = updatedProcess.Nom;
+
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void DeleteProcess(long id)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Processes.Delete(p => p.Id == id);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Process
+
+        public List<State> GetStates()
+        {
+            List<State> states = new List<State>();
+
+            using (context)
+            {
+                try
+                {
+                    states = context.States.ToList();
+
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return states;
+            }
+        }
+
+        public State GetState(long id)
+        {
+            State state = new State();
+
+            using (context)
+            {
+                try
+                {
+                    state = context.States.FirstOrDefault(s => s.Id == id);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return state;
+            }
+        }
+
+        public void CreateState(State newState)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.States.Add(newState);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void UpdateState(long id, State updatedState)
+        {
+            State state = new State();
+
+            using (context)
+            {
+                try
+                {
+                    state = context.States.FirstOrDefault(s => s.Id == id);
+
+                    if (!state.Equals(updatedState))
+                    {
+                        state.Id = updatedState.Id;
+                        state.ProductsConcerned = updatedState.ProductsConcerned;
+                        state.Status = updatedState.Status;
+
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void DeleteState(long id)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.States.Delete(s => s.Id == id);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Role
+
+        public List<Role> GetRoles()
+        {
+            List<Role> roles = new List<Role>();
+
+            using (context)
+            {
+                try
+                {
+                    roles = context.Roles.ToList();
+
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return roles;
+            }
+        }
+
+        public Role GetRole(long id)
+        {
+            Role role = new Role();
+
+            using (context)
+            {
+                try
+                {
+                    role = context.Roles.FirstOrDefault(r => r.Id == id);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return role;
+            }
+        }
+
+        public void CreateRole(Role newRole)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Roles.Add(newRole);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void UpdateRole(long id, Role updatedRole)
+        {
+            Role role = new Role();
+
+            using (context)
+            {
+                try
+                {
+                    role = context.Roles.FirstOrDefault(r => r.Id == id);
+
+                    if (!role.Equals(updatedRole))
+                    {
+                        role.Id = updatedRole.Id;
+                        role.Description = updatedRole.Description;
+                        role.Nom = updatedRole.Nom;
+
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void DeleteRole(long id)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Roles.Delete(r => r.Id == id);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Scan
+
+        public List<Scan> GetScans()
+        {
+            List<Scan> scans = new List<Scan>();
+
+            using (context)
+            {
+                try
+                {
+                    scans = context.Scans.ToList();
+
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return scans;
+            }
+        }
+
+        public Scan GetScan(long iduser,long idTreatement)
+        {
+            Scan scan = new Scan();
+
+            using (context)
+            {
+                try
+                {
+                    scan = context.Scans.FirstOrDefault(sc => sc.UserId == iduser && sc.TreatmentId == idTreatement);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return scan;
+            }
+        }
+
+        public void CreateScan(Scan newScan)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Scans.Add(newScan);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        
+
+        public void DeleteScan(long iduser, long idTreatement)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Scans.Delete(sc => sc.UserId == iduser && sc.TreatmentId == idTreatement);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        #endregion
+
+        #region ProductStateDefinition
+
+        public List<ProductStateDefinition> GetProductStateDefinitions()
+        {
+            List<ProductStateDefinition> productStateDefinitions = new List<ProductStateDefinition>();
+
+            using (context)
+            {
+                try
+                {
+                    productStateDefinitions = context.ProductStateDefinitions.ToList();
+
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return productStateDefinitions;
+            }
+        }
+
+        public ProductStateDefinition GetProductStateDefinition(long productId, long stateid)
+        {
+            ProductStateDefinition productStateDefinition = new ProductStateDefinition();
+
+            using (context)
+            {
+                try
+                {
+                    productStateDefinition = context.ProductStateDefinitions.FirstOrDefault(psd => psd.ProductId == productId && psd.Stateid == stateid);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return productStateDefinition;
+            }
+        }
+
+        public void CreateProductStateDefinition(ProductStateDefinition newProductStateDefinition)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.ProductStateDefinitions.Add(newProductStateDefinition);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void UpdateProductStateDefinition(long productId, long stateid, ProductStateDefinition updatedProductStateDefinition)
+        {
+            ProductStateDefinition productStateDefinition = new ProductStateDefinition();
+
+            using (context)
+            {
+                try
+                {
+                    productStateDefinition = context.ProductStateDefinitions.FirstOrDefault(psd => psd.ProductId == productId && psd.Stateid == stateid);
+
+                    if (!productStateDefinition.Equals(updatedProductStateDefinition))
+                    {
+                        productStateDefinition.ProductId = updatedProductStateDefinition.ProductId;
+                        productStateDefinition.Stateid = updatedProductStateDefinition.Stateid;
+                        productStateDefinition.AcquisitionDate = updatedProductStateDefinition.AcquisitionDate;
+
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+
+
+        public void DeleteProductStateDefinition(long productId, long stateid)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.ProductStateDefinitions.Delete(psd => psd.ProductId == productId && psd.Stateid == stateid);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        #endregion
 
     }
 }
