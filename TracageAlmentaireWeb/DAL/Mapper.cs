@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Http.ModelBinding;
 using LinqToDB;
@@ -29,8 +31,14 @@ namespace TracageAlmentaireWeb.DAL
             List<Utilisateur> bobs = new List<Utilisateur>();
             using (context)
             {
-
-                bobs = context.Users.ToList();
+                try
+                {
+                    bobs = context.Users.ToList();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
                 return bobs;
             }
         }
@@ -40,8 +48,15 @@ namespace TracageAlmentaireWeb.DAL
             Utilisateur bob = new Utilisateur();
             using (context)
             {
+                try
+                {
+                    bob = context.Users.FirstOrDefault(u => u.Id == id);
 
-                bob = context.Users.FirstOrDefault(u => u.Id == id);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
                 return bob;
             }
         }
@@ -64,20 +79,26 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public void UpdateUser(long id,Utilisateur newBob)
+        public void UpdateUser(long id, Utilisateur newBob)
         {
-            using (context)
+            Utilisateur bob = new Utilisateur();
+            using (context = new TrackingDataContext(database))
             {
                 try
                 {
-                    Utilisateur bob = context.Users.FirstOrDefault(u => u.Id == id);
+                    bob = context.Users.FirstOrDefault(u => u.Id == id);
 
-                    if (!bob.Equals(newBob))
+                    if (! bob.Equals(newBob))
                     {
-                        bob = newBob;
+                        bob.Nom = newBob.Nom;
+                        bob.Email = newBob.Email;
+                        bob.Adresse = newBob.Adresse;
+                        bob.MotDePasse = newBob.MotDePasse;
+                        bob.Telephone = newBob.Telephone;
+                        bob.CurrentRole = newBob.CurrentRole;
                         context.SaveChanges();
                     }
-                    
+
                 }
                 catch (Exception e)
                 {
@@ -92,7 +113,7 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.Users.Delete(u=> u.Id ==id);
+                    context.Users.Delete(u => u.Id == id);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -127,8 +148,261 @@ namespace TracageAlmentaireWeb.DAL
         }
 
 
+        public virtual Product GetProduct(long id)
+        {
+            Product product = new Product();
+            using (context)
+            {
+                try
+                {
+                    product = context.Products.FirstOrDefault(p => p.Id == id);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
 
+                return product;
+            }
+        }
+
+        public void CreateProduct(Product newProduct)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Products.Add(newProduct);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+
+        }
+
+        public void UpdateProduct(long id, Product updatedProduct)
+        {
+            Product product = new Product();
+
+            using (context)
+            {
+                try
+                {
+                    product = context.Products.FirstOrDefault(p => p.Id == id);
+
+                    if (!product.Equals(updatedProduct))
+                    {
+                        product = updatedProduct;
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+
+        }
+
+        public void DeleteProduct(long id)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Products.Delete(p => p.Id == id);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+
+        }
+        #endregion
+
+        #region Treatements
+
+        public List<Treatement> GetTreatments()
+        {
+            List<Treatement> treatements = new List<Treatement>();
+
+            using (context)
+            {
+                try
+                {
+                    treatements = context.Treatements.ToList();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return treatements;
+
+            }
+
+        }
+
+        public Treatement GetTreatment(long id)
+        {
+            Treatement treatement = new Treatement();
+
+            using (context)
+            {
+                try
+                {
+                    treatement = context.Treatements.FirstOrDefault(t => t.Id == id);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return treatement;
+            }
+
+        }
+
+        public void CreateTreatment(Treatement newTreatment)
+        {
+
+            using (context)
+                try
+                {
+                    context.Treatements.Add(newTreatment);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+        }
+
+        public void UpdateTreatment(long id, Treatement updatedTreatement)
+        {
+            Treatement treatement = new Treatement();
+
+            using (context)
+                try
+                {
+                    treatement = context.Treatements.FirstOrDefault(t => t.Id == id);
+
+                    if (!treatement.Equals(updatedTreatement))
+                    {
+                        treatement = updatedTreatement;
+                        context.SaveChanges();
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+        }
+
+        public void DeleteTreatment(long id)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Treatements.Delete(t => t.Id == id);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
 
         #endregion
+
+        #region Steps
+
+        public List<Step> GetSteps()
+        {
+            List<Step> steps = new List<Step>();
+
+            using (context)
+            {
+                try
+                {
+                    steps = context.Steps.ToList();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return steps;
+            }
+        }
+
+        public Step GetStep(long id)
+        {
+            Step step = new Step();
+
+            using (context)
+            {
+                try
+                {
+                    step = context.Steps.FirstOrDefault(s => s.Id == id);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return step;
+            }
+        }
+
+        public void CreateStep(Step newStep)
+        {
+            using (context)
+            {
+                try
+                {
+                    context.Steps.Add(newStep);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public void UpdateStep(long id, Step updatedStep)
+        {
+            Step step = new Step();
+
+            using (context)
+            {
+                try
+                {
+                    step = context.Steps.FirstOrDefault(s => s.Id == id);
+
+                    if (!step.Equals(updatedStep))
+                    {
+                        step = updatedStep;
+
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+        }
+        #endregion
+
+
     }
 }

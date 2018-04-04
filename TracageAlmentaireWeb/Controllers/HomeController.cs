@@ -16,15 +16,20 @@ namespace TracageAlmentaireWeb.Controllers
         {
             ViewBag.Title = "Home Page";
 
-           Utilisateur bob = new Utilisateur();
-            bob.Nom = "bob";
-            bob.Email = "bobobobobobo@boobboob.com";
-            bob.CurrentRole = new Role();
-            bob.MotDePasse = "abcd1234";
-            bob.Telephone = "12345890";
+           //Utilisateur bob = new Utilisateur();
+           // bob.Nom = "bob";
+           // bob.Email = "bobobobobobo@boobboob.com";
+           // bob.CurrentRole = new Role();
+           // bob.MotDePasse = "abcd1234";
+           // bob.Telephone = "12345890";
 
-            Mapper mapper = new Mapper("FTDb");
-            mapper.CreateUser(bob);
+           Mapper mapper = new Mapper("FTDb");
+           // mapper.CreateUser(bob);
+
+            Utilisateur bob = mapper.GetUser(5);
+            bob.Nom = "belle batte";
+            bob.Email = "boblebob@ntm.cul";
+            mapper.UpdateUser(bob.Id,bob);
             return View();
         }
 
