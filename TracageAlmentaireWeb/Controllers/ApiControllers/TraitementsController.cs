@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using Tracage.Models;
 using TracageAlmentaireWeb.BL.Entities;
 using TracageAlmentaireWeb.DAL;
 
@@ -10,18 +11,19 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
 {
     public class TraitementsController : ApiController
     {
-        FoodTrackerDao<EntiteTraitement> dao = new FoodTrackerDao<EntiteTraitement>("Traitements");
+        private Mapper mapper = new Mapper("FTDb");
+
 
         [Route("api/Traitements")]
-        public IEnumerable<EntiteTraitement> Get()
+        public IEnumerable<Treatement> Get()
         {
-            return dao.Get();
+            return mapper.GetTreatments();
         }
 
-        [Route ("api/Traitements/{identifier}")]
-        public IHttpActionResult Get(string identifier)
+        [Route("api/Traitements/{identifier}")]
+        public IHttpActionResult Get(long id)
         {
-            var result = dao.GetByIdentifier(identifier);
+            var result = mapper.GetTreatment(id);
             if (result != null)
             {
                 return Ok(result);
@@ -30,31 +32,19 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
             return NotFound();
         }
 
-        [Route("api/Traitments/{identifier}/{identifierName}")]
-        public IHttpActionResult Get(string identifier, string identifierName)
+        public void Post(Treatement data)
         {
-            var result = dao.GetByIdentifier(identifier, identifierName);
-            if (result != null)
-            {
-                return Ok(result);
-            }
-
-            return NotFound();
+            mapper.CreateTreatment(data);
         }
 
-        public void Post(EntiteTraitement data)
+        public void Put(long id, Treatement data)
         {
-            dao.Add(data);
+            mapper.UpdateTreatment(id, data);
         }
 
-        public void Put(object identifier, EntiteTraitement data)
+        public void Delete(long id)
         {
-            dao.Update(data, identifier);
-        }
-
-        public void Delete(object identifier)
-        {
-            dao.Delete(identifier);
+            mapper.DeleteTreatment(id);
         }
     }
 }

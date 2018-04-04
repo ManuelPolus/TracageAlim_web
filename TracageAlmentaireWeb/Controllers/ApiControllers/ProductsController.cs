@@ -12,31 +12,19 @@ namespace TracageAlmentaireWeb.Controllers
 {
     public class ProductsController : ApiController
     {
-        FoodTrackerDao<EntiteProduit> dao = new FoodTrackerDao<EntiteProduit>("Produits");
+        private Mapper mapper = new Mapper("FTDb");
 
         [Route("api/Produits")]
-        public IEnumerable<EntiteProduit> Get()
+        public IEnumerable<Product> Get()
         {
-            return dao.Get();
+            return mapper.GetProducts();
         }
 
-        //TODO : coller ces méthodes dans les autres api controllers en adaptant les routes
-       [Route("api/Produits/{identifier}")]
-        public IHttpActionResult Get(string identifier)
-        {
-            var result = dao.GetByIdentifier(identifier);
-            if (result != null)
-            {
-                return Ok(result);
-            }
-
-            return NotFound();
-        }
-
-        [Route("api/Produits/{identifier}/{identifierName}")]
-        public IHttpActionResult Get(string identifier, string identifierName)
-        {
-            var result = dao.GetByIdentifier(identifier, identifierName);
+        
+       [Route("api/Produits/{id}")]
+        public IHttpActionResult Get(long id)
+       {
+           var result = mapper.GetProduct(id);
             if (result != null)
             {
                 return Ok(result);
@@ -46,19 +34,19 @@ namespace TracageAlmentaireWeb.Controllers
         }
 
 
-        public void Post(EntiteProduit data)
+        public void Post(Product data)
         {
-            dao.Add(data);
+            mapper.CreateProduct(data);
         }
 
-        public void Put(object identifier, EntiteProduit data)
+        public void Put(long id, Product data)
         {
-            dao.Update(data, identifier);
+            mapper.UpdateProduct(id,data);
         }
 
-        public void Delete(object identifier)
+        public void Delete(long id)
         {
-            dao.Delete(identifier);
+            mapper.DeleteProduct(id);
         }
     }
 }
