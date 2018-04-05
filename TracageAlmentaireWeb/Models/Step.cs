@@ -12,7 +12,7 @@ namespace Tracage.Models
 
         public int Position { get; set; }
 
-        public List<Treatement> Treatements { get; set; }
+        public List<Treatment> Treatments { get; set; }
 
 
     }

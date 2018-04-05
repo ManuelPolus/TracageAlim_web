@@ -9,21 +9,22 @@ using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers
 {
-    public class RolesController : ApiController
+    public class AddressesController : ApiController
     {
 
-       Mapper mapper =new Mapper("FTDb");
 
-        [Route("api/Roles")]
-        public IEnumerable<Role> Get()
+        Mapper mapper = new Mapper("FTDb");
+
+        [Route("api/Addresses")]
+        public IEnumerable<Address> Get()
         {
-            return mapper.GetRoles();
+            return mapper.GetAddresses();
         }
 
-        [Route("api/Roles/{id}")]
+        [Route("api/Addresses/{id}")]
         public IHttpActionResult Get(long id)
         {
-            var result = mapper.GetRole(id);
+            var result = mapper.GetAddress(id);
             if (result != null)
             {
                 return Ok(result);
@@ -32,20 +33,19 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
             return NotFound();
         }
 
-       
-        public void Post(Role data)
+        public void Post(Address data)
         {
-            mapper.CreateRole(data);
+            mapper.CreateAddress(data);
         }
 
-        public void Put(long id, Role data)
+        public void Put(long id, Address data)
         {
-            mapper.UpdateRole(id,data);
+            mapper.UpdateAddress(id,data);
         }
 
         public void Delete(long id)
         {
-            mapper.DeleteRole(id);
+            mapper.DeleteAddress(id);
         }
 
     }

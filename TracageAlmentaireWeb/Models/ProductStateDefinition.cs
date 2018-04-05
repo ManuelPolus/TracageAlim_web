@@ -9,7 +9,7 @@ namespace TracageAlmentaireWeb.Models
     {
         public long ProductId { get; set; }
 
-        public long Stateid { get; set; }
+        public long StateId { get; set; }
 
         public DateTime AcquisitionDate { get; set; }
 

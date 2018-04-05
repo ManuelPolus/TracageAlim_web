@@ -9,21 +9,21 @@ using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers
 {
-    public class TraitementsController : ApiController
+    public class SubContractorsController : ApiController
     {
-        private Mapper mapper = new Mapper("FTDb");
 
+        Mapper mapper = new Mapper("FTDb");
 
-        [Route("api/Traitements")]
-        public IEnumerable<Treatement> Get()
+        [Route("api/SubContractors")]
+        public IEnumerable<SubContractor> Get()
         {
-            return mapper.GetTreatments();
+            return mapper.GetSubContractors();
         }
 
-        [Route("api/Traitements/{identifier}")]
+        [Route("api/SubContractors/{id}")]
         public IHttpActionResult Get(long id)
         {
-            var result = mapper.GetTreatment(id);
+            var result = mapper.GetSubContractor(id);
             if (result != null)
             {
                 return Ok(result);
@@ -32,19 +32,22 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
             return NotFound();
         }
 
-        public void Post(Treatement data)
+       
+
+        public void Post(SubContractor data)
         {
-            mapper.CreateTreatment(data);
+            mapper.CreateSubContractor(data);
         }
 
-        public void Put(long id, Treatement data)
+        public void Put(long id, SubContractor data)
         {
-            mapper.UpdateTreatment(id, data);
+           mapper.UpdateSubContractor(id,data);
         }
 
         public void Delete(long id)
         {
-            mapper.DeleteTreatment(id);
+            mapper.DeleteSubContractor(id);
         }
+
     }
 }

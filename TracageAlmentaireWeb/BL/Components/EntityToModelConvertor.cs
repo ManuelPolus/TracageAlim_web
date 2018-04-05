@@ -38,14 +38,14 @@ namespace TracageAlmentaireWeb.BL.Components
         public static Role ToRole(EntiteRole er)
         {
             Role r = new Role();
-            r.Nom = er.Nom;
+            r.Name = er.Nom;
             r.Description = er.DescriptionRole;
             return r;
         }
 
-        public static Treatement ToTreatement(EntiteTraitement et)
+        public static Treatment ToTreatement(EntiteTraitement et)
         {
-            Treatement t = new Treatement();
+            Treatment t = new Treatment();
             t.Name = et.Nom;
             t.Desrciption = et.TreatementDescription;
             t.Position = et.Position;

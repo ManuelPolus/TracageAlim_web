@@ -4,19 +4,21 @@ using System.Text;
 
 namespace Tracage.Models
 {
-    public class Utilisateur
+    public class User
     {
+    
+
         public int Id { get; set;  }
 
-        public string Nom { get; set; }
+        public string Name { get; set; }
 
         public string Email { get; set; }
 
-        public string MotDePasse { get; set; }
+        public string Password { get; set; }
 
         public string Telephone { get; set; }
 
-        public Adresse Adresse { get; set; }
+        public Address Address { get; set; }
 
         public Role CurrentRole { get; set; }
     }

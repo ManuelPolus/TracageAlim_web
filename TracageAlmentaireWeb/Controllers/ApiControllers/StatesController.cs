@@ -3,27 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-using Tracage.Models;
 using TracageAlmentaireWeb.BL.Entities;
 using TracageAlmentaireWeb.DAL;
+using TracageAlmentaireWeb.Models;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers
 {
-    public class UtilisateursController : ApiController
+    public class StatesController : ApiController
     {
-
         private Mapper mapper = new Mapper("FTDb");
 
-        [Route("api/Utilisateurs")]
-        public IEnumerable<Utilisateur> Get()
+        [Route("api/States")]
+        public IEnumerable<State> Get()
         {
-            return mapper.GetUsers();
+            return mapper.GetStates();
         }
 
-        [Route("api/Utilisateurs/{id}")]
+        [Route("api/States/{id}")]
         public IHttpActionResult Get(long id)
         {
-            var result = mapper.GetUser(id);
+            var result = mapper.GetState(id);
             if (result != null)
             {
                 return Ok(result);
@@ -32,19 +31,20 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
             return NotFound();
         }
 
-        public void Post(Utilisateur data)
+
+        public void Post(State data)
         {
-            mapper.CreateUser(data);
+            mapper.CreateState(data);
         }
 
-        public void Put(long id, Utilisateur data)
+        public void Put(long id, State data)
         {
-            mapper.UpdateUser(id, data);
+            mapper.UpdateState(id, data);
         }
 
         public void Delete(long id)
         {
-            mapper.DeleteUser(id);
+            mapper.DeleteState(id);
         }
 
     }

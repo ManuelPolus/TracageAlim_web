@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -14,14 +14,14 @@ namespace TracageAlmentaireWeb.Controllers
     {
         private Mapper mapper = new Mapper("FTDb");
 
-        [Route("api/Produits")]
+        [Route("api/Products")]
         public IEnumerable<Product> Get()
         {
             return mapper.GetProducts();
         }
 
         
-       [Route("api/Produits/{id}")]
+       [Route("api/products/{id}")]
         public IHttpActionResult Get(long id)
        {
            var result = mapper.GetProduct(id);

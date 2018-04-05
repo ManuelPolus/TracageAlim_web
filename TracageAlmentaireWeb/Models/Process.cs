@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Tracage.Models
 {
-    public class Processus
+    public class Process
     {
 
         public int Id { get; set; }
 
-        public string Nom { get; set; }
+        public string Name { get; set; }
 
-        public List<Step> Etapes { get; set; }
+        public List<Step> Steps { get; set; }
 
         public string Description { get; set; }
     }

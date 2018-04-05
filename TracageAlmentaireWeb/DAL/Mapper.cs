@@ -27,9 +27,9 @@ namespace TracageAlmentaireWeb.DAL
 
         #region Users
 
-        public List<Utilisateur> GetUsers()
+        public List<User> GetUsers()
         {
-            List<Utilisateur> bobs = new List<Utilisateur>();
+            List<User> bobs = new List<User>();
             using (context)
             {
                 try
@@ -44,9 +44,9 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public virtual Utilisateur GetUser(long id)
+        public virtual User GetUser(long id)
         {
-            Utilisateur bob = new Utilisateur();
+            User bob = new User();
             using (context)
             {
                 try
@@ -63,7 +63,7 @@ namespace TracageAlmentaireWeb.DAL
         }
 
 
-        public void CreateUser(Utilisateur bob)
+        public void CreateUser(User bob)
         {
             using (context)
             {
@@ -80,9 +80,9 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public void UpdateUser(long id, Utilisateur newBob)
+        public void UpdateUser(long id, User newBob)
         {
-            Utilisateur bob = new Utilisateur();
+            User bob = new User();
             using (context = new TrackingDataContext(database))
             {
                 try
@@ -91,10 +91,10 @@ namespace TracageAlmentaireWeb.DAL
 
                     if (! bob.Equals(newBob))
                     {
-                        bob.Nom = newBob.Nom;
+                        bob.Name = newBob.Name;
                         bob.Email = newBob.Email;
-                        bob.Adresse = newBob.Adresse;
-                        bob.MotDePasse = newBob.MotDePasse;
+                        bob.Address = newBob.Address;
+                        bob.Password = newBob.Password;
                         bob.Telephone = newBob.Telephone;
                         bob.CurrentRole = newBob.CurrentRole;
 
@@ -198,7 +198,7 @@ namespace TracageAlmentaireWeb.DAL
                     if (!product.Equals(updatedProduct))
                     {
                         product.Id = updatedProduct.Id;
-                        product.CurrentTreatement = updatedProduct.CurrentTreatement;
+                        product.CurrentTreatment = updatedProduct.CurrentTreatment;
                         product.Description = updatedProduct.Description;
                         product.Name = updatedProduct.Name;
                         product.QRCode = updatedProduct.QRCode;
@@ -233,11 +233,11 @@ namespace TracageAlmentaireWeb.DAL
         }
         #endregion
 
-        #region Treatements
+        #region Treatments
 
-        public List<Treatement> GetTreatments()
+        public List<Treatment> GetTreatments()
         {
-            List<Treatement> treatements = new List<Treatement>();
+            List<Treatment> treatements = new List<Treatment>();
 
             using (context)
             {
@@ -256,27 +256,27 @@ namespace TracageAlmentaireWeb.DAL
 
         }
 
-        public Treatement GetTreatment(long id)
+        public Treatment GetTreatment(long id)
         {
-            Treatement treatement = new Treatement();
+            Treatment treatment = new Treatment();
 
             using (context)
             {
                 try
                 {
-                    treatement = context.Treatements.FirstOrDefault(t => t.Id == id);
+                    treatment = context.Treatements.FirstOrDefault(t => t.Id == id);
                 }
                 catch (Exception e)
                 {
                     Console.Error.WriteLine(e.StackTrace);
                 }
 
-                return treatement;
+                return treatment;
             }
 
         }
 
-        public void CreateTreatment(Treatement newTreatment)
+        public void CreateTreatment(Treatment newTreatment)
         {
 
             using (context)
@@ -293,23 +293,23 @@ namespace TracageAlmentaireWeb.DAL
                 
         }
 
-        public void UpdateTreatment(long id, Treatement updatedTreatement)
+        public void UpdateTreatment(long id, Treatment updatedTreatment)
         {
-            Treatement treatement = new Treatement();
+            Treatment treatment = new Treatment();
 
             using (context)
             {
                 try
                 {
-                    treatement = context.Treatements.FirstOrDefault(t => t.Id == id);
+                    treatment = context.Treatements.FirstOrDefault(t => t.Id == id);
 
-                    if (!treatement.Equals(updatedTreatement))
+                    if (!treatment.Equals(updatedTreatment))
                     {
-                        treatement.Id = updatedTreatement.Id;
-                        treatement.Desrciption = updatedTreatement.Desrciption;
-                        treatement.Name = updatedTreatement.Name;
-                        treatement.OutgoingState = updatedTreatement.OutgoingState;
-                        treatement.Position = updatedTreatement.Position;
+                        treatment.Id = updatedTreatment.Id;
+                        treatment.Desrciption = updatedTreatment.Desrciption;
+                        treatment.Name = updatedTreatment.Name;
+                        treatment.OutgoingState = updatedTreatment.OutgoingState;
+                        treatment.Position = updatedTreatment.Position;
 
                         context.SaveChanges();
 
@@ -409,7 +409,7 @@ namespace TracageAlmentaireWeb.DAL
 
                     if (!step.Equals(updatedStep))
                     {
-                        step.Treatements = updatedStep.Treatements;
+                        step.Treatments = updatedStep.Treatments;
                         step.Id = updatedStep.Id;
                         step.Name = updatedStep.Name;
                         step.Position = updatedStep.Position;
@@ -513,8 +513,8 @@ namespace TracageAlmentaireWeb.DAL
                     if (!subContractor.Equals(updatedContractor))
                     {
                         subContractor.Id = updatedContractor.Id;
-                        subContractor.Adress = updatedContractor.Adress;
-                        subContractor.Nom = updatedContractor.Nom;
+                        subContractor.Address = updatedContractor.Address;
+                        subContractor.Name = updatedContractor.Name;
                         subContractor.StepsInCharge = updatedContractor.StepsInCharge;
                         subContractor.Workers = updatedContractor.Workers;
 
@@ -546,9 +546,9 @@ namespace TracageAlmentaireWeb.DAL
         #endregion
 
         #region Organization
-        public List<Organisation> GetOrganizations()
+        public List<Organization> GetOrganizations()
         {
-            List<Organisation> organization = new List<Organisation>();
+            List<Organization> organization = new List<Organization>();
 
             using (context)
             {
@@ -566,9 +566,9 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public Organisation GetOrganization(long id)
+        public Organization GetOrganization(long id)
         {
-            Organisation organization = new Organisation();
+            Organization organization = new Organization();
 
             using (context)
             {
@@ -585,7 +585,7 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public void CreateOrganization(Organisation newOrganization)
+        public void CreateOrganization(Organization newOrganization)
         {
             using (context)
             {
@@ -601,9 +601,9 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public void UpdateOrganization(long id, Organisation updatedOrganization)
+        public void UpdateOrganization(long id, Organization updatedOrganization)
         {
-            Organisation organization = new Organisation();
+            Organization organization = new Organization();
 
             using (context)
             {
@@ -614,9 +614,9 @@ namespace TracageAlmentaireWeb.DAL
                     if (!organization.Equals(updatedOrganization))
                     {
                         organization.Id = updatedOrganization.Id;
-                        organization.Adresse = updatedOrganization.Adresse;
+                        organization.Address = updatedOrganization.Address;
                         organization.Email = updatedOrganization.Email;
-                        organization.Nom = updatedOrganization.Nom;
+                        organization.Name = updatedOrganization.Name;
                         organization.Processes = updatedOrganization.Processes;
                         organization.SubContractors = updatedOrganization.SubContractors;
                         organization.Telephone = updatedOrganization.Telephone;
@@ -651,9 +651,9 @@ namespace TracageAlmentaireWeb.DAL
 
         #region Address
 
-        public List<Adresse> GetAddress()
+        public List<Address> GetAddresses()
         {
-            List<Adresse> address = new List<Adresse>();
+            List<Address> address = new List<Address>();
 
             using (context)
             {
@@ -671,9 +671,9 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public Adresse GetAddress(long id)
+        public Address GetAddress(long id)
         {
-            Adresse address = new Adresse();
+            Address address = new Address();
 
             using (context)
             {
@@ -690,13 +690,13 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public void CreateAddress(Adresse newAddress)
+        public void CreateAddress(Address newAddress)
         {
             using (context)
             {
                 try
                 {
-                    context.Organisations.Add(newAddress);
+                    context.Adresses.Add(newAddress);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -706,9 +706,9 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public void UpdateAddress(long id, Adresse updatedAddress)
+        public void UpdateAddress(long id, Address updatedAddress)
         {
-            Adresse address = new Adresse();
+            Address address = new Address();
 
             using (context)
             {
@@ -719,10 +719,10 @@ namespace TracageAlmentaireWeb.DAL
                     if (!address.Equals(updatedAddress))
                     {
                         address.Id = updatedAddress.Id;
-                        address.CodePostal = updatedAddress.CodePostal;
-                        address.Numero = updatedAddress.Numero;
-                        address.Pays = updatedAddress.Pays;
-                        address.Rue = updatedAddress.Rue;
+                        address.PostalCode = updatedAddress.PostalCode;
+                        address.Number = updatedAddress.Number;
+                        address.Country = updatedAddress.Country;
+                        address.Street = updatedAddress.Street;
 
                         context.SaveChanges();
                     }
@@ -754,9 +754,9 @@ namespace TracageAlmentaireWeb.DAL
 
         #region Process
 
-        public List<Processus> GetProcesses()
+        public List<Process> GetProcesses()
         {
-            List<Processus> processes = new List<Processus>();
+            List<Process> processes = new List<Process>();
 
             using (context)
             {
@@ -774,9 +774,9 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public Processus GetProcess(long id)
+        public Process GetProcess(long id)
         {
-            Processus process = new Processus();
+            Process process = new Process();
 
             using (context)
             {
@@ -793,7 +793,7 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public void CreateProcess(Processus newProcess)
+        public void CreateProcess(Process newProcess)
         {
             using (context)
             {
@@ -809,9 +809,9 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public void UpdateProcess(long id, Processus updatedProcess)
+        public void UpdateProcess(long id, Process updatedProcess)
         {
-            Processus process = new Processus();
+            Process process = new Process();
 
             using (context)
             {
@@ -823,8 +823,8 @@ namespace TracageAlmentaireWeb.DAL
                     {
                         process.Id = updatedProcess.Id;
                         process.Description = updatedProcess.Description;
-                        process.Etapes = updatedProcess.Etapes;
-                        process.Nom = updatedProcess.Nom;
+                        process.Steps = updatedProcess.Steps;
+                        process.Name = updatedProcess.Name;
 
                         context.SaveChanges();
                     }
@@ -1026,7 +1026,7 @@ namespace TracageAlmentaireWeb.DAL
                     {
                         role.Id = updatedRole.Id;
                         role.Description = updatedRole.Description;
-                        role.Nom = updatedRole.Nom;
+                        role.Name = updatedRole.Name;
 
                         context.SaveChanges();
                     }
@@ -1163,7 +1163,7 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    productStateDefinition = context.ProductStateDefinitions.FirstOrDefault(psd => psd.ProductId == productId && psd.Stateid == stateid);
+                    productStateDefinition = context.ProductStateDefinitions.FirstOrDefault(psd => psd.ProductId == productId && psd.StateId == stateid);
                 }
                 catch (Exception e)
                 {
@@ -1198,12 +1198,12 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    productStateDefinition = context.ProductStateDefinitions.FirstOrDefault(psd => psd.ProductId == productId && psd.Stateid == stateid);
+                    productStateDefinition = context.ProductStateDefinitions.FirstOrDefault(psd => psd.ProductId == productId && psd.StateId == stateid);
 
                     if (!productStateDefinition.Equals(updatedProductStateDefinition))
                     {
                         productStateDefinition.ProductId = updatedProductStateDefinition.ProductId;
-                        productStateDefinition.Stateid = updatedProductStateDefinition.Stateid;
+                        productStateDefinition.StateId = updatedProductStateDefinition.StateId;
                         productStateDefinition.AcquisitionDate = updatedProductStateDefinition.AcquisitionDate;
 
                         context.SaveChanges();
@@ -1224,7 +1224,7 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.ProductStateDefinitions.Delete(psd => psd.ProductId == productId && psd.Stateid == stateid);
+                    context.ProductStateDefinitions.Delete(psd => psd.ProductId == productId && psd.StateId == stateid);
                     context.SaveChanges();
                 }
                 catch (Exception e)

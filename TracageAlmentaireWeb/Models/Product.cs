@@ -16,6 +16,6 @@ namespace Tracage.Models
 
         public string Description { get; set; }
 
-        public Treatement CurrentTreatement { get; set; }
+        public Treatment CurrentTreatment { get; set; }
     }
 }

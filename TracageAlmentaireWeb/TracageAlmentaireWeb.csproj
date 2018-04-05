@@ -200,15 +200,15 @@
     <Compile Include="BL\Entities\EntiteUtilisateur.cs" />
     <Compile Include="BL\Entities\EntiteOrganisation.cs" />
     <Compile Include="BL\Entities\StateEntity.cs" />
-    <Compile Include="Controllers\ApiControllers\AdressesController.cs" />
-    <Compile Include="Controllers\ApiControllers\EtapesController.cs" />
-    <Compile Include="Controllers\ApiControllers\EtatsController.cs" />
-    <Compile Include="Controllers\ApiControllers\OrganisationsController.cs" />
-    <Compile Include="Controllers\ApiControllers\ProcessController.cs" />
+    <Compile Include="Controllers\ApiControllers\AddressesController.cs" />
+    <Compile Include="Controllers\ApiControllers\StepsController.cs" />
+    <Compile Include="Controllers\ApiControllers\StatesController.cs" />
+    <Compile Include="Controllers\ApiControllers\OrganizationsController.cs" />
+    <Compile Include="Controllers\ApiControllers\ProcessesController.cs" />
     <Compile Include="Controllers\ApiControllers\RolesController.cs" />
-    <Compile Include="Controllers\ApiControllers\SousTraitantController.cs" />
-    <Compile Include="Controllers\ApiControllers\TraitementsController.cs" />
-    <Compile Include="Controllers\ApiControllers\UtilisateursController.cs" />
+    <Compile Include="Controllers\ApiControllers\SubContractorsController.cs" />
+    <Compile Include="Controllers\ApiControllers\TreatmentsController.cs" />
+    <Compile Include="Controllers\ApiControllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ApiControllers\ProductsController.cs" />
     <Compile Include="DAL\FoodTrackerDAO.cs" />
@@ -218,19 +218,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Adresse.cs" />
+    <Compile Include="Models\Address.cs" />
     <Compile Include="Models\ProductStateDefinition.cs" />
     <Compile Include="Models\Scan.cs" />
     <Compile Include="Models\Step.cs" />
     <Compile Include="BL\Components\DataConverter.cs" />
-    <Compile Include="Models\Organisation.cs" />
-    <Compile Include="Models\Processus.cs" />
+    <Compile Include="Models\Organization.cs" />
+    <Compile Include="Models\Process.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\SubContractor.cs" />
     <Compile Include="Models\State.cs" />
-    <Compile Include="Models\Treatement.cs" />
-    <Compile Include="Models\Utilisateur.cs" />
+    <Compile Include="Models\Treatment.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

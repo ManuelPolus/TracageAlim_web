@@ -5,7 +5,7 @@ using TracageAlmentaireWeb.Models;
 
 namespace Tracage.Models
 {
-    public class Treatement
+    public class Treatment
     {
         public long Id { get; set; }
 
