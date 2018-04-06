@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using System.Web.ApplicationServices;
 using System.Web.Http.ModelBinding;
 using LinqToDB;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Tracage.Models;
+using TracageAlmentaireWeb.BL.Components;
 using TracageAlmentaireWeb.Models;
 using ModelState = System.Web.Mvc.ModelState;
 
@@ -19,6 +22,7 @@ namespace TracageAlmentaireWeb.DAL
 
         private TrackingDataContext context;
 
+        //TODO: Tokenize the rest service
         public Mapper(string database)
         {
             this.database = database;
@@ -29,18 +33,24 @@ namespace TracageAlmentaireWeb.DAL
 
         public List<User> GetUsers()
         {
-            List<User> bobs = new List<User>();
+            List<User> users = new List<User>();
             using (context)
             {
                 try
                 {
-                    bobs = context.Users.ToList();
+
+
+                    users = context.Users.ToList();
+                    foreach (var bob in users)
+                    {
+                        bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == bob.CurrentRole_Id);
+                    }
                 }
                 catch (Exception e)
                 {
                     Console.Error.WriteLine(e.StackTrace);
                 }
-                return bobs;
+                return users;
             }
         }
 
@@ -48,11 +58,12 @@ namespace TracageAlmentaireWeb.DAL
         {
             User bob = new User();
             using (context)
-            {
+                {
                 try
                 {
+                   
                     bob = context.Users.FirstOrDefault(u => u.Id == id);
-
+                    bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == bob.CurrentRole_Id);
                 }
                 catch (Exception e)
                 {
@@ -69,7 +80,12 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
+                   
+                    PasswordHasher.Hash(bob);
+                    //TODO : include password heshing here
                     context.Users.Add(bob);
+
+                    bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == bob.CurrentRole_Id);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -91,6 +107,7 @@ namespace TracageAlmentaireWeb.DAL
 
                     if (! bob.Equals(newBob))
                     {
+                        
                         bob.Name = newBob.Name;
                         bob.Email = newBob.Email;
                         bob.Address = newBob.Address;
@@ -986,6 +1003,25 @@ namespace TracageAlmentaireWeb.DAL
                 try
                 {
                     role = context.Roles.FirstOrDefault(r => r.Id == id);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return role;
+            }
+        }
+
+        public Role GetRole(string name)
+        {
+            Role role = new Role();
+
+            using (context)
+            {
+                try
+                {
+                    role = context.Roles.FirstOrDefault(r => r.Name == name);
                 }
                 catch (Exception e)
                 {

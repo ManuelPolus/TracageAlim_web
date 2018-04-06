@@ -18,6 +18,10 @@ namespace Tracage.Models
 
         public string Telephone { get; set; }
 
+        public long CurrentRole_Id { get; set; }
+
+        public string Salt { get; set; }
+
         public Address Address { get; set; }
 
         public Role CurrentRole { get; set; }
