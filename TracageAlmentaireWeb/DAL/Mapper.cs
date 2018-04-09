@@ -12,6 +12,7 @@ using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Tracage.Models;
 using TracageAlmentaireWeb.BL.Components;
 using TracageAlmentaireWeb.Models;
+using TracageAlmentaireWeb.ViewModels;
 using ModelState = System.Web.Mvc.ModelState;
 
 namespace TracageAlmentaireWeb.DAL
@@ -58,10 +59,10 @@ namespace TracageAlmentaireWeb.DAL
         {
             User bob = new User();
             using (context)
-                {
+            {
                 try
                 {
-                   
+
                     bob = context.Users.FirstOrDefault(u => u.Id == id);
                     bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == bob.CurrentRole_Id);
                 }
@@ -73,6 +74,50 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
+        public virtual User GetUser(string mail)
+        {
+            User bob = new User();
+            using (context)
+            {
+                try
+                {
+
+                    bob = context.Users.FirstOrDefault(u => u.Email == mail);
+                    bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == bob.CurrentRole_Id);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+                return bob;
+            }
+        }
+
+        public virtual User AthentifyUser(AuthenticationViewModel vm)
+        {
+            User bob = new User();
+
+            using (context = new TrackingDataContext("FTDb"))
+            {
+                try
+                {
+
+                    bob = context.Users.FirstOrDefault(u => u.Email == vm.Email);
+                    if (! PasswordHasher.CheckPassword(vm.Password + bob.Salt, bob.Password))
+                    {
+                        return null;
+                    }
+
+
+                    bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == bob.CurrentRole_Id);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+                return bob;
+            }
+        }
 
         public void CreateUser(User bob)
         {
@@ -80,12 +125,16 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                   
+
                     PasswordHasher.Hash(bob);
-                    //TODO : include password heshing here
+                 
                     context.Users.Add(bob);
 
                     bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == bob.CurrentRole_Id);
+                    if (bob.CurrentRole == null)
+                    {
+                        bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == 1);
+                    }
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -105,9 +154,9 @@ namespace TracageAlmentaireWeb.DAL
                 {
                     bob = context.Users.FirstOrDefault(u => u.Id == id);
 
-                    if (! bob.Equals(newBob))
+                    if (!bob.Equals(newBob))
                     {
-                        
+
                         bob.Name = newBob.Name;
                         bob.Email = newBob.Email;
                         bob.Address = newBob.Address;
@@ -307,7 +356,7 @@ namespace TracageAlmentaireWeb.DAL
                     Console.Error.WriteLine(e.StackTrace);
                 }
             }
-                
+
         }
 
         public void UpdateTreatment(long id, Treatment updatedTreatment)
@@ -337,7 +386,7 @@ namespace TracageAlmentaireWeb.DAL
                     Console.Error.WriteLine(e.StackTrace);
                 }
             }
-                
+
         }
 
         public void DeleteTreatment(long id)
@@ -473,7 +522,7 @@ namespace TracageAlmentaireWeb.DAL
                     subContractors = context.SubContractors.ToList();
 
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.Error.WriteLine(e.StackTrace);
                 }
@@ -492,7 +541,7 @@ namespace TracageAlmentaireWeb.DAL
                 {
                     subContractor = context.SubContractors.FirstOrDefault(sc => sc.Id == id);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.Error.WriteLine(e.StackTrace);
                 }
@@ -538,7 +587,7 @@ namespace TracageAlmentaireWeb.DAL
                         context.SaveChanges();
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.Error.WriteLine(e.StackTrace);
                 }
@@ -1114,7 +1163,7 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public Scan GetScan(long iduser,long idTreatement)
+        public Scan GetScan(long iduser, long idTreatement)
         {
             Scan scan = new Scan();
 
@@ -1149,7 +1198,7 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        
+
 
         public void DeleteScan(long iduser, long idTreatement)
         {

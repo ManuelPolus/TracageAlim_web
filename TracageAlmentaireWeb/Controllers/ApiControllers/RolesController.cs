@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.Security.Authentication.ExtendedProtection;
 using System.Web.Http;
+using Microsoft.Ajax.Utilities;
 using Tracage.Models;
-using TracageAlmentaireWeb.BL.Entities;
 using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers

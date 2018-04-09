@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
+using Microsoft.AspNet.Identity;
 
 namespace TracageAlmentaireWeb.ViewModels
 {
-    public class AuthenticationViewModel
+    public class AuthenticationViewModel 
     {
 
         [Required]

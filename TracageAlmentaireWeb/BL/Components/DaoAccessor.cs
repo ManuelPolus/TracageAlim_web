@@ -10,7 +10,7 @@ using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlimentaireXamarin.BL.Components
 {
-    public class DaoAccessor<T> : IDataAccessor
+    public class DaoAccessor<T> : IDataAccessor<T>
     {
 
         public FoodTrackerDao<object> Dao { get; set; }
@@ -29,30 +29,30 @@ namespace TracageAlimentaireXamarin.BL.Components
             return true;
         }
 
-        public IEnumerable<T> GetAsList<T>()
+        public IEnumerable<T> GetAsList()
         {
            return  (IEnumerable<T>) Dao.Get();
         }
 
-        public object GetByIdentifier<T>(T identifier)
+        public object GetByIdentifier(T identifier)
         {
             Dao.GetByIdentifier(identifier);
             return true;
         }
 
-        public object GetByIdentifier<T>(T identifier,string identifierName)
+        public object GetByIdentifier(T identifier,string identifierName)
         {
             Dao.GetByIdentifier(identifier,identifierName);
             return true;
         }
 
-        public bool DeleteByIdentifier<T>(T identifier)
+        public bool DeleteByIdentifier(T identifier)
         {
             Dao.Delete(identifier);
             return true;
         }
 
-        public bool DeleteByIdentifier<T>(T identifier,string identifierName)
+        public bool DeleteByIdentifier(T identifier,string identifierName)
         {
             //implementer multi id pour delete
             Dao.Delete(identifier);

@@ -211,6 +211,12 @@ C:\FoodTracker\TracageAlim_web\TracageAlmentaireWeb\obj\Debug\TracageAlmentaireW
 C:\FoodTracker\TracageAlim_web\TracageAlmentaireWeb\obj\Debug\TracageAlmentaireWeb.csproj.CopyComplete
 C:\FoodTracker\TracageAlim_web\TracageAlmentaireWeb\obj\Debug\TracageAlmentaireWeb.dll
 C:\FoodTracker\TracageAlim_web\TracageAlmentaireWeb\obj\Debug\TracageAlmentaireWeb.pdb
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\System.IO.Compression.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\VBCSCompiler.exe
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\ApplicationInsights.config
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\TracageAlmentaireWeb.dll.config
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\TracageAlmentaireWeb.dll
@@ -222,13 +228,9 @@ C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageA
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\csi.exe.config
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\csi.rsp
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.VisualBasic.Core.targets
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\Microsoft.Win32.Primitives.dll
@@ -238,7 +240,6 @@ C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageA
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\System.Diagnostics.Process.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\System.Diagnostics.StackTrace.dll
-C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\System.IO.Compression.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\System.IO.FileSystem.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\System.IO.FileSystem.Primitives.dll
@@ -262,7 +263,6 @@ C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageA
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\vbc.exe
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\vbc.exe.config
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\vbc.rsp
-C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\VBCSCompiler.exe
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Antlr3.Runtime.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\EntityFramework.dll
@@ -275,6 +275,8 @@ C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageA
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.AI.Web.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.AI.WindowsServer.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.ApplicationInsights.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.AspNet.TelemetryCorrelation.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.Web.Infrastructure.dll
@@ -299,6 +301,8 @@ C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageA
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.AI.DependencyCollector.xml
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.AI.Web.xml
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Newtonsoft.Json.xml
@@ -313,7 +317,7 @@ C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageA
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\System.Web.WebPages.Deployment.xml
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\System.Web.WebPages.Razor.xml
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\System.Web.Optimization.xml
-C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\obj\Debug\TracageAlmentaireWeb.csprojResolveAssemblyReference.cache
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\obj\Debug\TracageAlmentaireWeb.csproj.CoreCompileInputs.cache
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\obj\Debug\TracageAlmentaireWeb.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\obj\Debug\TracageAlmentaireWeb.pdb
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\obj\Debug\TracageAlmentaireWeb.csprojResolveAssemblyReference.cache

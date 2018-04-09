@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Security;
 using Tracage.Models;
 using TracageAlmentaireWeb.BL.Components;
-using TracageAlmentaireWeb.BL.Entities;
 using TracageAlmentaireWeb.DAL;
-using TracageAlmentaireWeb.Models;
+using TracageAlmentaireWeb.ViewModels;
 
 namespace TracageAlmentaireWeb.Controllers
 {
@@ -22,19 +19,11 @@ namespace TracageAlmentaireWeb.Controllers
             bool ok = PasswordHasher.CheckPassword("abcd1234" + bob.Salt, bob.Password);
             return View();
         }
-
-
-
-        public ActionResult LogInPage()
+        [HttpGet]
+        public ActionResult Index(User u)
         {
-          
+           
             return View();
-        }
-
-        public ActionResult logIn()
-        {
-
-            return View("Index");
         }
 
         public ActionResult AllProducts()

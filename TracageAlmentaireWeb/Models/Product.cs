@@ -17,5 +17,10 @@ namespace Tracage.Models
         public string Description { get; set; }
 
         public Treatment CurrentTreatment { get; set; }
+
+        public bool IsFinal()
+        {
+            return this.CurrentTreatment.OutgoingState.Status == "final";
+        }
     }
 }

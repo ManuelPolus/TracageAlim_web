@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Http;
-using TracageAlmentaireWeb.BL.Entities;
 using TracageAlmentaireWeb.DAL;
 using TracageAlmentaireWeb.Models;
 

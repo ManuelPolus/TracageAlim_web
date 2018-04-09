@@ -4,15 +4,15 @@ using Tracage.Models;
 
 namespace TracageAlimentaireXamarin.BL.Components
 {
-    interface IDataAccessor
+    interface IDataAccessor<T>
     {
         bool Save(Object o);
 
-        IEnumerable<T> GetAsList<T>();
+        IEnumerable<T> GetAsList();
 
-        Object GetByIdentifier<T>(T identifier);
+        Object GetByIdentifier(T identifier);
 
-        bool DeleteByIdentifier<T>(T identifier);
+        bool DeleteByIdentifier(T identifier);
 
         void DefineType(object o);
     }

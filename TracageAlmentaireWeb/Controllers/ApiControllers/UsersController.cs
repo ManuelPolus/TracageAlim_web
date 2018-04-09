@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using Tracage.Models;
-using TracageAlmentaireWeb.BL.Entities;
 using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers
@@ -24,6 +20,18 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
         public IHttpActionResult Get(long id)
         {
             var result = mapper.GetUser(id);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+
+            return NotFound();
+        }
+
+        [Route("api/users/{mail}")]
+        public IHttpActionResult Get(string mail)
+        {
+            var result = mapper.GetUser(mail);
             if (result != null)
             {
                 return Ok(result);

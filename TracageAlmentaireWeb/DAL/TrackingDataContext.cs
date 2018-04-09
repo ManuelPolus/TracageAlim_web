@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using LinqToDB;
+﻿using System.Data.Entity;
 using Tracage.Models;
-using TracageAlmentaireWeb.BL.Entities;
 using TracageAlmentaireWeb.Models;
 
 namespace TracageAlmentaireWeb.DAL
@@ -35,6 +29,9 @@ namespace TracageAlmentaireWeb.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
+            //Database.SetInitializer<ApplicationDataContext>(null);
+            //base.OnModelCreating(modelBuilder);
 
             // tables
             modelBuilder.Entity<Address>().ToTable("Adresses");

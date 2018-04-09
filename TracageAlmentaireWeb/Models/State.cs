@@ -12,5 +12,6 @@ namespace TracageAlmentaireWeb.Models
         public string Status { get; set; }
 
         public List<Product> ProductsConcerned { get; set; }
+
     }
 }

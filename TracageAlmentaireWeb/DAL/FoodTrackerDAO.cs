@@ -11,7 +11,6 @@ namespace TracageAlmentaireWeb.DAL
         //TODO : eventually replace with azure sql server's url
 
         private SqlConnection _connexion;
-        private TrackingDataContext context;
         private string table;
 
         public FoodTrackerDao(string tableName)

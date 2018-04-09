@@ -14,11 +14,37 @@ namespace TracageAlmentaireWeb
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            
+            //___HOME CONTROLLER___
+
             routes.MapRoute(
-                name: "larouteducul",
-                url: "login",
-                defaults: new { controller = "Home", action = "Login" }
+                name: "HomeRoute",
+                url: "",
+                defaults: new { controller = "Home", action = "Index" }
             );
+
+
+            //___CONNECTION CONTROLLER___
+
+            routes.MapRoute(
+                name: "loginRoute",
+                url: "login",
+                defaults: new { controller = "Connection", action = "LoginPage" }
+            );
+
+            routes.MapRoute(
+                name: "loginDoneRoute",
+                url: "login/logged",
+                defaults: new { controller = "Connection", action = "Login" }
+            );
+
+            routes.MapRoute(
+                name: "SignInRoute",
+                url: "login/signIn",
+                defaults: new { controller = "Connection", action = "Register" }
+            );
+
+            //___DEFAULT___
 
             routes.MapRoute(
                 name: "Default",
