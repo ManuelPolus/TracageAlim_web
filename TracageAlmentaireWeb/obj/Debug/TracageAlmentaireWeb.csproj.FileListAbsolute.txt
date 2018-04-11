@@ -321,3 +321,4 @@ C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageA
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\obj\Debug\TracageAlmentaireWeb.dll
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\obj\Debug\TracageAlmentaireWeb.pdb
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\obj\Debug\TracageAlmentaireWeb.csprojResolveAssemblyReference.cache
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Owin.dll

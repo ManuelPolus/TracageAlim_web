@@ -17,6 +17,8 @@ using ModelState = System.Web.Mvc.ModelState;
 
 namespace TracageAlmentaireWeb.DAL
 {
+
+    
     public class Mapper
     {
         private string database;
@@ -216,7 +218,7 @@ namespace TracageAlmentaireWeb.DAL
         }
 
 
-        public virtual Product GetProduct(long id)
+        public virtual Product GetProductById(long id)
         {
             Product product = new Product();
             using (context)
@@ -224,6 +226,24 @@ namespace TracageAlmentaireWeb.DAL
                 try
                 {
                     product = context.Products.FirstOrDefault(p => p.Id == id);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return product;
+            }
+        }
+
+        public virtual Product GetProductByQr(string qrCode)
+        {
+            Product product = new Product();
+            using (context)
+            {
+                try
+                {
+                    product = context.Products.FirstOrDefault(p => p.QRCode == qrCode);
                 }
                 catch (Exception e)
                 {

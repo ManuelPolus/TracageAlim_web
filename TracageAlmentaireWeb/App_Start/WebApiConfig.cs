@@ -12,6 +12,7 @@ namespace TracageAlmentaireWeb
             // Web API configuration and services
 
             // Web API routes
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -19,6 +20,10 @@ namespace TracageAlmentaireWeb
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+           
         }
+
+
     }
 }

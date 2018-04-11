@@ -5,6 +5,7 @@ using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers
 {
+    //TODO: replacer pa un viewmodel pour ne pas montrer le salt
     public class UsersController : ApiController
     {
 

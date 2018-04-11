@@ -15,11 +15,10 @@ namespace TracageAlmentaireWeb.Controllers
             return mapper.GetProducts();
         }
 
-        
-       [Route("api/products/{id}")]
-        public IHttpActionResult Get(long id)
-       {
-           var result = mapper.GetProduct(id);
+        [Route("api/products/{qr}")]
+        public IHttpActionResult Get(string qr)
+        {
+            var result = mapper.GetProductByQr(qr);
             if (result != null)
             {
                 return Ok(result);
