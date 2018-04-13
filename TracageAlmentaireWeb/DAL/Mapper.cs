@@ -76,7 +76,7 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public virtual User GetUser(string mail)
+        public virtual User GetUser(string email)
         {
             User bob = new User();
             using (context)
@@ -84,7 +84,7 @@ namespace TracageAlmentaireWeb.DAL
                 try
                 {
 
-                    bob = context.Users.FirstOrDefault(u => u.Email == mail);
+                    bob = context.Users.FirstOrDefault(u => u.Email == email);
                     bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == bob.CurrentRole_Id);
                 }
                 catch (Exception e)
@@ -202,7 +202,7 @@ namespace TracageAlmentaireWeb.DAL
         {
             List<Product> products = new List<Product>();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -217,11 +217,10 @@ namespace TracageAlmentaireWeb.DAL
             return products;
         }
 
-
         public virtual Product GetProductById(long id)
         {
             Product product = new Product();
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -239,7 +238,7 @@ namespace TracageAlmentaireWeb.DAL
         public virtual Product GetProductByQr(string qrCode)
         {
             Product product = new Product();
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -256,7 +255,7 @@ namespace TracageAlmentaireWeb.DAL
 
         public void CreateProduct(Product newProduct)
         {
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -275,7 +274,7 @@ namespace TracageAlmentaireWeb.DAL
         {
             Product product = new Product();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -303,7 +302,7 @@ namespace TracageAlmentaireWeb.DAL
 
         public void DeleteProduct(long id)
         {
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -844,7 +843,7 @@ namespace TracageAlmentaireWeb.DAL
         {
             List<Process> processes = new List<Process>();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -864,11 +863,18 @@ namespace TracageAlmentaireWeb.DAL
         {
             Process process = new Process();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
                     process = context.Processes.FirstOrDefault(p => p.Id == id);
+                    List<Step> processSteps = new List<Step>();
+                    processSteps = context.Steps.Where(s => s.Process_Id == process.Id).ToList();
+                    process.Steps = processSteps;
+                    foreach (var step in process.Steps)
+                    {
+                        step.Treatments = context.Treatements.Where(t => t.StepId == step.Id).ToList();
+                    }
                 }
                 catch (Exception e)
                 {
@@ -881,7 +887,7 @@ namespace TracageAlmentaireWeb.DAL
 
         public void CreateProcess(Process newProcess)
         {
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -899,7 +905,7 @@ namespace TracageAlmentaireWeb.DAL
         {
             Process process = new Process();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -924,7 +930,7 @@ namespace TracageAlmentaireWeb.DAL
 
         public void DeleteProcess(long id)
         {
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -940,7 +946,7 @@ namespace TracageAlmentaireWeb.DAL
 
         #endregion
 
-        #region Process
+        #region State
 
         public List<State> GetStates()
         {

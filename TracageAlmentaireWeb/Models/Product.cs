@@ -16,6 +16,8 @@ namespace Tracage.Models
 
         public string Description { get; set; }
 
+        public long ProcessId { get; set; }
+
         public Treatment CurrentTreatment { get; set; }
 
         public bool IsFinal()

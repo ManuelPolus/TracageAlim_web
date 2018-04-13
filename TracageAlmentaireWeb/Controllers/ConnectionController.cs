@@ -68,7 +68,7 @@ namespace TracageAlmentaireWeb.Controllers
                 ModelState.AddModelError("WrongLogin", "Nom ou mot de passe incorrect");
             }
 
-            return Redirect("");
+            return Redirect("/home/Index");
         }
 
 

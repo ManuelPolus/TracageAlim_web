@@ -6,11 +6,13 @@ namespace Tracage.Models
 {
     public class Step
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string Name { get; set; }
 
         public int Position { get; set; }
+
+        public long Process_Id { get; set; }
 
         public List<Treatment> Treatments { get; set; }
 

@@ -16,6 +16,6 @@ namespace Tracage.Models
         public string Name { get; set; }
 
         public int Position { get; set; }
-
+        public long StepId { get; set; }
     }
 }

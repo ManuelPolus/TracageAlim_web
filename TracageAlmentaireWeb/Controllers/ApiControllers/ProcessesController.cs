@@ -16,7 +16,7 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
             return mapper.GetProcesses();
         }
 
-        [Route("api/Processes/{id}")]
+        [Route("api/Processs/{id}")]
         public IHttpActionResult Get(long id)
         {
             var result = mapper.GetProcess(id);

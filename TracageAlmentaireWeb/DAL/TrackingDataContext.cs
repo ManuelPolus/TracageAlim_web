@@ -30,7 +30,7 @@ namespace TracageAlmentaireWeb.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
-            //Database.SetInitializer<ApplicationDataContext>(null);
+            //Database.SetInitializer<TrackingDataContext>(null);
             //base.OnModelCreating(modelBuilder);
 
             // tables

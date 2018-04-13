@@ -12,7 +12,6 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
 
        Mapper mapper =new Mapper("FTDb");
         
-        [Authorize]
         [Route("api/Roles")]
         public IEnumerable<Role> Get()
         {

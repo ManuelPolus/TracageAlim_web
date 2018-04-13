@@ -17,22 +17,12 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
             return mapper.GetUsers();
         }
 
-        [Route("api/users/{id}")]
-        public IHttpActionResult Get(long id)
-        {
-            var result = mapper.GetUser(id);
-            if (result != null)
-            {
-                return Ok(result);
-            }
 
-            return NotFound();
-        }
 
-        [Route("api/users/{mail}")]
-        public IHttpActionResult Get(string mail)
+        [Route("api/Users/{email}")]
+        public IHttpActionResult Get(string email)
         {
-            var result = mapper.GetUser(mail);
+            var result = mapper.GetUser(email);
             if (result != null)
             {
                 return Ok(result);

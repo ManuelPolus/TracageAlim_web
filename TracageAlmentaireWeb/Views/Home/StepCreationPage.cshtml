@@ -33,18 +33,18 @@
         </div>
     </div>
     <hr />
-    <input type="button" onclick="addT()">
+    <Button value="lol" onclick="addT"/>
 
-        for (int i =0;i < ViewBag.NumberOfTreatements;i++)
-        {
-            @Html.Partial("TreatementCreationPage");
-        }
+    for (var i = 0; i < ViewBag.NumberOfTreatements; i++)
+    {
+        @Html.Partial("TreatementCreationPage");
+    }
 
     <script type="text/javascript">
-        function addT()
-        {
+        function addT() {
             @ViewBag.NumberOfTreatements++;
-        }
+            @Url.Action("TreatementCreationPage","Home")
+}
     </script>
 
 
