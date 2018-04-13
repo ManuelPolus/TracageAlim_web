@@ -270,7 +270,7 @@ namespace TracageAlmentaireWeb.DAL
 
         }
 
-        public void UpdateProduct(long id, Product updatedProduct)
+        public void UpdateProduct(string qr, Product updatedProduct)
         {
             Product product = new Product();
 
@@ -278,7 +278,7 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    product = context.Products.FirstOrDefault(p => p.Id == id);
+                    product = context.Products.FirstOrDefault(p => p.QRCode == qr);
 
                     if (!product.Equals(updatedProduct))
                     {

@@ -33,9 +33,10 @@ namespace TracageAlmentaireWeb.Controllers
             mapper.CreateProduct(data);
         }
 
-        public void Put(long id, Product data)
+        [Route("api/update/products/{qr}")]
+        public void Put(string qr, Product data)
         {
-            mapper.UpdateProduct(id,data);
+            mapper.UpdateProduct(qr,data);
         }
 
         public void Delete(long id)
