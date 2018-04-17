@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Tracage.Models;
+using TracageAlmentaireWeb.BL;
 using TracageAlmentaireWeb.DAL;
 using TracageAlmentaireWeb.ViewModels;
 
@@ -25,23 +26,7 @@ namespace TracageAlmentaireWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                User u = new User();
-
-                u.Name = userToRegister.FullName;
-                u.Email = userToRegister.Email;
-                u.Password = userToRegister.Password;
-                u.Telephone = userToRegister.PhoneNumber;
-                u.Address = new Address(
-                        userToRegister.StreetName,
-                        userToRegister.Number,
-                        userToRegister.PostalCode,
-                        userToRegister.Country
-                    );
-                if (userToRegister.CheckPasswords())
-                {
-                    mapper.CreateUser(u);
-                }
-
+                ControllerDBRequester.Register(userToRegister);
                 return View("logInPage");
             }
 

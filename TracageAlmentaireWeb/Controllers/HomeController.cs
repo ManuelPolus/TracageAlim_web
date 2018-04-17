@@ -1,8 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Security.Cryptography;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using Tracage.Models;
+using TracageAlmentaireWeb.BL.Components.PDF;
 using TracageAlmentaireWeb.DAL;
 using TracageAlmentaireWeb.Models;
+using ZXing;
+using ZXing.Common;
+using ZXing.QrCode;
 
 namespace TracageAlmentaireWeb.Controllers
 {
@@ -16,9 +24,9 @@ namespace TracageAlmentaireWeb.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-
-            ViewBag.Title = "Home Page";
             /*
+            ViewBag.Title = "Home Page";
+            
             mapper.CreateRole(new Role{Name = "Default", Description = "This role is provided by default to new Users."});
             
             mapper.CreateProduct(new Product {Name = "Banane" , Description = "for the scale", QRCode = "banana001",ProcessId = 1});
@@ -80,6 +88,42 @@ namespace TracageAlmentaireWeb.Controllers
             list = mapper.GetUsers();
 
             return View(list);
+        }
+
+        public ActionResult GenerationPage()
+        {
+            return View();
+        }
+
+        public ActionResult QrGeneration(string productName,int batchSize)
+        {
+            PdfQRWriter pwr = new PdfQRWriter();
+            pwr.CreateOrRefreshDocument();
+
+            List<string> qrsAsString = new List<string>();
+            List<Bitmap> qrs = new List<Bitmap>();
+            string salt = Crypto.GenerateSalt();
+            for (int i = 0; i < batchSize; i++)
+            {
+                string qrAsString = productName + "-" + salt + "-" + i;
+
+               qrsAsString.Add(qrAsString);
+               qrs.Add(GenerateQRCode(qrAsString));
+            }
+            pwr.AddInfo(qrsAsString,qrs );
+            return View("Index");
+        }
+
+        //TODO: déplacer vers la BL
+        public Bitmap GenerateQRCode(string code)
+        {
+            var qrWriter = new BarcodeWriter
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = new EncodingOptions { Height = 100, Width = 100 }
+            };
+            var bitmap = new Bitmap(qrWriter.Write(code));
+            return bitmap;
         }
     }
 }

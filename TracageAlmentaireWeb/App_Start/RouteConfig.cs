@@ -14,12 +14,12 @@ namespace TracageAlmentaireWeb
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            
+
             //___HOME CONTROLLER___
 
             routes.MapRoute(
                 name: "HomeRoute",
-                url: "",
+                url: "home",
                 defaults: new { controller = "Home", action = "Index" }
             );
 
@@ -28,6 +28,12 @@ namespace TracageAlmentaireWeb
 
             routes.MapRoute(
                 name: "loginRoute",
+                url: "",
+                defaults: new { controller = "Connection", action = "LoginPage" }
+            );
+
+            routes.MapRoute(
+                name: "loginRoutespecified",
                 url: "login",
                 defaults: new { controller = "Connection", action = "LoginPage" }
             );
@@ -42,6 +48,20 @@ namespace TracageAlmentaireWeb
                 name: "SignInRoute",
                 url: "login/signIn",
                 defaults: new { controller = "Connection", action = "Register" }
+            );
+
+            //___PRODUCTS MANAGEMENT CONTROLLER
+
+            routes.MapRoute(
+                name: "productsListRoute",
+                url: "products/list",
+                defaults: new { controller = "ProductsManagement", action = "List" }
+            );
+
+            routes.MapRoute(
+                name: "productsCreationRoute",
+                url: "products/create",
+                defaults: new { controller = "ProductsManagement", action = "Create" }
             );
 
             //___DEFAULT___

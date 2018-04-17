@@ -183,7 +183,8 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.Users.Delete(u => u.Id == id);
+                    User userToDelete = context.Users.FirstOrDefault(u => u.Id == id); 
+                    context.Users.Remove(userToDelete);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -270,6 +271,36 @@ namespace TracageAlmentaireWeb.DAL
 
         }
 
+        public void UpdateProduct(long id, Product updatedProduct)
+        {
+            Product product = new Product();
+
+            using (context = new TrackingDataContext("FTDb"))
+            {
+                try
+                {
+                    product = context.Products.FirstOrDefault(p => p.Id == id);
+
+                    if (!product.Equals(updatedProduct))
+                    {
+                        product.Id = updatedProduct.Id;
+                        product.CurrentTreatment = updatedProduct.CurrentTreatment;
+                        product.Description = updatedProduct.Description;
+                        product.Name = updatedProduct.Name;
+                        product.QRCode = updatedProduct.QRCode;
+                        product.States = updatedProduct.States;
+
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+            }
+
+        }
+
         public void UpdateProduct(string qr, Product updatedProduct)
         {
             Product product = new Product();
@@ -306,7 +337,8 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.Products.Delete(p => p.Id == id);
+                    Product productToDelete = context.Products.FirstOrDefault(p => p.Id == id);
+                    context.Products.Remove(productToDelete);
                     context.SaveChanges();
                 }
                 catch (Exception e)
