@@ -401,6 +401,7 @@ namespace TracageAlmentaireWeb.DAL
                 try
                 {
                     context.Treatements.Add(newTreatment);
+                    context.SaveChanges();
                 }
                 catch (Exception e)
                 {
@@ -422,6 +423,7 @@ namespace TracageAlmentaireWeb.DAL
 
                     if (!treatment.Equals(updatedTreatment))
                     {
+                        treatment.StepId = updatedTreatment.StepId;
                         treatment.Id = updatedTreatment.Id;
                         treatment.Desrciption = updatedTreatment.Desrciption;
                         treatment.Name = updatedTreatment.Name;
@@ -446,7 +448,8 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.Treatements.Delete(t => t.Id == id);
+                    Treatment treatmentToDelete = context.Treatements.FirstOrDefault(t => t.Id == id);
+                    context.Treatements.Remove(treatmentToDelete);
                     context.SaveChanges();
                 }
                 catch (Exception e)

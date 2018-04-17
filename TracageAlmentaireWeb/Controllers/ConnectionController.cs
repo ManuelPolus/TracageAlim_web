@@ -17,23 +17,10 @@ namespace TracageAlmentaireWeb.Controllers
 
         private Mapper mapper = new Mapper("FTDb");
 
-        public ActionResult Register() => View();
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterViewModel userToRegister)
+        public ActionResult LogInPage()
         {
-            if (ModelState.IsValid)
-            {
-                ControllerDBRequester.Register(userToRegister);
-                return View("logInPage");
-            }
-
             return View();
         }
-
-        public ActionResult LogInPage() => View();
 
         [HttpPost]
         public ActionResult logIn(AuthenticationViewModel vm)

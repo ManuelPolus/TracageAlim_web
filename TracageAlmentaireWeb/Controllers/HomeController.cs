@@ -24,12 +24,12 @@ namespace TracageAlmentaireWeb.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            /*
+
             ViewBag.Title = "Home Page";
-            
-            mapper.CreateRole(new Role{Name = "Default", Description = "This role is provided by default to new Users."});
-            
-            mapper.CreateProduct(new Product {Name = "Banane" , Description = "for the scale", QRCode = "banana001",ProcessId = 1});
+
+            mapper.CreateRole(new Role { Name = "Default", Description = "This role is provided by default to new Users." });
+
+            mapper.CreateProduct(new Product { Name = "Banane", Description = "for the scale", QRCode = "banana001", ProcessId = 1 });
             Treatment t = new Treatment { Name = "gathering", Position = 1, Desrciption = "gathering of the bananas", OutgoingState = new State { Status = "gathered banana" } };
             Treatment t2 = new Treatment { Name = "stocking", Position = 2, Desrciption = "we stock the bananas", OutgoingState = new State { Status = "stocked banana" } };
             List<Treatment> firstStep = new List<Treatment> { t, t2 };
@@ -42,15 +42,15 @@ namespace TracageAlmentaireWeb.Controllers
             List<Treatment> tirdStep = new List<Treatment> { t4, t5 };
 
 
-            Step s = new Step { Name = "bananaFarm", Position = 1, Treatments = firstStep,Process_Id = 2};
+            Step s = new Step { Name = "bananaFarm", Position = 1, Treatments = firstStep, Process_Id = 1 };
 
-            Step s2 = new Step { Name = "bananaTruckTransport", Position = 2, Treatments = secondStep,Process_Id = 2};
+            Step s2 = new Step { Name = "bananaTruckTransport", Position = 2, Treatments = secondStep, Process_Id = 1 };
 
-            Step s3 = new Step { Name = "bananabattoir", Position = 3, Treatments = tirdStep,Process_Id = 2};
+            Step s3 = new Step { Name = "bananabattoir", Position = 3, Treatments = tirdStep, Process_Id = 1 };
 
 
             mapper.CreateProcess(new Process { Name = "the banana process", Description = "process for the scale and it is a peeling ahahahahhah", Steps = new List<Step> { s, s2, s3 } });
-            */
+
 
             return View();
         }

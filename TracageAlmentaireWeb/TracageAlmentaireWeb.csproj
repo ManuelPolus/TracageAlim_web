@@ -379,10 +379,8 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="BL\Components\IDataAccessor.cs" />
     <Compile Include="BL\Components\PasswordHasher.cs" />
-    <Compile Include="BL\Components\DaoAccessor.cs" />
     <Compile Include="BL\Components\PDF\PdfQrWriter.cs" />
     <Compile Include="BL\Components\TokenGenerator.cs" />
-    <Compile Include="BL\ControllerDBRequester.cs" />
     <Compile Include="Controllers\ApiControllers\AddressesController.cs" />
     <Compile Include="Controllers\ApiControllers\StepsController.cs" />
     <Compile Include="Controllers\ApiControllers\StatesController.cs" />
@@ -399,8 +397,8 @@
     <Compile Include="Controllers\ManagementController\IControlManagement.cs" />
     <Compile Include="Controllers\ManagementController\ProcessesManagementController.cs" />
     <Compile Include="Controllers\ManagementController\ProductManagementController.cs" />
+    <Compile Include="Controllers\ManagementController\TreatmentsManagementController.cs" />
     <Compile Include="Controllers\ManagementController\UsersManagementController.cs" />
-    <Compile Include="DAL\FoodTrackerDAO.cs" />
     <Compile Include="DAL\IRepository.cs" />
     <Compile Include="DAL\Mapper.cs" />
     <Compile Include="DAL\TrackingDataContext.cs" />
@@ -513,7 +511,6 @@
     <Content Include="Views\Home\CreateAdresse.cshtml" />
     <Content Include="Views\Connection\logIn.cshtml" />
     <Content Include="Views\Connection\LogInPage.cshtml" />
-    <Content Include="Views\Connection\Register.cshtml" />
     <Content Include="Views\Home\TreatementCreationPage.cshtml" />
     <Content Include="Views\Home\StepCreationPage.cshtml" />
     <Content Include="Views\Home\ProcessCreationPage.cshtml" />
@@ -540,6 +537,10 @@
     <Content Include="Views\ProcessesManagement\Create.cshtml" />
     <Content Include="Views\ProcessesManagement\Update.cshtml" />
     <Content Include="Views\ProcessesManagement\Details.cshtml" />
+    <Content Include="Views\TreatmentsManagement\List.cshtml" />
+    <Content Include="Views\TreatmentsManagement\Create.cshtml" />
+    <Content Include="Views\TreatmentsManagement\Update.cshtml" />
+    <Content Include="Views\TreatmentsManagement\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
