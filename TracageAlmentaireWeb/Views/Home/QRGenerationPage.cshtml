@@ -1,0 +1,11 @@
+﻿<h2 class="text-center"> QR generation </h2>
+
+<div class="text-center jumbotron">
+    @Html.BeginForm("QrGeneration", "Home")
+    (
+    <input type="text" name="productName" placeholder="nom de produit" class="form-control"><br />
+    <input type="number" name="batchSize" placeholder="nombre de Qr à générer" class="form-control">
+    <input type="submit" value="Générer le lot" />
+    )
+
+</div>

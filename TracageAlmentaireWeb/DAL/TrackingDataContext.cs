@@ -44,7 +44,7 @@ namespace TracageAlmentaireWeb.DAL
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Scan>().ToTable("Scanner");
             modelBuilder.Entity<ProductStateDefinition>().ToTable("posseder");
-            modelBuilder.Entity<SubContractor>().ToTable("SubTractors");
+            modelBuilder.Entity<SubContractor>().ToTable("SubContractors");
 
             //keys
 

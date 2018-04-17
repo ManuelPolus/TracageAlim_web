@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using iTextSharp.text;
+using Microsoft.AspNetCore.Mvc;
 using Tracage.Models;
 using TracageAlmentaireWeb.DAL;
+using ActionResult = System.Web.Mvc.ActionResult;
+using Controller = System.Web.Mvc.Controller;
 
 namespace TracageAlmentaireWeb.Controllers.ManagementController
 {
+    [AutoValidateAntiforgeryToken]
     public class TreatmentsManagementController : Controller, IControlManagement
     {
         private Mapper mapper = new Mapper("FTDb");
@@ -26,7 +29,8 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
             return View();
         }
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.ValidateAntiForgeryToken]
         public ActionResult Create(Treatment t)
         {
             mapper.CreateTreatment(t);
@@ -40,7 +44,8 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
             return View();
         }
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.ValidateAntiForgeryToken]
         public ActionResult Update(long id, Treatment t)
         {
             mapper.UpdateTreatment(id,t);

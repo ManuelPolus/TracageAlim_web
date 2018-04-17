@@ -164,7 +164,8 @@ namespace TracageAlmentaireWeb.DAL
                         bob.Address = newBob.Address;
                         bob.Password = newBob.Password;
                         bob.Telephone = newBob.Telephone;
-                        bob.CurrentRole = newBob.CurrentRole;
+                        bob.CurrentRole_Id = newBob.CurrentRole_Id;
+                        bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == newBob.CurrentRole_Id);
 
                         context.SaveChanges();
                     }
@@ -551,7 +552,8 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.Steps.Delete(s => s.Id == id);
+                    Step stepToDelete = context.Steps.FirstOrDefault(s => s.Id == id);
+                    context.Steps.Remove(stepToDelete);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -563,7 +565,7 @@ namespace TracageAlmentaireWeb.DAL
         }
         #endregion
 
-        #region Subtractor
+        #region SubContractor
 
         public List<SubContractor> GetSubContractors()
         {
@@ -654,7 +656,8 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.SubContractors.Delete(sc => sc.Id == id);
+                    SubContractor subToDelete = context.SubContractors.FirstOrDefault(sub => sub.Id == id);
+                    context.SubContractors.Remove(subToDelete);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -758,7 +761,8 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.Organisations.Delete(o => o.Id == id);
+                    Organization orgaToDelete = context.Organisations.FirstOrDefault(o => o.Id == id);
+                    context.Organisations.Remove(orgaToDelete);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -860,7 +864,8 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.Adresses.Delete(a => a.Id == id);
+                    Address addToDelete = context.Adresses.FirstOrDefault(a => a.Id == id);
+                    context.Adresses.Remove(addToDelete);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -969,7 +974,8 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.Processes.Delete(p => p.Id == id);
+                    Process proToDelete = context.Processes.FirstOrDefault(p => p.Id == id);
+                    context.Processes.Remove(proToDelete);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -1070,7 +1076,8 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.States.Delete(s => s.Id == id);
+                    State proToDelete = context.States.FirstOrDefault(s => s.Id == id);
+                    context.States.Remove(proToDelete);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -1190,7 +1197,8 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.Roles.Delete(r => r.Id == id);
+                    Role roleToDelete = context.Roles.FirstOrDefault(r => r.Id == id);
+                    context.Roles.Remove(roleToDelete);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -1267,7 +1275,8 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.Scans.Delete(sc => sc.UserId == iduser && sc.TreatmentId == idTreatement);
+                    Scan scanToDelete = context.Scans.FirstOrDefault(s => s.UserId == iduser && s.TreatmentId ==  idTreatement);
+                    context.Scans.Remove(scanToDelete);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -1370,7 +1379,8 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.ProductStateDefinitions.Delete(psd => psd.ProductId == productId && psd.StateId == stateid);
+                    ProductStateDefinition proStateDefToDelete = context.ProductStateDefinitions.FirstOrDefault(psd => psd.ProductId == productId && psd.StateId == stateid);
+                    context.ProductStateDefinitions.Remove(proStateDefToDelete);
                     context.SaveChanges();
                 }
                 catch (Exception e)
