@@ -136,6 +136,21 @@ namespace TracageAlmentaireWeb.DAL
                     if (bob.CurrentRole == null)
                     {
                         bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == 1);
+                        context.SaveChanges();
+                    }
+
+                    Address addressBob = new Address();
+                    addressBob = context.Adresses.FirstOrDefault(a => a.Number.Equals(bob.Address.Number)  && a.PostalCode.Equals(bob.Address.PostalCode) && /*a.Street == bob.Address.Street &&*/ a.Country.Equals(bob.Address.Country));
+                    
+                    if (addressBob.Equals(null))
+                    {
+                        context.Adresses.Add(bob.Address);
+                        context.SaveChanges();
+                        bob.AddressId = context.Adresses.FirstOrDefault(a => a == bob.Address).Id;
+                    }
+                    else
+                    {
+                        bob.AddressId = addressBob.Id;
                     }
                     context.SaveChanges();
                 }
@@ -245,6 +260,7 @@ namespace TracageAlmentaireWeb.DAL
                 try
                 {
                     product = context.Products.FirstOrDefault(p => p.QRCode == qrCode);
+                    product.Process = context.Processes.FirstOrDefault(p => p.Id == product.ProcessId);
                 }
                 catch (Exception e)
                 {
@@ -290,7 +306,8 @@ namespace TracageAlmentaireWeb.DAL
                         product.QRCode = updatedProduct.QRCode;
                         product.States = updatedProduct.States;
                         product.ProcessId = updatedProduct.ProcessId;
-                        product.Process = context.Processes.FirstOrDefault(p => p.Id == updatedProduct.ProcessId);
+                        
+                        
 
                         context.SaveChanges();
                     }

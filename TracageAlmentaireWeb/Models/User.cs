@@ -28,5 +28,7 @@ namespace Tracage.Models
         public Address Address { get; set; }
 
         public Role CurrentRole { get; set; }
+
+        public long AddressId { get; set; }
     }
 }

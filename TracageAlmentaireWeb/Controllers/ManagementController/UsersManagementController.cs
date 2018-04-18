@@ -30,10 +30,11 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
             return View();
         }
+
         [System.Web.Mvc.HttpPost]
-        [System.Web.Mvc.ValidateAntiForgeryToken]
-        public ActionResult Create(User u)
+        public ActionResult Create(User u, Address a)
         {
+            u.Address = a;
             mapper.CreateUser(u);
             return RedirectToAction("List");
         }

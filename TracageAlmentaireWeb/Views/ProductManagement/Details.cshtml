@@ -1,4 +1,6 @@
-﻿@model Tracage.Models.Product
+﻿@using Tracage.Models
+@using TracageAlmentaireWeb.DAL
+@model Tracage.Models.Product
 
 <div>
     <h4>Product</h4>
@@ -29,11 +31,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProcessId)
+            @Html.DisplayNameFor(model => model.Process)
         </dt>
-
+        @{
+            Mapper mapper = new Mapper("FTDb");
+            Process processForDetails = new Process();
+            processForDetails = mapper.GetProcess(Model.ProcessId);
+        }
         <dd>
-            @Html.DisplayFor(model => model.ProcessId)
+            @Html.DisplayFor(nameOfProcess =>processForDetails.Name)
         </dd>
 
     </dl>

@@ -29,6 +29,19 @@ namespace Tracage.Models
 
         public string Country { get; set; }
 
+        public static bool operator ==(Address o, Address o2)
+        {
+            if (o.Number == o2.Number && o.Street == o2.Street && o.PostalCode == o2.PostalCode && o.Country == o2.Country)
+                return true;
+
+            return false;
+        }
+
+        public static bool operator !=(Address o, Address o2) 
+        {
+            return !(o == o2);
+
+        }
 
     }
 }
