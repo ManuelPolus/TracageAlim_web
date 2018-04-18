@@ -44,19 +44,19 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.CurrentRole, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10 dropdown-menu">
+            <div class="col-md-10">
                 @{
-            List<Role> listRoles = new List<Role>();
-            List<SelectListItem> listItems = new List<SelectListItem>();
-            Mapper mapper = new Mapper("FTDb");
-            listRoles = mapper.GetRoles();
-            foreach (var role in listRoles)
-            {
-                listItems.Add(new SelectListItem { Text = role.Name, Value = role.Id.ToString() });
-            }
+                    List<Role> listRoles = new List<Role>();
+                    List<SelectListItem> listItems = new List<SelectListItem>();
+                    Mapper mapper = new Mapper("FTDb");
+                    listRoles = mapper.GetRoles();
+                    foreach (var role in listRoles)
+                    {
+                        listItems.Add(new SelectListItem { Text = role.Name, Value = role.Id.ToString()});
+                    }
                 }
-
-                @Html.DropDownListFor(model => model.CurrentRole_Id, listItems, "_ Select Role_", new { @class = "form-control" })
+            
+                @Html.DropDownListFor(model => model.CurrentRole_Id, listItems, "Select Role", new {@class= "form-control"})
 
 
             </div>

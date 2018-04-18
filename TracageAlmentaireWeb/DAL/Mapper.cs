@@ -284,12 +284,13 @@ namespace TracageAlmentaireWeb.DAL
 
                     if (!product.Equals(updatedProduct))
                     {
-                        product.Id = updatedProduct.Id;
                         product.CurrentTreatment = updatedProduct.CurrentTreatment;
                         product.Description = updatedProduct.Description;
                         product.Name = updatedProduct.Name;
                         product.QRCode = updatedProduct.QRCode;
                         product.States = updatedProduct.States;
+                        product.ProcessId = updatedProduct.ProcessId;
+                        product.Process = context.Processes.FirstOrDefault(p => p.Id == updatedProduct.ProcessId);
 
                         context.SaveChanges();
                     }

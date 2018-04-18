@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Tracage.Models.Product>
+﻿@using Tracage.Models
+@using TracageAlmentaireWeb.DAL
+@model IEnumerable<Tracage.Models.Product>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -30,9 +32,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Process.Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Update", new { id=item.Id }) |
