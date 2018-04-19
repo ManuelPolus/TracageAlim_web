@@ -30,18 +30,13 @@ namespace TracageAlmentaireWeb.Controllers
         }
         [System.Web.Mvc.HttpPost]
         [IgnoreAntiforgeryToken]
-        public ActionResult Create(string name, string description, long processId)
+        public ActionResult Create(Product p)
         {
-            Product p = new Product();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    p.Name = name;
-                    p.Description = description;
-                    p.ProcessId = processId;
-
                     mapper.CreateProduct(p);
                 }
                 catch (Exception e)

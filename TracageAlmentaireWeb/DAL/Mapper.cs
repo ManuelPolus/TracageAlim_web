@@ -41,8 +41,6 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-
-
                     users = context.Users.ToList();
                     foreach (var bob in users)
                     {
@@ -64,7 +62,6 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-
                     bob = context.Users.FirstOrDefault(u => u.Id == id);
                     bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == bob.CurrentRole_Id);
                 }
@@ -140,18 +137,26 @@ namespace TracageAlmentaireWeb.DAL
                     }
 
                     Address addressBob = new Address();
-                    addressBob = context.Adresses.FirstOrDefault(a => a.Number.Equals(bob.Address.Number)  && a.PostalCode.Equals(bob.Address.PostalCode) && /*a.Street == bob.Address.Street &&*/ a.Country.Equals(bob.Address.Country));
-                    
-                    if (addressBob.Equals(null))
+                    addressBob = context.Adresses.FirstOrDefault(a => a.Number == bob.Address.Number && a.Street == bob.Address.Street);
+                    try
+                    {
+                        if (addressBob.Equals(null))
+                        {
+                            //I do not know why the context returns a non assigned object ref instead of just empty stuff... catching the exception
+                            // works though...
+                        }
+                        else
+                        {
+                            bob.AddressId = addressBob.Id;
+                        }
+                    }
+                    catch (Exception e)
                     {
                         context.Adresses.Add(bob.Address);
                         context.SaveChanges();
-                        bob.AddressId = context.Adresses.FirstOrDefault(a => a == bob.Address).Id;
+                        bob.AddressId = context.Adresses.FirstOrDefault(a => a.Number == bob.Address.Number && a.Street == bob.Address.Street).Id;
                     }
-                    else
-                    {
-                        bob.AddressId = addressBob.Id;
-                    }
+                    
                     context.SaveChanges();
                 }
                 catch (Exception e)

@@ -1,62 +1,45 @@
 ﻿@using System.Web.UI.HtmlControls
+@using Microsoft.AspNetCore.Mvc.Rendering
 @using Tracage.Models
 <div class="jumbotron">
-    
-    
-    @if (User.Identity.IsAuthenticated)
-    {
-        <h3 align="center">
-          Hello @User.Identity.Name
-            
-        </h3>
-    }
-    @if(Model!=null)
-    {
-        <h1>
-            Hello @Model.Name
-        </h1>
-    }
 
-    <h1> Welcome ! </h1>
+    
+
+    <h1 class="text-center"> Welcome ! </h1>
     
     
     <nav>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                @Html.ActionLink("Code Generation", "QRGenerationPage", "Home")
+        <ul class="navbar navbar-collapse text-center">
+            <li class ="btn btn-dark btn-lg col-md-4" style="margin: 1%;">
+                @Html.ActionLink("Code Generation", "QRGenerationPage", "Home", new{Style = "color: white;"})
             </li>
-            <li>
-                @Html.ActionLink("Products Management", "List", "ProductManagement")
+            <li class ="btn btn-dark btn-lg col-md-4" style="margin: 1%;">
+                @Html.ActionLink("Products Management", "List", "ProductManagement", new { Style = "color: white;" })
             </li>
-            <li>
-                @Html.ActionLink("Users Management", "List", "UsersManagement")
+            <li class ="btn btn-dark btn-lg col-md-4" style="margin: 1%;">
+                @Html.ActionLink("Users Management", "List", "UsersManagement", new { Style = "color: white;" })
             </li>
-            <li>
-                @Html.ActionLink("Processes Management", "List", "ProcessesManagement")
+            <li class ="btn btn-dark btn-lg col-md-4" style="margin: 1%;">
+                @Html.ActionLink("Processes Management", "List", "ProcessesManagement", new { Style = "color: white;" })
             </li>
-            <li>
-                @Html.ActionLink("Treatments Management", "List", "TreatmentsManagement")
+            <li class ="btn btn-dark btn-lg col-md-4" style="margin: 1%;">
+                @Html.ActionLink("Treatments Management", "List", "TreatmentsManagement", new { Style = "color: white;" })
             </li>
-            <li>
-                @Html.ActionLink("Steps Management", "List", "StepsManagement")
+            <li class ="btn btn-dark btn-lg col-md-4" style="margin: 1%;">
+                @Html.ActionLink("Steps Management", "List", "StepsManagement", new { Style = "color: white;" })
             </li>
-            <li>
-                @Html.ActionLink("SubContractors Management", "List", "SubContractorsManagement")
+            <li class ="btn btn-dark btn-lg col-md-4" style="margin: 1%;">
+                @Html.ActionLink("SubContractors Management", "List", "SubContractorsManagement", new { Style = "color: white;" })
             </li>
-            <li>
-                @Html.ActionLink("Roles Management", "List", "RolesManagement")
+            <li class ="btn btn-dark btn-lg col-md-4" style="margin: 1%;">
+                @Html.ActionLink("Roles Management", "List", "RolesManagement", new { Style = "color: white;" })
             </li>
-            <li>
-                @Html.ActionLink("States Management", "List", "StatesManagement")
+            <li class ="btn btn-dark btn-lg col-md-4" style="margin: 1%;">
+                @Html.ActionLink("States Management", "List", "StatesManagement", new { Style = "color: white;" })
             </li>
-            <li>
-                @Html.ActionLink("Scans Management", "List", "ScansManagement")
-            </li>
-            <li>
-                @Html.ActionLink("Organizations Management", "List", "OrganizationsManagement")
-            </li>
-            <li>
-                @Html.ActionLink("Addresses Management", "List", "AddressesManagement")
+             
+            <li class ="btn btn-dark btn-lg col-md-4" style="margin: 1%;">
+                @Html.ActionLink("Organizations Management", "List", "OrganizationsManagement", new { Style = "color: white;" })
             </li>
         </ul>
     </nav>

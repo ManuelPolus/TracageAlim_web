@@ -8,15 +8,21 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    @if (ViewContext.RouteData.Values["action"].ToString() != "LoginPage")
-    {
-        <div class="text-left btn-default">
-            @Html.ActionLink("Home", "Index", "Home")
-        </div>
-    }
-   
-</div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        @if (ViewContext.RouteData.Values["action"].ToString() != "LoginPage")
+        {
+            <div class="text-left ">
+                <a href="@Url.Action("Index","Home")"><img src="@Url.Content("../../Content/images/home.png")" alt="Home" height="35" width="35"/></a>
+            </div>
+            <asp:LinkButton ID="btnRandom"
+                            runat="server"
+                            CssClass="btn btn-primary"
+                            OnClick="">
+                <span aria-hidden="true" class="glyphicon glyphicon-refresh"></span>
+            </asp:LinkButton>
+        }
+
+    </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
