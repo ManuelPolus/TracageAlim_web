@@ -368,8 +368,9 @@ namespace TracageAlmentaireWeb.DAL
 
                     if (!product.Equals(updatedProduct))
                     {
-                        product.Id = updatedProduct.Id;
-                        product.CurrentTreatment = updatedProduct.CurrentTreatment;
+                        product.CurrentTreatment = context.Treatements.FirstOrDefault(t => t.Id == updatedProduct.CurrentTreatment.Id);
+                        product.CurrentTreatment.OutgoingState = context.States.FirstOrDefault(s => s.Id == product.CurrentTreatment.OutgoingStateId);
+                        product.CurrrentTreatmentId = product.CurrentTreatment.Id;
                         product.Description = updatedProduct.Description;
                         product.Name = updatedProduct.Name;
                         product.QRCode = updatedProduct.QRCode;
