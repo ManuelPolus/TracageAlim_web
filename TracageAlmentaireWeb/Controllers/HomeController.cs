@@ -28,17 +28,19 @@ namespace TracageAlmentaireWeb.Controllers
             ViewBag.Title = "Home Page";
             /*
             mapper.CreateRole(new Role { Name = "Default", Description = "This role is provided by default to new Users." });
+            
+            mapper.CreateUser(user);
 
             mapper.CreateProduct(new Product { Name = "Banane", Description = "for the scale", QRCode = "banana001", ProcessId = 1 });
-            Treatment t = new Treatment { Name = "gathering", Position = 1, Desrciption = "gathering of the bananas", OutgoingState = new State { Status = "gathered banana" } };
-            Treatment t2 = new Treatment { Name = "stocking", Position = 2, Desrciption = "we stock the bananas", OutgoingState = new State { Status = "stocked banana" } };
+            Treatment t = new Treatment { Name = "gathering", Position = 1, Description = "gathering of the bananas", OutgoingState = new State { Status = "gathered banana" } };
+            Treatment t2 = new Treatment { Name = "stocking", Position = 2, Description = "we stock the bananas", OutgoingState = new State { Status = "stocked banana" } };
             List<Treatment> firstStep = new List<Treatment> { t, t2 };
 
-            Treatment t3 = new Treatment { Name = "transport", Position = 1, Desrciption = "moving the bananas", OutgoingState = new State { Status = "stocked banana" } };
+            Treatment t3 = new Treatment { Name = "transport", Position = 1, Description = "moving the bananas", OutgoingState = new State { Status = "stocked banana" } };
             List<Treatment> secondStep = new List<Treatment> { t3 };
 
-            Treatment t4 = new Treatment { Name = "killing", Position = 1, Desrciption = "murder of the bananas", OutgoingState = new State { Status = "dead banana" } };
-            Treatment t5 = new Treatment { Name = "peeling", Position = 2, Desrciption = "peeling of the bananas", OutgoingState = new State { Status = "peeled banana" } };
+            Treatment t4 = new Treatment { Name = "killing", Position = 1, Description = "murder of the bananas", OutgoingState = new State { Status = "dead banana" } };
+            Treatment t5 = new Treatment { Name = "peeling", Position = 2, Description = "peeling of the bananas", OutgoingState = new State { Status = "peeled banana" } };
             List<Treatment> tirdStep = new List<Treatment> { t4, t5 };
 
 
@@ -50,9 +52,9 @@ namespace TracageAlmentaireWeb.Controllers
 
 
             mapper.CreateProcess(new Process { Name = "the banana process", Description = "process for the scale and it is a peeling ahahahahhah", Steps = new List<Step> { s, s2, s3 } });
-            */
+            
             mapper.CreateAddress(new Address{Number = "42",Street = "DefaultStreet",Country = "DefaultLand",PostalCode = "0000"});
-
+            */
             return View();
         }
 

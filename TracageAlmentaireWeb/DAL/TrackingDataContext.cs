@@ -77,8 +77,7 @@ namespace TracageAlmentaireWeb.DAL
 
             //A product goes through Many States
             modelBuilder.Entity<Product>()
-                .HasMany(p => p.States)
-                .WithMany(s => s.ProductsConcerned);
+                .HasMany(p => p.States);
 
             //Process -> Steps -> Treatments
             modelBuilder.Entity<Process>()

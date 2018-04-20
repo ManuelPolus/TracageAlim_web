@@ -18,7 +18,7 @@ using ModelState = System.Web.Mvc.ModelState;
 namespace TracageAlmentaireWeb.DAL
 {
 
-    
+
     public class Mapper
     {
         private string database;
@@ -37,7 +37,7 @@ namespace TracageAlmentaireWeb.DAL
         public List<User> GetUsers()
         {
             List<User> users = new List<User>();
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -102,7 +102,7 @@ namespace TracageAlmentaireWeb.DAL
                 {
 
                     bob = context.Users.FirstOrDefault(u => u.Email == vm.Email);
-                    if (! PasswordHasher.CheckPassword(vm.Password + bob.Salt, bob.Password))
+                    if (!PasswordHasher.CheckPassword(vm.Password + bob.Salt, bob.Password))
                     {
                         return null;
                     }
@@ -126,7 +126,7 @@ namespace TracageAlmentaireWeb.DAL
                 {
 
                     PasswordHasher.Hash(bob);
-                 
+
                     context.Users.Add(bob);
 
                     bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == bob.CurrentRole_Id);
@@ -156,7 +156,7 @@ namespace TracageAlmentaireWeb.DAL
                         context.SaveChanges();
                         bob.AddressId = context.Adresses.FirstOrDefault(a => a.Number == bob.Address.Number && a.Street == bob.Address.Street).Id;
                     }
-                    
+
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -204,7 +204,7 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    User userToDelete = context.Users.FirstOrDefault(u => u.Id == id); 
+                    User userToDelete = context.Users.FirstOrDefault(u => u.Id == id);
                     context.Users.Remove(userToDelete);
                     context.SaveChanges();
                 }
@@ -246,7 +246,16 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
+                    List<State> sList = new List<State>();
                     product = context.Products.FirstOrDefault(p => p.Id == id);
+
+                    product.CurrentTreatment = context.Treatements.FirstOrDefault(t => t.Id == product.CurrrentTreatmentId);
+                    foreach (long idState in product.StatesIds)
+                    {
+                        sList = context.States.Where(s => s.Id == idState).ToList();
+                    }
+                    product.States = sList;
+
                 }
                 catch (Exception e)
                 {
@@ -262,10 +271,19 @@ namespace TracageAlmentaireWeb.DAL
             Product product = new Product();
             using (context = new TrackingDataContext("FTDb"))
             {
+                List<State> sList = new List<State>();
                 try
                 {
                     product = context.Products.FirstOrDefault(p => p.QRCode == qrCode);
-                    product.Process = context.Processes.FirstOrDefault(p => p.Id == product.ProcessId);
+                    if (product.StatesIds == null)
+                        product.StatesIds = new List<long>();
+
+                    foreach (long id in product.StatesIds)
+                    {
+                        sList = context.States.Where(s => s.Id == id).ToList();
+                    }
+
+                    product.States = sList;
                 }
                 catch (Exception e)
                 {
@@ -282,6 +300,21 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
+                    if (newProduct.CurrentTreatment != null)
+                    {
+                        newProduct.CurrrentTreatmentId = newProduct.CurrentTreatment.Id;
+                    }
+                    else
+                    {
+                        Process process = context.Processes.FirstOrDefault(p => p.Id == newProduct.ProcessId);
+                        process.Steps = context.Steps.Where(s => s.Process_Id == process.Id).ToList();
+                        foreach (var step in process.Steps)
+                        {
+                            step.Treatments = context.Treatements.Where(t => t.StepId == step.Id).ToList();
+                        }
+                        newProduct.CurrrentTreatmentId = process.Steps.ElementAt(0).Treatments.ElementAt(0).Id;
+                    }
+
                     context.Products.Add(newProduct);
                     context.SaveChanges();
                 }
@@ -305,14 +338,12 @@ namespace TracageAlmentaireWeb.DAL
 
                     if (!product.Equals(updatedProduct))
                     {
-                        product.CurrentTreatment = updatedProduct.CurrentTreatment;
                         product.Description = updatedProduct.Description;
                         product.Name = updatedProduct.Name;
                         product.QRCode = updatedProduct.QRCode;
-                        product.States = updatedProduct.States;
                         product.ProcessId = updatedProduct.ProcessId;
-                        
-                        
+
+
 
                         context.SaveChanges();
                     }
@@ -401,11 +432,12 @@ namespace TracageAlmentaireWeb.DAL
         {
             Treatment treatment = new Treatment();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
                     treatment = context.Treatements.FirstOrDefault(t => t.Id == id);
+                    treatment.OutgoingState = context.States.FirstOrDefault(s => s.Id == treatment.OutgoingStateId);
                 }
                 catch (Exception e)
                 {
@@ -449,7 +481,7 @@ namespace TracageAlmentaireWeb.DAL
                     {
                         treatment.StepId = updatedTreatment.StepId;
                         treatment.Id = updatedTreatment.Id;
-                        treatment.Desrciption = updatedTreatment.Desrciption;
+                        treatment.Description = updatedTreatment.Description;
                         treatment.Name = updatedTreatment.Name;
                         treatment.OutgoingState = updatedTreatment.OutgoingState;
                         treatment.Position = updatedTreatment.Position;
@@ -557,6 +589,7 @@ namespace TracageAlmentaireWeb.DAL
                         step.Id = updatedStep.Id;
                         step.Name = updatedStep.Name;
                         step.Position = updatedStep.Position;
+                        step.Process_Id = updatedStep.Process_Id;
 
                         context.SaveChanges();
                     }
@@ -937,7 +970,12 @@ namespace TracageAlmentaireWeb.DAL
                     foreach (var step in process.Steps)
                     {
                         step.Treatments = context.Treatements.Where(t => t.StepId == step.Id).ToList();
+                        foreach (var t in step.Treatments)
+                        {
+                            t.OutgoingState = context.States.FirstOrDefault(s => s.Id == t.OutgoingStateId);
+                        }
                     }
+
                 }
                 catch (Exception e)
                 {
@@ -976,10 +1014,8 @@ namespace TracageAlmentaireWeb.DAL
 
                     if (!process.Equals(updatedProcess))
                     {
-                        process.Id = updatedProcess.Id;
-                        process.Description = updatedProcess.Description;
-                        process.Steps = updatedProcess.Steps;
                         process.Name = updatedProcess.Name;
+                        process.Description = updatedProcess.Description;
 
                         context.SaveChanges();
                     }
@@ -1080,7 +1116,7 @@ namespace TracageAlmentaireWeb.DAL
                     if (!state.Equals(updatedState))
                     {
                         state.Id = updatedState.Id;
-                        state.ProductsConcerned = updatedState.ProductsConcerned;
+
                         state.Status = updatedState.Status;
 
                         context.SaveChanges();
@@ -1298,7 +1334,7 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    Scan scanToDelete = context.Scans.FirstOrDefault(s => s.UserId == iduser && s.TreatmentId ==  idTreatement);
+                    Scan scanToDelete = context.Scans.FirstOrDefault(s => s.UserId == iduser && s.TreatmentId == idTreatement);
                     context.Scans.Remove(scanToDelete);
                     context.SaveChanges();
                 }

@@ -9,9 +9,11 @@ namespace Tracage.Models
     {
         public long Id { get; set; }
 
-        public string Desrciption { get; set; }
+        public string Description { get; set; }
 
         public State OutgoingState { get; set; }
+
+        public long OutgoingStateId { get; set; }
 
         public string Name { get; set; }
 

@@ -20,6 +20,7 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
         public IHttpActionResult Get(long id)
         {
             var result = mapper.GetTreatment(id);
+            result.OutgoingState = mapper.GetState(result.OutgoingStateId);
             if (result != null)
             {
                 return Ok(result);

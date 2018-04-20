@@ -24,6 +24,8 @@ namespace Tracage.Models
 
         public Treatment CurrentTreatment { get; set; }
 
+        public long CurrrentTreatmentId { get; set; }
+
         public bool IsFinal()
         {
             return this.CurrentTreatment.OutgoingState.Status == "final";

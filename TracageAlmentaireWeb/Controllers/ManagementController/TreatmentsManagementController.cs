@@ -6,6 +6,7 @@ using iTextSharp.text;
 using Microsoft.AspNetCore.Mvc;
 using Tracage.Models;
 using TracageAlmentaireWeb.DAL;
+using TracageAlmentaireWeb.Models;
 using ActionResult = System.Web.Mvc.ActionResult;
 using Controller = System.Web.Mvc.Controller;
 
@@ -30,9 +31,9 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         }
 
         [System.Web.Mvc.HttpPost]
-        [System.Web.Mvc.ValidateAntiForgeryToken]
-        public ActionResult Create(Treatment t)
+        public ActionResult Create(Treatment t,State s)
         {
+            t.OutgoingState = s;
             mapper.CreateTreatment(t);
             return RedirectToAction("List");
 
@@ -45,7 +46,6 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         }
 
         [System.Web.Mvc.HttpPost]
-        [System.Web.Mvc.ValidateAntiForgeryToken]
         public ActionResult Update(long id, Treatment t)
         {
             mapper.UpdateTreatment(id,t);

@@ -1,4 +1,6 @@
-﻿@model Tracage.Models.Step
+﻿@using Tracage.Models
+@using TracageAlmentaireWeb.DAL
+@model Tracage.Models.Step
 
 @using (Html.BeginForm())
 {
@@ -27,10 +29,20 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Process_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("process :", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Process_Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Process_Id, "", new { @class = "text-danger" })
+                @{
+            List<Process> listProcesses = new List<Process>();
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            Mapper mapper = new Mapper("FTDb");
+            listProcesses = mapper.GetProcesses();
+            foreach (var process in listProcesses)
+            {
+                listItems.Add(new SelectListItem { Text = process.Name, Value = process.Id.ToString() });
+            }
+                }
+
+                @Html.DropDownListFor(model => model.Process_Id, listItems, "Select Process", new { @class = "form-control" })
             </div>
         </div>
 
