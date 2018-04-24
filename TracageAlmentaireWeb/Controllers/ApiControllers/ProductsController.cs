@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using Tracage.Models;
 using TracageAlmentaireWeb.DAL;
+using TracageAlmentaireWeb.Models;
 
 namespace TracageAlmentaireWeb.Controllers
 {
@@ -18,15 +20,28 @@ namespace TracageAlmentaireWeb.Controllers
         [Route("api/products/{qr}")]
         public IHttpActionResult Get(string qr)
         {
-            var result = mapper.GetProductByQr(qr);
-            result.Process = mapper.GetProcess(result.ProcessId);
-            result.CurrentTreatment = mapper.GetTreatment(result.CurrrentTreatmentId);
-            if (result != null)
+            try
             {
-                return Ok(result);
-            }
+                var result = mapper.GetProductByQr(qr);
+                result.Process = mapper.GetProcess(result.ProcessId);
+                result.CurrentTreatment = mapper.GetTreatment(result.CurrrentTreatmentId);
+                result.States = new List<State>();
+                foreach (var stateId in result.StatesIds)
+                {
+                    result.States.Add(mapper.GetState(stateId));
+                }
+                if (result != null)
+                {
+                    return Ok(result);
+                }
 
-            return NotFound();
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+            
         }
 
 
@@ -38,7 +53,15 @@ namespace TracageAlmentaireWeb.Controllers
         [Route("api/update/products/{qr}")]
         public void Put(string qr, Product data)
         {
-            data.CurrrentTreatmentId = data.CurrentTreatment.Id;
+            try
+            {
+                data.CurrrentTreatmentId = data.CurrentTreatment.Id;
+            }
+            catch (Exception e)
+            {
+
+            }
+            
             foreach (var state in data.States)
             {
                 data.StatesIds = new List<long>();

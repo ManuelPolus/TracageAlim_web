@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Tracage.Models;
+using TracageAlmentaireWeb.BL.Components;
+using TracageAlmentaireWeb.BL.Components.PDF;
 using TracageAlmentaireWeb.DAL;
 using ActionResult = System.Web.Mvc.ActionResult;
 using Controller = System.Web.Mvc.Controller;
@@ -37,6 +41,9 @@ namespace TracageAlmentaireWeb.Controllers
             {
                 try
                 {
+                   
+                   
+                    p.QRCode = QrGenerator.GenerateQRCodeString(p);
                     mapper.CreateProduct(p);
                 }
                 catch (Exception e)
@@ -86,6 +93,14 @@ namespace TracageAlmentaireWeb.Controllers
                 return View();
             }
             
+        }
+
+        public ActionResult GeneratePdfWithPRoductInformation(Product p)
+        {
+            PdfQRWriter pw = new  PdfQRWriter();
+            pw.CreateOrRefreshDocument();
+            pw.AddInfo(p);
+            return RedirectToAction("List");
         }
 
 

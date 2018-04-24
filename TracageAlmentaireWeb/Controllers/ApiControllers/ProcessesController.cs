@@ -10,7 +10,7 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
 
         Mapper mapper = new Mapper("FTDb");
 
-        [Route("api/Processes")]
+        [Route("api/Processs")]
         public IEnumerable<Process> Get()
         {
             return mapper.GetProcesses();

@@ -1,4 +1,5 @@
-﻿@using Tracage.Models
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@using Tracage.Models
 @using TracageAlmentaireWeb.DAL
 @model Tracage.Models.Product
 
@@ -39,11 +40,16 @@
             processForDetails = mapper.GetProcess(Model.ProcessId);
         }
         <dd>
-            @Html.DisplayFor(nameOfProcess =>processForDetails.Name)
+            @Html.DisplayFor(nameOfProcess => processForDetails.Name)
         </dd>
 
     </dl>
 </div>
+
+<button class="btn btn-dark btn-lg col-md-4" style="margin: 1%;">
+    @Html.ActionLink("Code Generation", "GeneratePdfWithPRoductInformation", "ProductManagement", Model, new { Style = "color: white;" })
+</button>
+
 <p>
     @Html.ActionLink("Edit", "Update", new { id = Model.Id }) |
 </p>

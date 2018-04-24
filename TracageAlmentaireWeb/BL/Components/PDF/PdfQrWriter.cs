@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.interfaces;
+using Tracage.Models;
 
 namespace TracageAlmentaireWeb.BL.Components.PDF
 {
@@ -19,19 +21,28 @@ namespace TracageAlmentaireWeb.BL.Components.PDF
 
 
 
-        public void AddInfo(List<string> infos, List<Bitmap> QRs)
+        public void AddInfo(Product p)
         {
 
             using (document)
             {
                 document.Open();
-                for (int i = 0; i < infos.Count; i++)
-                {
-                    document.Add(new Paragraph(infos.ElementAt(i)));
-                    iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(QRs.ElementAt(i), System.Drawing.Imaging.ImageFormat.Jpeg);
-                    document.Add(pic);
-                }
-                document.Close();
+                document.SetMarginMirroring(true);
+                Paragraph p1 = new Paragraph((p.Name + " : " + p.Description));
+                Paragraph p2 = new Paragraph(p.QRCode);
+                var pic1 = iTextSharp.text.Image.GetInstance(QrGenerator.GenerateQRCodeBitmap(p.QRCode, 250), System.Drawing.Imaging.ImageFormat.Jpeg);
+                var pic2 = iTextSharp.text.Image.GetInstance(QrGenerator.GenerateQRCodeBitmap(p.QRCode, 100), System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                p1.Alignment = Element.ALIGN_CENTER;
+                p2.Alignment = Element.ALIGN_CENTER;
+                pic1.Alignment = Element.ALIGN_CENTER;
+                pic2.Alignment = Element.ALIGN_CENTER;
+
+                document.Add(p1);
+                document.Add(p2);
+                document.Add(pic1);
+                document.Add(pic2);
+
             }
 
         }

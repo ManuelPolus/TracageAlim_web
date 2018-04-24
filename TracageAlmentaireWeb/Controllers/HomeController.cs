@@ -90,33 +90,11 @@ namespace TracageAlmentaireWeb.Controllers
 
         public ActionResult QrGeneration(string productName,int batchSize)
         {
-            PdfQRWriter pwr = new PdfQRWriter();
-            pwr.CreateOrRefreshDocument();
-
-            List<string> qrsAsString = new List<string>();
-            List<Bitmap> qrs = new List<Bitmap>();
-            string salt = Crypto.GenerateSalt();
-            for (int i = 0; i < batchSize; i++)
-            {
-                string qrAsString = productName + "-" + salt + "-" + i;
-
-               qrsAsString.Add(qrAsString);
-               qrs.Add(GenerateQRCode(qrAsString));
-            }
-            pwr.AddInfo(qrsAsString,qrs );
+            
             return View("Index");
         }
 
         //TODO: déplacer vers la BL
-        public Bitmap GenerateQRCode(string code)
-        {
-            var qrWriter = new BarcodeWriter
-            {
-                Format = BarcodeFormat.QR_CODE,
-                Options = new EncodingOptions { Height = 100, Width = 100 }
-            };
-            var bitmap = new Bitmap(qrWriter.Write(code));
-            return bitmap;
-        }
+        
     }
 }

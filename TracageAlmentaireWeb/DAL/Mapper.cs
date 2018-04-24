@@ -275,6 +275,7 @@ namespace TracageAlmentaireWeb.DAL
                 try
                 {
                     product = context.Products.FirstOrDefault(p => p.QRCode == qrCode);
+                    
                     if (product.StatesIds == null)
                         product.StatesIds = new List<long>();
 
@@ -305,17 +306,8 @@ namespace TracageAlmentaireWeb.DAL
                         newProduct.CurrrentTreatmentId = newProduct.CurrentTreatment.Id;
                     }
                     else
-                    {
-                        Process process = context.Processes.FirstOrDefault(p => p.Id == newProduct.ProcessId);
-                        process.Steps = context.Steps.Where(s => s.Process_Id == process.Id).ToList();
-                        foreach (var step in process.Steps)
-                        {
-                            step.Treatments = context.Treatements.Where(t => t.StepId == step.Id).ToList();
-                        }
-                        newProduct.CurrrentTreatmentId = process.Steps.ElementAt(0).Treatments.ElementAt(0).Id;
-                    }
 
-                    context.Products.Add(newProduct);
+                        context.Products.Add(newProduct);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -338,15 +330,41 @@ namespace TracageAlmentaireWeb.DAL
 
                     if (!product.Equals(updatedProduct))
                     {
-                        product.Description = updatedProduct.Description;
-                        product.Name = updatedProduct.Name;
-                        product.QRCode = updatedProduct.QRCode;
-                        product.ProcessId = updatedProduct.ProcessId;
+                        try
+                        {
+                            if (product.Process == null)
+                            {
+                                Process process =
+                                    context.Processes.FirstOrDefault(p => p.Id == updatedProduct.ProcessId);
+                                process.Steps = context.Steps.Where(s => s.Process_Id == process.Id).ToList();
+                                foreach (var step in process.Steps)
+                                {
+                                    step.Treatments = context.Treatements.Where(t => t.StepId == step.Id).ToList();
+                                }
 
+                                updatedProduct.CurrrentTreatmentId =
+                                    process.Steps.ElementAt(0).Treatments.ElementAt(0).Id;
+                                product.ProcessId = updatedProduct.ProcessId;
+                            }
 
+                            product.CurrentTreatment =
+                                context.Treatements.FirstOrDefault(t => t.Id == updatedProduct.CurrentTreatment.Id);
+                            product.CurrentTreatment.OutgoingState =
+                                context.States.FirstOrDefault(s => s.Id == product.CurrentTreatment.OutgoingStateId);
+                            product.CurrrentTreatmentId = product.CurrentTreatment.Id;
+                            product.StatesIds = updatedProduct.StatesIds;
+                        }
+                        catch (NullReferenceException e)
+                        {
+                            Console.WriteLine(e.StackTrace);
+                        }
 
-                        context.SaveChanges();
                     }
+
+                    product.Description = updatedProduct.Description;
+                    product.Name = updatedProduct.Name;
+
+                    context.SaveChanges();
                 }
                 catch (Exception e)
                 {
@@ -368,16 +386,43 @@ namespace TracageAlmentaireWeb.DAL
 
                     if (!product.Equals(updatedProduct))
                     {
-                        product.CurrentTreatment = context.Treatements.FirstOrDefault(t => t.Id == updatedProduct.CurrentTreatment.Id);
-                        product.CurrentTreatment.OutgoingState = context.States.FirstOrDefault(s => s.Id == product.CurrentTreatment.OutgoingStateId);
-                        product.CurrrentTreatmentId = product.CurrentTreatment.Id;
-                        product.Description = updatedProduct.Description;
-                        product.Name = updatedProduct.Name;
-                        product.QRCode = updatedProduct.QRCode;
-                        product.States = updatedProduct.States;
+                        try
+                        {
+                            if (product.ProcessId == 0 || product.ProcessId == null)
+                            {
+                                Process process =
+                                    context.Processes.FirstOrDefault(p => p.Id == updatedProduct.ProcessId);
+                                process.Steps = context.Steps.Where(s => s.Process_Id == process.Id).ToList();
+                                foreach (var step in process.Steps)
+                                {
+                                    step.Treatments = context.Treatements.Where(t => t.StepId == step.Id).ToList();
+                                }
 
-                        context.SaveChanges();
+                                updatedProduct.CurrrentTreatmentId =
+                                    process.Steps.ElementAt(0).Treatments.ElementAt(0).Id;
+                                product.ProcessId = updatedProduct.ProcessId;
+                            }
+                            product.CurrentTreatment = new Treatment();
+                            product.CurrentTreatment =
+                                context.Treatements.FirstOrDefault(t => t.Id == updatedProduct.CurrrentTreatmentId);
+                            product.CurrentTreatment.OutgoingState =
+                                context.States.FirstOrDefault(s => s.Id == product.CurrentTreatment.OutgoingStateId);
+                            product.CurrrentTreatmentId = product.CurrentTreatment.Id;
+
+                            product.StatesIds = updatedProduct.StatesIds;
+                        }
+                        catch (NullReferenceException e)
+                        {
+                            Console.WriteLine(e.StackTrace);
+                        }
+
                     }
+
+                    product.Description = updatedProduct.Description;
+                    product.Name = updatedProduct.Name;
+
+
+                    context.SaveChanges();
                 }
                 catch (Exception e)
                 {
