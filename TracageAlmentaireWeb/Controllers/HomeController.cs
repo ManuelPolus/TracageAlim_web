@@ -28,7 +28,7 @@ namespace TracageAlmentaireWeb.Controllers
             ViewBag.Title = "Home Page";
             /*
             mapper.CreateRole(new Role { Name = "Default", Description = "This role is provided by default to new Users." });
-            
+
             mapper.CreateUser(user);
 
             mapper.CreateProduct(new Product { Name = "Banane", Description = "for the scale", QRCode = "banana001", ProcessId = 1 });
@@ -52,8 +52,8 @@ namespace TracageAlmentaireWeb.Controllers
 
 
             mapper.CreateProcess(new Process { Name = "the banana process", Description = "process for the scale and it is a peeling ahahahahhah", Steps = new List<Step> { s, s2, s3 } });
-            
-            mapper.CreateAddress(new Address{Number = "42",Street = "DefaultStreet",Country = "DefaultLand",PostalCode = "0000"});
+
+            mapper.CreateAddress(new Address { Number = "42", Street = "DefaultStreet", Country = "DefaultLand", PostalCode = "0000" });
             */
             return View();
         }

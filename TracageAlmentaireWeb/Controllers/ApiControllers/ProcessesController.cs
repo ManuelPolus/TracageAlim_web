@@ -7,8 +7,7 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
 {
     public class ProcessesController : ApiController
     {
-
-        Mapper mapper = new Mapper("FTDb");
+        private Mapper mapper = new Mapper("FTDb");
 
         [Route("api/Processs")]
         public IEnumerable<Process> Get()

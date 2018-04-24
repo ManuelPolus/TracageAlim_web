@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.ApplicationServices;
 using System.Web.Http.ModelBinding;
 using LinqToDB;
+using LinqToDB.Configuration;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Tracage.Models;
 using TracageAlmentaireWeb.BL.Components;
@@ -58,7 +59,7 @@ namespace TracageAlmentaireWeb.DAL
         public virtual User GetUser(long id)
         {
             User bob = new User();
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -76,7 +77,7 @@ namespace TracageAlmentaireWeb.DAL
         public virtual User GetUser(string email)
         {
             User bob = new User();
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -120,7 +121,7 @@ namespace TracageAlmentaireWeb.DAL
 
         public void CreateUser(User bob)
         {
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -200,7 +201,7 @@ namespace TracageAlmentaireWeb.DAL
 
         public void DeleteUser(long id)
         {
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -246,16 +247,15 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    List<State> sList = new List<State>();
                     product = context.Products.FirstOrDefault(p => p.Id == id);
 
                     product.CurrentTreatment = context.Treatements.FirstOrDefault(t => t.Id == product.CurrrentTreatmentId);
-                    foreach (long idState in product.StatesIds)
+                    List<ProductStateDefinition> psds = context.ProductStateDefinitions
+                        .Where(p => p.ProductId == product.Id).ToList();
+                    foreach (var psd in psds)
                     {
-                        sList = context.States.Where(s => s.Id == idState).ToList();
+                        product.States.Add(context.States.FirstOrDefault(s => s.Id == psd.StateId));
                     }
-                    product.States = sList;
-
                 }
                 catch (Exception e)
                 {
@@ -271,20 +271,16 @@ namespace TracageAlmentaireWeb.DAL
             Product product = new Product();
             using (context = new TrackingDataContext("FTDb"))
             {
-                List<State> sList = new List<State>();
                 try
                 {
                     product = context.Products.FirstOrDefault(p => p.QRCode == qrCode);
-                    
-                    if (product.StatesIds == null)
-                        product.StatesIds = new List<long>();
-
-                    foreach (long id in product.StatesIds)
+                    product.States = new List<State>();
+                    List<ProductStateDefinition> psds = context.ProductStateDefinitions
+                        .Where(p => p.ProductId == product.Id).ToList();
+                    foreach (var psd in psds)
                     {
-                        sList = context.States.Where(s => s.Id == id).ToList();
+                        product.States.Add(context.States.FirstOrDefault(s => s.Id == psd.StateId));
                     }
-
-                    product.States = sList;
                 }
                 catch (Exception e)
                 {
@@ -352,7 +348,16 @@ namespace TracageAlmentaireWeb.DAL
                             product.CurrentTreatment.OutgoingState =
                                 context.States.FirstOrDefault(s => s.Id == product.CurrentTreatment.OutgoingStateId);
                             product.CurrrentTreatmentId = product.CurrentTreatment.Id;
-                            product.StatesIds = updatedProduct.StatesIds;
+                            product.States = updatedProduct.States;
+                            foreach (var productState in product.States)
+                            {
+                                if (context.ProductStateDefinitions.FirstOrDefault(
+                                        psd => psd.StateId == productState.Id && psd.ProductId == product.Id) == null)
+                                {
+                                    ProductStateDefinition psd = new ProductStateDefinition(productState.Id, product.Id);
+                                    context.ProductStateDefinitions.Add(psd);
+                                }
+                            }
                         }
                         catch (NullReferenceException e)
                         {
@@ -398,18 +403,36 @@ namespace TracageAlmentaireWeb.DAL
                                     step.Treatments = context.Treatements.Where(t => t.StepId == step.Id).ToList();
                                 }
 
-                                updatedProduct.CurrrentTreatmentId =
-                                    process.Steps.ElementAt(0).Treatments.ElementAt(0).Id;
+                               
                                 product.ProcessId = updatedProduct.ProcessId;
+                                
+                                product.CurrentTreatment = new Treatment();
+                                product.CurrentTreatment = process.Steps.ElementAt(0).Treatments.ElementAt(0);
+                                product.CurrentTreatment.OutgoingState = context.States.FirstOrDefault(s => s.Id == product.CurrentTreatment.OutgoingStateId);
+                                product.CurrrentTreatmentId = process.Steps.ElementAt(0).Treatments.ElementAt(0).Id;
+                                product.States = new List<State>();
+                                //product.States.Add(product.CurrentTreatment.OutgoingState);
+                                context.ProductStateDefinitions.Add(new ProductStateDefinition(product.CurrentTreatment.OutgoingState.Id, product.Id));
+                                context.SaveChanges();
                             }
-                            product.CurrentTreatment = new Treatment();
-                            product.CurrentTreatment =
-                                context.Treatements.FirstOrDefault(t => t.Id == updatedProduct.CurrrentTreatmentId);
-                            product.CurrentTreatment.OutgoingState =
-                                context.States.FirstOrDefault(s => s.Id == product.CurrentTreatment.OutgoingStateId);
-                            product.CurrrentTreatmentId = product.CurrentTreatment.Id;
+                            else
+                            {
+                                product.CurrentTreatment = new Treatment();
+                                product.CurrentTreatment = context.Treatements.FirstOrDefault(t => t.Id == updatedProduct.CurrrentTreatmentId);
+                                product.CurrentTreatment.OutgoingState = context.States.FirstOrDefault(s => s.Id == product.CurrentTreatment.OutgoingStateId);
+                                product.CurrrentTreatmentId = product.CurrentTreatment.Id;
 
-                            product.StatesIds = updatedProduct.StatesIds;
+                                foreach (var productState in updatedProduct.States)
+                                {
+                                    ProductStateDefinition psdef = context.ProductStateDefinitions.FirstOrDefault(psd => psd.StateId == productState.Id && psd.ProductId == product.Id);
+
+                                    if (psdef == null)
+                                    {
+                                        context.ProductStateDefinitions.Add(new ProductStateDefinition(productState.Id, product.Id));
+                                    }
+                                }
+                            }
+
                         }
                         catch (NullReferenceException e)
                         {
@@ -441,6 +464,7 @@ namespace TracageAlmentaireWeb.DAL
                     Product productToDelete = context.Products.FirstOrDefault(p => p.Id == id);
                     context.Products.Remove(productToDelete);
                     context.SaveChanges();
+
                 }
                 catch (Exception e)
                 {
@@ -498,7 +522,7 @@ namespace TracageAlmentaireWeb.DAL
         public void CreateTreatment(Treatment newTreatment)
         {
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -1200,7 +1224,7 @@ namespace TracageAlmentaireWeb.DAL
         {
             List<Role> roles = new List<Role>();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -1220,7 +1244,7 @@ namespace TracageAlmentaireWeb.DAL
         {
             Role role = new Role();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -1239,7 +1263,7 @@ namespace TracageAlmentaireWeb.DAL
         {
             Role role = new Role();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -1256,7 +1280,7 @@ namespace TracageAlmentaireWeb.DAL
 
         public void CreateRole(Role newRole)
         {
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -1274,7 +1298,7 @@ namespace TracageAlmentaireWeb.DAL
         {
             Role role = new Role();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -1298,7 +1322,7 @@ namespace TracageAlmentaireWeb.DAL
 
         public void DeleteRole(long id)
         {
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {

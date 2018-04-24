@@ -25,11 +25,6 @@ namespace TracageAlmentaireWeb.Controllers
                 var result = mapper.GetProductByQr(qr);
                 result.Process = mapper.GetProcess(result.ProcessId);
                 result.CurrentTreatment = mapper.GetTreatment(result.CurrrentTreatmentId);
-                result.States = new List<State>();
-                foreach (var stateId in result.StatesIds)
-                {
-                    result.States.Add(mapper.GetState(stateId));
-                }
                 if (result != null)
                 {
                     return Ok(result);
@@ -62,11 +57,6 @@ namespace TracageAlmentaireWeb.Controllers
 
             }
             
-            foreach (var state in data.States)
-            {
-                data.StatesIds = new List<long>();
-                data.StatesIds.Add(state.Id);
-            } 
             mapper.UpdateProduct(qr,data);
             mapper.UpdateProcess(data.ProcessId,data.Process);
 

@@ -40,6 +40,7 @@ namespace TracageAlmentaireWeb.DAL
             modelBuilder.Entity<Product>().ToTable("Products");
             modelBuilder.Entity<Role>().ToTable("Roles");
             modelBuilder.Entity<Step>().ToTable("Steps");
+            modelBuilder.Entity<State>().ToTable("States");
             modelBuilder.Entity<Treatment>().ToTable("Treatments");
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Scan>().ToTable("Scanner");
@@ -57,6 +58,7 @@ namespace TracageAlmentaireWeb.DAL
             modelBuilder.Entity<Scan>().HasKey(s => new{s.TreatmentId,s.UserId});
             modelBuilder.Entity<ProductStateDefinition>().HasKey(psd => new {psd.ProductId,psd.StateId});
             modelBuilder.Entity<SubContractor>().HasKey(sc => sc.Id);
+            modelBuilder.Entity<State>().HasKey(s => s.Id);
 
             //Required
             modelBuilder.Entity<Address>().Property(a => a.Number).IsRequired();
@@ -73,11 +75,6 @@ namespace TracageAlmentaireWeb.DAL
             modelBuilder.Entity<ProductStateDefinition>().Property(psd => psd.StateId).IsRequired();
             modelBuilder.Entity<ProductStateDefinition>().Property(psd => psd.AcquisitionDate).IsRequired();
 
-
-
-            //A product goes through Many States
-            modelBuilder.Entity<Product>()
-                .HasMany(p => p.States);
 
             //Process -> Steps -> Treatments
             modelBuilder.Entity<Process>()
