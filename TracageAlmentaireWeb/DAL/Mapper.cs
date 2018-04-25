@@ -183,7 +183,9 @@ namespace TracageAlmentaireWeb.DAL
                         bob.Name = newBob.Name;
                         bob.Email = newBob.Email;
                         bob.Address = newBob.Address;
+                        PasswordHasher.Hash(newBob);
                         bob.Password = newBob.Password;
+                        bob.Salt = newBob.Salt;
                         bob.Telephone = newBob.Telephone;
                         bob.CurrentRole_Id = newBob.CurrentRole_Id;
                         bob.CurrentRole = context.Roles.FirstOrDefault(r => r.Id == newBob.CurrentRole_Id);
@@ -326,7 +328,8 @@ namespace TracageAlmentaireWeb.DAL
 
                     if (!product.Equals(updatedProduct))
                     {
-                        try
+
+                            try
                         {
                             if (product.Process == null)
                             {
@@ -338,15 +341,12 @@ namespace TracageAlmentaireWeb.DAL
                                     step.Treatments = context.Treatements.Where(t => t.StepId == step.Id).ToList();
                                 }
 
-                                updatedProduct.CurrrentTreatmentId =
-                                    process.Steps.ElementAt(0).Treatments.ElementAt(0).Id;
+                                updatedProduct.CurrrentTreatmentId = process.Steps.ElementAt(0).Treatments.ElementAt(0).Id;
                                 product.ProcessId = updatedProduct.ProcessId;
                             }
 
-                            product.CurrentTreatment =
-                                context.Treatements.FirstOrDefault(t => t.Id == updatedProduct.CurrentTreatment.Id);
-                            product.CurrentTreatment.OutgoingState =
-                                context.States.FirstOrDefault(s => s.Id == product.CurrentTreatment.OutgoingStateId);
+                            product.CurrentTreatment = context.Treatements.FirstOrDefault(t => t.Id == updatedProduct.CurrentTreatment.Id);
+                            product.CurrentTreatment.OutgoingState = context.States.FirstOrDefault(s => s.Id == product.CurrentTreatment.OutgoingStateId);
                             product.CurrrentTreatmentId = product.CurrentTreatment.Id;
                             product.States = updatedProduct.States;
                             foreach (var productState in product.States)

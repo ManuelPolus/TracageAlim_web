@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Security.Cryptography;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.Security;
 using Tracage.Models;
 using TracageAlmentaireWeb.BL.Components.PDF;
 using TracageAlmentaireWeb.DAL;
@@ -58,15 +59,14 @@ namespace TracageAlmentaireWeb.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Index(User u)
+        {
+            u = mapper.GetUser(HttpContext.User.Identity.Name);
+            return View(u);
+        }
 
-        //[HttpGet]
-        //public ActionResult Index(User u)
-        //{
-
-        //    return View();
-        //}
-
-        public ActionResult ProcessCreationPage()
+            public ActionResult ProcessCreationPage()
         {
             return View();
         }
@@ -89,8 +89,7 @@ namespace TracageAlmentaireWeb.Controllers
         }
 
         public ActionResult QrGeneration(string productName,int batchSize)
-        {
-            
+        {   
             return View("Index");
         }
 

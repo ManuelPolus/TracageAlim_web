@@ -23,7 +23,7 @@ namespace TracageAlmentaireWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult logIn(AuthenticationViewModel vm)
+        public ActionResult logIn(AuthenticationViewModel vm,string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -32,7 +32,8 @@ namespace TracageAlmentaireWeb.Controllers
                 {
                     FormsAuthentication.Initialize();
                     FormsAuthentication.SetAuthCookie(u.Id.ToString(), false);
-
+                    if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        return Redirect(returnUrl);
                     return RedirectToAction("Index", "Home", u);
 
                 }
@@ -40,7 +41,7 @@ namespace TracageAlmentaireWeb.Controllers
                 ModelState.AddModelError("WrongLogin", "Nom ou mot de passe incorrect");
             }
 
-            return Redirect("/home/Index");
+            return RedirectToAction("LoginPage");
         }
 
 
