@@ -118,7 +118,11 @@ namespace TracageAlmentaireWeb.Controllers
             }
             catch (Exception e)
             {
-                return View();
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return View();
+                }
+                return RedirectToAction("LoginPage", "Connection");
             }
             
         }

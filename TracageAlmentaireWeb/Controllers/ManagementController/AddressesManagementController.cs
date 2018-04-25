@@ -50,7 +50,6 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
             {
                 mapper.DeleteAddress(id);
             }
-            //return RedirectToAction("LoginPage", "Connection");
         }
     }
 }

@@ -419,7 +419,9 @@
     <Compile Include="BL\Components\PDF\PdfQrWriter.cs" />
     <Compile Include="BL\Components\QrGenerator.cs" />
     <Compile Include="BL\Components\TokenGenerator.cs" />
+    <Compile Include="BL\RESTSecurityLayer\APIKeyMessageHandler.cs" />
     <Compile Include="Controllers\ApiControllers\AddressesController.cs" />
+    <Compile Include="Controllers\ApiControllers\ForbiddenActionResult.cs" />
     <Compile Include="Controllers\ApiControllers\StepsController.cs" />
     <Compile Include="Controllers\ApiControllers\StatesController.cs" />
     <Compile Include="Controllers\ApiControllers\OrganizationsController.cs" />

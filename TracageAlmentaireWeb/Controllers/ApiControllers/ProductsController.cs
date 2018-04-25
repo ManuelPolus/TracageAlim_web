@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 using Tracage.Models;
+using TracageAlmentaireWeb.BL.RESTSecurityLayer;
 using TracageAlmentaireWeb.DAL;
 using TracageAlmentaireWeb.Models;
 
@@ -10,16 +15,27 @@ namespace TracageAlmentaireWeb.Controllers
     public class ProductsController : ApiController
     {
         private Mapper mapper = new Mapper("FTDb");
+        private APIKeyMessageHandler keyHandler = new APIKeyMessageHandler();
 
-        [Route("api/Products")]
-        public IEnumerable<Product> Get()
+        [System.Web.Http.Route("api/Products")]
+        public IHttpActionResult Get()
         {
-            return mapper.GetProducts();
+            if (!keyHandler.CheckApiKey(this.Request))
+            {
+                return new ForbiddenActionResult(Request, "access denied madafaka");
+
+            }
+            return Ok(mapper.GetProducts());
         }
 
-        [Route("api/products/{qr}")]
+        [System.Web.Http.Route("api/products/{qr}")]
         public IHttpActionResult Get(string qr)
         {
+
+            if (!keyHandler.CheckApiKey(this.Request))
+            {
+                return new ForbiddenActionResult(Request, "access denied madafaka");
+            }
             try
             {
                 var result = mapper.GetProductByQr(qr);
@@ -36,7 +52,7 @@ namespace TracageAlmentaireWeb.Controllers
             {
                 return NotFound();
             }
-            
+
         }
 
 
@@ -45,7 +61,7 @@ namespace TracageAlmentaireWeb.Controllers
             mapper.CreateProduct(data);
         }
 
-        [Route("api/update/products/{qr}")]
+        [System.Web.Http.Route("api/update/products/{qr}")]
         public void Put(string qr, Product data)
         {
             try
@@ -56,9 +72,9 @@ namespace TracageAlmentaireWeb.Controllers
             {
 
             }
-            
-            mapper.UpdateProduct(qr,data);
-            mapper.UpdateProcess(data.ProcessId,data.Process);
+
+            mapper.UpdateProduct(qr, data);
+            mapper.UpdateProcess(data.ProcessId, data.Process);
 
         }
 
