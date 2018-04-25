@@ -25,5 +25,29 @@ namespace TracageAlmentaireWeb.BL.Components
            
             return Crypto.VerifyHashedPassword(encryptedPassword, clearPassword);
         }
+
+        public static string HashKey(string input)
+        {
+            SHA512 shaM = new SHA512Managed();
+
+            byte[] data = shaM.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            StringBuilder sBuilder = new StringBuilder();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            input = sBuilder.ToString();
+            return (input);
+        }
+
+        public bool CheckKey(string localKey,string externalKey)
+        {
+            string encryptedKey = HashKey(localKey);
+            
+            return encryptedKey == externalKey;
+        }
     }
 }
