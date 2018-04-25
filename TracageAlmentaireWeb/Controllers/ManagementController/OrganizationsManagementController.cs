@@ -41,7 +41,8 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         public ActionResult Update(long id)
         {
-            return View();
+            Organization o = mapper.GetOrganization(id);
+            return View(o);
         }
 
         [System.Web.Mvc.HttpPost]

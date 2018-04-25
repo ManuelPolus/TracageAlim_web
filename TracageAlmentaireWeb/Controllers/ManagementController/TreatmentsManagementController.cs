@@ -42,7 +42,8 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         
         public ActionResult Update(long id) // Normalement id passé automatiquement à la vue.
         {
-            return View();
+            Treatment t = mapper.GetTreatment(id);
+            return View(t);
         }
 
         [System.Web.Mvc.HttpPost]

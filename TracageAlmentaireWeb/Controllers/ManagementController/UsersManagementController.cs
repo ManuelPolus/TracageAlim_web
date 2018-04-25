@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tracage.Models;
 using TracageAlmentaireWeb.DAL;
@@ -11,6 +12,7 @@ using Controller = System.Web.Mvc.Controller;
 namespace TracageAlmentaireWeb.Controllers.ManagementController
 {
     [AutoValidateAntiforgeryToken]
+    [Authorize]
     public class UsersManagementController : Controller, IControlManagement
     {
         // GET: UsersManagement
@@ -20,15 +22,23 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         public ActionResult List()
         {
             List<User> uList = new List<User>();
-            uList = mapper.GetUsers();
-
-            return View(uList);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                
+                uList = mapper.GetUsers();
+                return View(uList);
+            }
+            return RedirectToAction("LoginPage", "Connection");
         }
-
+        [Authorize]
         public ActionResult Create()
         {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
 
-            return View();
+            return RedirectToAction("LoginPage", "Connection");
         }
 
         [System.Web.Mvc.HttpPost]
@@ -41,7 +51,13 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         public ActionResult Update(long id)
         {
-            return View();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                User u = mapper.GetUser(id);
+                return View(u);
+            }
+
+            return RedirectToAction("LoginPage", "Connection");
         }
         [System.Web.Mvc.HttpPost]
         [System.Web.Mvc.ValidateAntiForgeryToken]
@@ -53,14 +69,24 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         public ActionResult Details(long id)
         {
-            User u = mapper.GetUser(id);
-            return View(u);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                User u = mapper.GetUser(id);
+                return View(u);
+            }
+
+            return RedirectToAction("LoginPage", "Connection");
+            
         }
 
         public ActionResult Delete(long id)
         {
-            mapper.DeleteUser(id);
-            return RedirectToAction("List");
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                mapper.DeleteUser(id);
+                return RedirectToAction("List");
+            }
+            return RedirectToAction("LoginPage", "Connection");         
         }
     }
 }

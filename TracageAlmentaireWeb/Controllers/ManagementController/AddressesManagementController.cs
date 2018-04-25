@@ -15,13 +15,6 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
     {
         private Mapper mapper = new Mapper("FTDb");
 
-        public ActionResult List()
-        {
-            List<Address> aList = new List<Address>();
-
-            aList = mapper.GetAddresses();
-            return View(aList);
-        }
 
         public ActionResult Create()
         {
@@ -30,37 +23,24 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         [System.Web.Mvc.HttpPost]
         [System.Web.Mvc.ValidateAntiForgeryToken]
-        public ActionResult Create(Address a)
+        public void Create(Address a)
         {
             mapper.CreateAddress(a);
-            return RedirectToAction("List");
-
         }
 
 
-        public ActionResult Update(long id)
-        {
-            return View();
-        }
-
+       
         [System.Web.Mvc.HttpPost]
         [System.Web.Mvc.ValidateAntiForgeryToken]
-        public ActionResult Update(long id, Address a)
+        public void Update(long id, Address a)
         {
             mapper.UpdateAddress(id, a);
-            return RedirectToAction("List");
         }
 
-        public ActionResult Details(long id)
-        {
-            var a = mapper.GetAddress(id);
-            return View(a);
-        }
 
-        public ActionResult Delete(long id)
+        public void Delete(long id)
         {
             mapper.DeleteAddress(id);
-            return RedirectToAction("List");
         }
     }
 }

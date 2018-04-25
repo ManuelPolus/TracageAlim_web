@@ -41,7 +41,8 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         public ActionResult Update(long id)
         {
-            return View();
+            Step s = mapper.GetStep(id);
+            return View(s);
         }
 
         [System.Web.Mvc.HttpPost]

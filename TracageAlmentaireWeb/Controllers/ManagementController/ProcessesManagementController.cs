@@ -16,13 +16,22 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         public ActionResult List()
         {
             List<Process> pList = new List<Process>();
-            pList = mapper.GetProcesses();
-            return View(pList);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                pList = mapper.GetProcesses();
+                return View(pList);
+            }
+            return RedirectToAction("LoginPage", "Connection");
         }
 
         public ActionResult Create()
         {
-            return View();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+
+            return RedirectToAction("LoginPage", "Connection");
         }
         [HttpPost]
         public ActionResult Create(Process p)
@@ -33,7 +42,13 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         public ActionResult Update(long id)
         {
-            return View();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                Process p = mapper.GetProcess(id);
+                return View(p);
+            }
+
+            return RedirectToAction("LoginPage", "Connection");
         }
 
         [HttpPost]
@@ -45,14 +60,27 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         public ActionResult Details(long id)
         {
-            Process p = mapper.GetProcess(id);
-            return View(p);
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                Process p = mapper.GetProcess(id);
+                return View(p);
+            }
+
+            return RedirectToAction("LoginPage", "Connection");
+           
         }
 
         public ActionResult Delete(long id)
         {
-            mapper.DeleteProcess(id);
-            return RedirectToAction("List");
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                mapper.DeleteProcess(id);
+                return RedirectToAction("List");
+            }
+
+            return RedirectToAction("LoginPage", "Connection");
+            
         }
     }
 }

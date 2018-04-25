@@ -41,7 +41,8 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
             public ActionResult Update(long id)
             {
-                return View();
+                SubContractor sc = mapper.GetSubContractor(id);
+                return View(sc);
             }
 
             [System.Web.Mvc.HttpPost]

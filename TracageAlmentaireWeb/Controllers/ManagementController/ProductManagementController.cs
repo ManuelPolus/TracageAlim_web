@@ -59,8 +59,10 @@ namespace TracageAlmentaireWeb.Controllers
 
         public ActionResult Update(long id)
         {
-            return View();
+            Product p = mapper.GetProductById(id);
+            return View(p);
         }
+
         [System.Web.Mvc.HttpPost]
         [System.Web.Mvc.ValidateAntiForgeryToken]
         public ActionResult Update(long id, Product p)

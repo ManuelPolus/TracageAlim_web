@@ -1,10 +1,11 @@
-﻿@using Microsoft.AspNetCore.Mvc.Rendering
+﻿@using System.Web.UI.WebControls
+@using Microsoft.AspNetCore.Mvc.Rendering
 @model Tracage.Models.Process
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Process</h4>
         <hr />

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -32,10 +34,8 @@ namespace TracageAlmentaireWeb.Controllers
                 {
                     FormsAuthentication.Initialize();
                     FormsAuthentication.SetAuthCookie(u.Id.ToString(), false);
-                    if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
-                        return Redirect(returnUrl);
+                   
                     return RedirectToAction("Index", "Home", u);
-
                 }
 
                 ModelState.AddModelError("WrongLogin", "Nom ou mot de passe incorrect");
