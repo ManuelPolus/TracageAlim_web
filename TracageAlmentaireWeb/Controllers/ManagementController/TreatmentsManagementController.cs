@@ -20,14 +20,22 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         public ActionResult List()
         {
             List<Treatment> tList = new List<Treatment>();
-
-            tList = mapper.GetTreatments();
-            return View(tList);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                tList = mapper.GetTreatments();
+                return View(tList);
+            }
+            return RedirectToAction("LoginPage", "Connection");
         }
 
         public ActionResult Create()
         {
-            return View();
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("LoginPage", "Connection");
         }
 
         [System.Web.Mvc.HttpPost]
@@ -42,8 +50,13 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         
         public ActionResult Update(long id) // Normalement id passé automatiquement à la vue.
         {
-            Treatment t = mapper.GetTreatment(id);
-            return View(t);
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                Treatment t = mapper.GetTreatment(id);
+                return View(t);
+            }
+            return RedirectToAction("LoginPage", "Connection");
         }
 
         [System.Web.Mvc.HttpPost]
@@ -55,14 +68,24 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         public ActionResult Details(long id)
         {
-            var t = mapper.GetTreatment(id);
-            return View(t);
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                var t = mapper.GetTreatment(id);
+                return View(t);
+            }
+            return RedirectToAction("LoginPage", "Connection");
         }
 
         public ActionResult Delete(long id)
         {
-            mapper.DeleteTreatment(id);
-            return RedirectToAction("List");
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                mapper.DeleteTreatment(id);
+                return RedirectToAction("List");
+            }
+            return RedirectToAction("LoginPage", "Connection");
         }
     }
 }

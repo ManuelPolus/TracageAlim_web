@@ -38,6 +38,7 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
             mapper.UpdateProcess(id, data);
         }
 
+
         public void Delete(long id)
         {
             mapper.DeleteProcess(id);

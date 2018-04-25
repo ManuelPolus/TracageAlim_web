@@ -18,7 +18,12 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         public ActionResult Create()
         {
-            return View();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+
+            return RedirectToAction("LoginPage", "Connection");
         }
 
         [System.Web.Mvc.HttpPost]
@@ -40,7 +45,12 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         public void Delete(long id)
         {
-            mapper.DeleteAddress(id);
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                mapper.DeleteAddress(id);
+            }
+            //return RedirectToAction("LoginPage", "Connection");
         }
     }
 }

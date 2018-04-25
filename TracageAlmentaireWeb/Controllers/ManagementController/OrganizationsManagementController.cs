@@ -19,14 +19,26 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         public ActionResult List()
         {
             List<Organization> oList = new List<Organization>();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
 
-            oList = mapper.GetOrganizations();
-            return View(oList);
+                oList = mapper.GetOrganizations();
+                return View(oList);
+            }
+            return RedirectToAction("LoginPage", "Connection");
         }
 
         public ActionResult Create()
         {
-            return View();
+
+            List<Organization> oList = new List<Organization>();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+
+                return View();
+            }
+            return RedirectToAction("LoginPage", "Connection");
+           
         }
 
         [System.Web.Mvc.HttpPost]
@@ -55,14 +67,24 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         public ActionResult Details(long id)
         {
-            var o = mapper.GetOrganization(id);
-            return View(o);
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                var o = mapper.GetOrganization(id);
+                return View(o);
+            }
+            return RedirectToAction("LoginPage", "Connection");
+            
         }
 
         public ActionResult Delete(long id)
         {
-            mapper.DeleteOrganization(id);
-            return RedirectToAction("List");
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                mapper.DeleteOrganization(id);
+                return RedirectToAction("List");
+            }
+            return RedirectToAction("LoginPage", "Connection");
         }
     }
 }

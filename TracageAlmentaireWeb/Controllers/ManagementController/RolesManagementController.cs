@@ -18,15 +18,24 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         public ActionResult List()
         {
-            List<Role> rList = new List<Role>();
 
-            rList = mapper.GetRoles();
-            return View(rList);
+            List<Role> rList = new List<Role>();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                rList = mapper.GetRoles();
+                return View(rList);
+            }
+            return RedirectToAction("LoginPage", "Connection");
         }
 
         public ActionResult Create()
         {
-            return View();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("LoginPage", "Connection");
+
         }
 
         [System.Web.Mvc.HttpPost]
@@ -41,8 +50,12 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         public ActionResult Update(long id)
         {
-            Role r = mapper.GetRole(id);
-            return View(r);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                Role r = mapper.GetRole(id);
+                return View(r);
+            }
+            return RedirectToAction("LoginPage", "Connection");
         }
 
         [System.Web.Mvc.HttpPost]
@@ -55,14 +68,23 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
 
         public ActionResult Details(long id)
         {
-            var r = mapper.GetRole(id);
-            return View(r);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                var r = mapper.GetRole(id);
+                return View(r);
+            }
+            return RedirectToAction("LoginPage", "Connection");
         }
 
         public ActionResult Delete(long id)
         {
-            mapper.DeleteRole(id);
-            return RedirectToAction("List");
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                mapper.DeleteRole(id);
+                return RedirectToAction("List");
+            }
+            return RedirectToAction("LoginPage", "Connection");
+
         }
     }
 }

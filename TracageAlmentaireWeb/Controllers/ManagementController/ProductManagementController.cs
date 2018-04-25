@@ -22,16 +22,27 @@ namespace TracageAlmentaireWeb.Controllers
         public ActionResult List()
         {
             List<Product> plist = new List<Product>();
-            plist = mapper.GetProducts();
-            return View(plist);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                plist = mapper.GetProducts();
+                return View(plist);
+            }
+            return RedirectToAction("LoginPage", "Connection");
         }
 
 
 
         public ActionResult Create()
-        { 
-            return View();
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("LoginPage", "Connection");
+            
         }
+
+
         [System.Web.Mvc.HttpPost]
         [IgnoreAntiforgeryToken]
         public ActionResult Create(Product p)
@@ -59,8 +70,14 @@ namespace TracageAlmentaireWeb.Controllers
 
         public ActionResult Update(long id)
         {
-            Product p = mapper.GetProductById(id);
-            return View(p);
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                Product p = mapper.GetProductById(id);
+                return View(p);
+            }
+            return RedirectToAction("LoginPage", "Connection");
+            
         }
 
         [System.Web.Mvc.HttpPost]
@@ -79,16 +96,25 @@ namespace TracageAlmentaireWeb.Controllers
 
         public ActionResult Details(long id)
         {
-            Product p = mapper.GetProductById(id);
-            return View(p);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                Product p = mapper.GetProductById(id);
+                return View(p);
+            }
+            return RedirectToAction("LoginPage", "Connection");
+
         }
 
         public ActionResult Delete(long id)
         {
             try
             {
-                mapper.DeleteProduct(id);
-                return RedirectToAction("List");
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    mapper.DeleteProduct(id);
+                    return RedirectToAction("List");
+                }
+                return RedirectToAction("LoginPage", "Connection");
             }
             catch (Exception e)
             {
@@ -99,10 +125,16 @@ namespace TracageAlmentaireWeb.Controllers
 
         public ActionResult GeneratePdfWithPRoductInformation(Product p)
         {
-            PdfQRWriter pw = new  PdfQRWriter();
-            pw.CreateOrRefreshDocument();
-            pw.AddInfo(p);
-            return RedirectToAction("List");
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                PdfQRWriter pw = new PdfQRWriter();
+                pw.CreateOrRefreshDocument();
+                pw.AddInfo(p);
+                return RedirectToAction("List");
+            }
+            return RedirectToAction("LoginPage", "Connection");
+
         }
 
 

@@ -12,7 +12,6 @@ using Controller = System.Web.Mvc.Controller;
 namespace TracageAlmentaireWeb.Controllers.ManagementController
 {
     [AutoValidateAntiforgeryToken]
-    [Authorize]
     public class UsersManagementController : Controller, IControlManagement
     {
         // GET: UsersManagement
