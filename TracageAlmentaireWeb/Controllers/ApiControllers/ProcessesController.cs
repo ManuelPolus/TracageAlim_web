@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using Tracage.Models;
+using TracageAlmentaireWeb.BL.RESTSecurityLayer;
 using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers
@@ -8,40 +9,66 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
     public class ProcessesController : ApiController
     {
         private Mapper mapper = new Mapper("FTDb");
+        private APIKeyMessageHandler keyHandler = new APIKeyMessageHandler();
 
         [Route("api/Processs")]
-        public IEnumerable<Process> Get()
+        public IHttpActionResult Get()
         {
-            return mapper.GetProcesses();
+            if (!keyHandler.CheckApiKey(this.Request))
+            {
+                return new ForbiddenActionResult(Request, "access denied");
+            }
+            return Ok(mapper.GetProcesses());
         }
 
         [Route("api/Processs/{id}")]
         public IHttpActionResult Get(long id)
         {
-            var result = mapper.GetProcess(id);
-            if (result != null)
-            {
-                return Ok(result);
-            }
+            IHttpActionResult reponse;
 
-            return NotFound();
+            if (!keyHandler.CheckApiKey(this.Request))
+            {
+                return new ForbiddenActionResult(Request, "access denied");
+            }
+            else
+            {
+                var result = mapper.GetProcess(id);
+                if (result != null)
+                {
+                    reponse = Ok(result);
+                }
+                else
+                {
+                    reponse = NotFound();
+                }
+            }
+            return reponse;
         }
 
 
         public void Post(Process data)
         {
-            mapper.CreateProcess(data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.CreateProcess(data);
+            }
         }
 
         public void Put(long id, Process data)
         {
-            mapper.UpdateProcess(id, data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.UpdateProcess(id, data);
+            }
         }
 
 
         public void Delete(long id)
         {
-            mapper.DeleteProcess(id);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.DeleteProcess(id);
+            }
         }
 
     }

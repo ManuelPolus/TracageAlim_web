@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using Tracage.Models;
+using TracageAlmentaireWeb.BL.RESTSecurityLayer;
 using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers
@@ -8,39 +9,69 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
     public class StepsController : ApiController
     {
         private Mapper mapper = new Mapper("FTDb");
+        private APIKeyMessageHandler keyHandler = new APIKeyMessageHandler();
 
         [Route("api/Steps")]
-        public IEnumerable<Step> Get()
+        public IHttpActionResult Get()
         {
-            return mapper.GetSteps();
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                return Ok(mapper.GetSteps());
+            }
+            else
+            {
+                return new ForbiddenActionResult(Request, "access denied");
+            }
         }
 
         [Route("api/Steps/{id}")]
         public IHttpActionResult Get(long id)
         {
-            var result = mapper.GetStep(id);
-            if (result != null)
+            if (!keyHandler.CheckApiKey(this.Request))
             {
-                return Ok(result);
+                return new ForbiddenActionResult(Request, "access denied");
+            }
+            else
+            {
+                var result = mapper.GetStep(id);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
 
-            return NotFound();
         }
 
 
         public void Post(Step data)
         {
-            mapper.CreateStep(data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.CreateStep(data);
+            }
+                
         }
 
         public void Put(long id, Step data)
         {
-           mapper.UpdateStep(id,data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.UpdateStep(id, data);
+            }
+                
         }
 
         public void Delete(long id)
         {
-           mapper.DeleteStep(id);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.DeleteStep(id);
+            }
+                
         }
     }
 

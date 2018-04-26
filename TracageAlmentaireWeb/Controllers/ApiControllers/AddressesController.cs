@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Web.Http;
 using Tracage.Models;
+using TracageAlmentaireWeb.BL.RESTSecurityLayer;
 using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers
@@ -10,38 +12,73 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
 
 
         Mapper mapper = new Mapper("FTDb");
+        private APIKeyMessageHandler keyHandler = new APIKeyMessageHandler();
 
         [Route("api/Addresses")]
-        public IEnumerable<Address> Get()
+        public IHttpActionResult Get()
         {
-            return mapper.GetAddresses();
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                IEnumerable<Address> ad = mapper.GetAddresses();
+                if (ad != null)
+                {
+                    return Ok(mapper.GetAddresses());
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            return new ForbiddenActionResult(Request, "access denied");
         }
 
         [Route("api/Addresses/{id}")]
         public IHttpActionResult Get(long id)
         {
-            var result = mapper.GetAddress(id);
-            if (result != null)
-            {
-                return Ok(result);
-            }
 
-            return NotFound();
+            if (!keyHandler.CheckApiKey(this.Request))
+            {
+                return new ForbiddenActionResult(Request, "access denied");
+            }
+            else
+            {
+                var result = mapper.GetAddress(id);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
         }
 
         public void Post(Address data)
         {
-            mapper.CreateAddress(data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.CreateAddress(data);
+            }
+                
         }
 
         public void Put(long id, Address data)
         {
-            mapper.UpdateAddress(id,data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.UpdateAddress(id, data);
+            }
+               
         }
 
         public void Delete(long id)
         {
-            mapper.DeleteAddress(id);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.DeleteAddress(id);
+            }
+                
         }
 
     }

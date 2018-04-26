@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using Tracage.Models;
+using TracageAlmentaireWeb.BL.RESTSecurityLayer;
 using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers
@@ -8,40 +9,71 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
     public class TreatmentsController : ApiController
     {
         private Mapper mapper = new Mapper("FTDb");
+        private APIKeyMessageHandler keyHandler = new APIKeyMessageHandler();
 
 
         [Route("api/Treatments")]
-        public IEnumerable<Treatment> Get()
+        public IHttpActionResult Get()
         {
-            return mapper.GetTreatments();
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                return Ok(mapper.GetTreatments());
+            }
+            else
+            {
+                return new ForbiddenActionResult(Request, "access denied");
+            }
+            
         }
 
         [Route("api/Treatments/{id}")]
         public IHttpActionResult Get(long id)
         {
-            var result = mapper.GetTreatment(id);
-            result.OutgoingState = mapper.GetState(result.OutgoingStateId);
-            if (result != null)
+            if (!keyHandler.CheckApiKey(this.Request))
             {
-                return Ok(result);
+                return new ForbiddenActionResult(Request, "access denied");
+            }
+            else
+            {
+                var result = mapper.GetTreatment(id);
+                result.OutgoingState = mapper.GetState(result.OutgoingStateId);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
 
-            return NotFound();
         }
 
         public void Post(Treatment data)
         {
-            mapper.CreateTreatment(data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.CreateTreatment(data);
+            }
+                
         }
 
         public void Put(long id, Treatment data)
         {
-            mapper.UpdateTreatment(id, data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.UpdateTreatment(id, data);
+            }
+                
         }
 
         public void Delete(long id)
         {
-            mapper.DeleteTreatment(id);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.DeleteTreatment(id);
+            }
+                
         }
     }
 }

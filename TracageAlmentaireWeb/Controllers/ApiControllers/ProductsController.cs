@@ -22,7 +22,7 @@ namespace TracageAlmentaireWeb.Controllers
         {
             if (!keyHandler.CheckApiKey(this.Request))
             {
-                return new ForbiddenActionResult(Request, "access denied madafaka");
+                return new ForbiddenActionResult(Request, "access denied");
 
             }
             return Ok(mapper.GetProducts());
@@ -34,7 +34,7 @@ namespace TracageAlmentaireWeb.Controllers
 
             if (!keyHandler.CheckApiKey(this.Request))
             {
-                return new ForbiddenActionResult(Request, "access denied madafaka");
+                return new ForbiddenActionResult(Request, "access denied");
             }
             try
             {
@@ -58,29 +58,39 @@ namespace TracageAlmentaireWeb.Controllers
 
         public void Post(Product data)
         {
-            mapper.CreateProduct(data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.CreateProduct(data);
+            }
+
         }
 
         [System.Web.Http.Route("api/update/products/{qr}")]
         public void Put(string qr, Product data)
         {
-            try
+            if (keyHandler.CheckApiKey(this.Request))
             {
-                data.CurrrentTreatmentId = data.CurrentTreatment.Id;
-            }
-            catch (Exception e)
-            {
+                try
+                {
+                    data.CurrrentTreatmentId = data.CurrentTreatment.Id;
+                }
+                catch (Exception e)
+                {
 
-            }
+                }
 
-            mapper.UpdateProduct(qr, data);
-            mapper.UpdateProcess(data.ProcessId, data.Process);
+                mapper.UpdateProduct(qr, data);
+                mapper.UpdateProcess(data.ProcessId, data.Process);
+            }
 
         }
 
         public void Delete(long id)
         {
-            mapper.DeleteProduct(id);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.DeleteProduct(id);
+            }
         }
     }
 }

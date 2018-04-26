@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using TracageAlmentaireWeb.BL.RESTSecurityLayer;
 using TracageAlmentaireWeb.DAL;
 using TracageAlmentaireWeb.Models;
 
@@ -8,39 +9,69 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
     public class StatesController : ApiController
     {
         private Mapper mapper = new Mapper("FTDb");
+        private APIKeyMessageHandler keyHandler = new APIKeyMessageHandler();
 
         [Route("api/States")]
-        public IEnumerable<State> Get()
+        public IHttpActionResult Get()
         {
-            return mapper.GetStates();
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                return Ok(mapper.GetStates());
+            }
+            else
+            {
+                return new ForbiddenActionResult(Request, "access denied");
+            }
         }
 
         [Route("api/States/{id}")]
         public IHttpActionResult Get(long id)
         {
-            var result = mapper.GetState(id);
-            if (result != null)
+            if (!keyHandler.CheckApiKey(this.Request))
             {
-                return Ok(result);
+                return new ForbiddenActionResult(Request, "access denied");
             }
-
-            return NotFound();
+            else
+            {
+                var result = mapper.GetState(id);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            
         }
 
 
         public void Post(State data)
         {
-            mapper.CreateState(data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.CreateState(data);
+            }
+                
         }
 
         public void Put(long id, State data)
         {
-            mapper.UpdateState(id, data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.UpdateState(id, data);
+            }
+                
         }
 
         public void Delete(long id)
         {
-            mapper.DeleteState(id);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.DeleteState(id);
+            }
+               
         }
 
     }

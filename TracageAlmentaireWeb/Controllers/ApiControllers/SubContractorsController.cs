@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using Tracage.Models;
+using TracageAlmentaireWeb.BL.RESTSecurityLayer;
 using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers
@@ -9,40 +10,71 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
     {
 
         Mapper mapper = new Mapper("FTDb");
+        private APIKeyMessageHandler keyHandler = new APIKeyMessageHandler();
 
         [Route("api/SubContractors")]
-        public IEnumerable<SubContractor> Get()
+        public IHttpActionResult Get()
         {
-            return mapper.GetSubContractors();
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                return Ok(mapper.GetSubContractors());
+            }
+            else
+            {
+                return new ForbiddenActionResult(Request, "access denied");
+            }
+
         }
 
         [Route("api/SubContractors/{id}")]
         public IHttpActionResult Get(long id)
         {
-            var result = mapper.GetSubContractor(id);
-            if (result != null)
+            if (!keyHandler.CheckApiKey(this.Request))
             {
-                return Ok(result);
+                return new ForbiddenActionResult(Request, "access denied");
+            }
+            else
+            {
+                var result = mapper.GetSubContractor(id);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
 
-            return NotFound();
         }
 
-       
+
 
         public void Post(SubContractor data)
         {
-            mapper.CreateSubContractor(data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.CreateSubContractor(data);
+            }
+
         }
 
         public void Put(long id, SubContractor data)
         {
-           mapper.UpdateSubContractor(id,data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.UpdateSubContractor(id, data);
+            }
         }
+
 
         public void Delete(long id)
         {
-            mapper.DeleteSubContractor(id);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.DeleteSubContractor(id);
+            }
+                
         }
 
     }

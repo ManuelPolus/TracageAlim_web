@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using Tracage.Models;
+using TracageAlmentaireWeb.BL.RESTSecurityLayer;
 using TracageAlmentaireWeb.DAL;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers
@@ -10,11 +11,20 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
     {
 
         private Mapper mapper = new Mapper("FTDb");
+        private APIKeyMessageHandler keyHandler = new APIKeyMessageHandler();
 
         [Route("api/Users")]
-        public IEnumerable<User> Get()
+        public IHttpActionResult Get()
         {
-            return mapper.GetUsers();
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                return Ok(mapper.GetUsers());
+            }
+            else
+            {
+                return new ForbiddenActionResult(Request, "access denied");
+            }
+                
         }
 
 
@@ -22,28 +32,49 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
         [Route("api/Users/{email}")]
         public IHttpActionResult Get(string email)
         {
-            var result = mapper.GetUser(email);
-            if (result != null)
+            if (!keyHandler.CheckApiKey(this.Request))
             {
-                return Ok(result);
+                return new ForbiddenActionResult(Request, "access denied");
             }
-
-            return NotFound();
+            else
+            {
+                var result = mapper.GetUser(email);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
         }
 
         public void Post(User data)
         {
-            mapper.CreateUser(data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.CreateUser(data);
+            }
+                
         }
 
         public void Put(long id, User data)
         {
-            mapper.UpdateUser(id, data);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.UpdateUser(id, data);
+            }
+                
         }
 
         public void Delete(long id)
         {
-            mapper.DeleteUser(id);
+            if (keyHandler.CheckApiKey(this.Request))
+            {
+                mapper.DeleteUser(id);
+            }
+                
         }
 
     }
