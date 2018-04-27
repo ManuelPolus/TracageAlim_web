@@ -32,12 +32,12 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         [Authorize]
         public ActionResult Create()
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
-            {
+            //if (HttpContext.User.Identity.IsAuthenticated)
+            //{
                 return View();
-            }
+            //}
 
-            return RedirectToAction("LoginPage", "Connection");
+           // return RedirectToAction("LoginPage", "Connection");
         }
 
         [System.Web.Mvc.HttpPost]

@@ -21,11 +21,12 @@ namespace TracageAlmentaireWeb.Controllers
 
         public ActionResult LogInPage()
         {
+  
             return View();
         }
 
         [HttpPost]
-        public ActionResult logIn(AuthenticationViewModel vm,string returnUrl)
+        public ActionResult logIn(AuthenticationViewModel vm, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -34,7 +35,7 @@ namespace TracageAlmentaireWeb.Controllers
                 {
                     FormsAuthentication.Initialize();
                     FormsAuthentication.SetAuthCookie(u.Id.ToString(), false);
-                   
+
                     return RedirectToAction("Index", "Home", u);
                 }
 

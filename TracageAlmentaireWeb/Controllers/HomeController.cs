@@ -19,8 +19,9 @@ namespace TracageAlmentaireWeb.Controllers
     //TODO:  créer un process en db pour le testing.
     public class HomeController : Controller
     {
-        private User user = new User { Name = "bob", Email = "b@b.com", Password = "abcd1234", CurrentRole_Id = 1 };
+        private User user = new User { Name = "bob", Email = "b@b.com", Password = "abcd1234", CurrentRole_Id = 1,Telephone = "12345"};
         private Mapper mapper = new Mapper("FTDb");
+        
 
         /*
         mapper.CreateRole(new Role { Name = "Default", Description = "This role is provided by default to new Users." });

@@ -43,7 +43,7 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         {
             t.OutgoingState = s;
             mapper.CreateTreatment(t);
-            return RedirectToAction("List");
+            return RedirectToAction("Create");
 
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using Microsoft.Ajax.Utilities;
 using Tracage.Models;
 using TracageAlmentaireWeb.BL.RESTSecurityLayer;
 using TracageAlmentaireWeb.DAL;
@@ -26,8 +27,6 @@ namespace TracageAlmentaireWeb.Controllers.ApiControllers
             }
                 
         }
-
-
 
         [Route("api/Users/{email}")]
         public IHttpActionResult Get(string email)

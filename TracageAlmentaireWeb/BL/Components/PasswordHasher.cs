@@ -21,8 +21,7 @@ namespace TracageAlmentaireWeb.BL.Components
         }
 
         public static bool CheckPassword(string clearPassword, string encryptedPassword)
-        {
-           
+        {           
             return Crypto.VerifyHashedPassword(encryptedPassword, clearPassword);
         }
 
@@ -46,7 +45,6 @@ namespace TracageAlmentaireWeb.BL.Components
         public bool CheckKey(string localKey,string externalKey)
         {
             string encryptedKey = HashKey(localKey);
-            
             return encryptedKey == externalKey;
         }
     }

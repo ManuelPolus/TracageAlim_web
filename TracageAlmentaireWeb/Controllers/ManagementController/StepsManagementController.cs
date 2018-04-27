@@ -43,7 +43,7 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         public ActionResult Create(Step s)
         {
             mapper.CreateStep(s);
-            return RedirectToAction("List");
+            return RedirectToAction("Create");
 
         }
 

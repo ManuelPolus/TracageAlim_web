@@ -1361,7 +1361,7 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public Scan GetScan(long iduser, long idTreatement)
+        public Scan GetScan(long iduser, long idTreatement,long idProduct)
         {
             Scan scan = new Scan();
 
@@ -1369,7 +1369,7 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    scan = context.Scans.FirstOrDefault(sc => sc.UserId == iduser && sc.TreatmentId == idTreatement);
+                    scan = context.Scans.FirstOrDefault(sc => sc.UserId == iduser && sc.TreatmentId == idTreatement && sc.ProductId == idProduct);
                 }
                 catch (Exception e)
                 {
@@ -1377,6 +1377,63 @@ namespace TracageAlmentaireWeb.DAL
                 }
 
                 return scan;
+            }
+        }
+
+        public List<Scan> GetScanByUser(long iduser)
+        {
+            List<Scan> scans = new List<Scan>();
+
+            using (context)
+            {
+                try
+                {
+                    scans = context.Scans.Where(sc => sc.UserId == iduser).ToList();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return scans;
+            }
+        }
+
+        public List<Scan> GetScanByTreatment(long idTreatment)
+        {
+            List<Scan> scans = new List<Scan>();
+
+            using (context)
+            {
+                try
+                {
+                    scans = context.Scans.Where(sc => sc.TreatmentId == idTreatment).ToList();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return scans;
+            }
+        }
+
+        public List<Scan> GetScanByProduct(long idProduct)
+        {
+            List<Scan> scans = new List<Scan>();
+
+            using (context)
+            {
+                try
+                {
+                    scans = context.Scans.Where(sc => sc.ProductId == idProduct).ToList();
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return scans;
             }
         }
 
@@ -1520,6 +1577,7 @@ namespace TracageAlmentaireWeb.DAL
         }
 
         #endregion
+
 
     }
 }

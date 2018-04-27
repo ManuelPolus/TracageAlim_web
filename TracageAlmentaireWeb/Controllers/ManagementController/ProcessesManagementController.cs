@@ -37,7 +37,7 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         public ActionResult Create(Process p)
         {
             mapper.CreateProcess(p);
-            return RedirectToAction("List");
+            return RedirectToAction("Create","StepsManagement");
         }
 
         public ActionResult Update(long id)
