@@ -26,7 +26,7 @@ namespace Tracage.Models
 
         public bool IsFinal()
         {
-            return this.CurrentTreatment.OutgoingState.Status == "final";
+            return this.CurrentTreatment.OutgoingState.Final;
         }
     }
 }

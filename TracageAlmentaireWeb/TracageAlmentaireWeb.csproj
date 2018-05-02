@@ -424,6 +424,7 @@
     <Compile Include="Controllers\ApiControllers\OrganizationsController.cs" />
     <Compile Include="Controllers\ApiControllers\ProcessesController.cs" />
     <Compile Include="Controllers\ApiControllers\ProductsController.cs" />
+    <Compile Include="Controllers\ApiControllers\ResourcesController.cs" />
     <Compile Include="Controllers\ApiControllers\RolesController.cs" />
     <Compile Include="Controllers\ApiControllers\ScansController.cs" />
     <Compile Include="Controllers\ApiControllers\StatesController.cs" />
@@ -452,6 +453,7 @@
     </Compile>
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\ProductStateDefinition.cs" />
+    <Compile Include="Models\Resource.cs" />
     <Compile Include="Models\Scan.cs" />
     <Compile Include="Models\Step.cs" />
     <Compile Include="Models\Organization.cs" />
@@ -499,6 +501,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Global.asax" />
+    <Content Include="Resources\Images\connexionfruits.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -624,6 +627,12 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AlimBlockChain\AlimBlockChain.csproj">
+      <Project>{6151109e-9bd4-44b6-8876-bab13be4da25}</Project>
+      <Name>AlimBlockChain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

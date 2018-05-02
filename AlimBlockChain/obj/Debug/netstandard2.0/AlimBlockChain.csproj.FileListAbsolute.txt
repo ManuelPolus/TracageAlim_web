@@ -1,0 +1,9 @@
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\AlimBlockChain\bin\Debug\netstandard2.0\AlimBlockChain.deps.json
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\AlimBlockChain\bin\Debug\netstandard2.0\AlimBlockChain.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\AlimBlockChain\bin\Debug\netstandard2.0\AlimBlockChain.pdb
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\AlimBlockChain\obj\Debug\netstandard2.0\AlimBlockChain.csprojResolveAssemblyReference.cache
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\AlimBlockChain\obj\Debug\netstandard2.0\AlimBlockChain.csproj.CoreCompileInputs.cache
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\AlimBlockChain\obj\Debug\netstandard2.0\AlimBlockChain.AssemblyInfoInputs.cache
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\AlimBlockChain\obj\Debug\netstandard2.0\AlimBlockChain.AssemblyInfo.cs
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\AlimBlockChain\obj\Debug\netstandard2.0\AlimBlockChain.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\AlimBlockChain\obj\Debug\netstandard2.0\AlimBlockChain.pdb

@@ -6,57 +6,60 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal jumbotron" style="background: rgba(0,66,22,0.3);">
-        <h4>Step</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("process :", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @{
-                    List<Process> listProcesses = new List<Process>();
-                    List<SelectListItem> listItems = new List<SelectListItem>();
-                    Mapper mapper = new Mapper("FTDb");
-                    listProcesses = mapper.GetProcesses();
-                    foreach (var process in listProcesses)
-                    {
-                        listItems.Add(new SelectListItem { Text = process.Name, Value = process.Id.ToString() });
-                    }
-                }
-
-                @Html.DropDownListFor(model => model.Process_Id, listItems, "Select Process", new { @class = "form-control" })
-            </div>
-        </div>
-        <br>
-        <div class="form-group">
-            <li class="btn btn-success btn-sm col-md-2">
-                @Html.ActionLink("start creating treatments", "Create", "TreatmentsManagement", null, new {Style = "color: white;"})
-            </li>
-        </div>
-        <br/>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+<div class="form-horizontal jumbotron" style="background: rgba(0,66,22,0.3);">
+    <h4>Step</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("process :", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @{
+                List<Process> listProcesses = new List<Process>();
+                List<SelectListItem> listItems = new List<SelectListItem>();
+                Mapper mapper = new Mapper("FTDb");
+                listProcesses = mapper.GetProcesses();
+                foreach (var process in listProcesses)
+                {
+                    listItems.Add(new SelectListItem { Text = process.Name, Value = process.Id.ToString() });
+                }
+            }
+
+            @Html.DropDownListFor(model => model.Process_Id, listItems, "Select Process", new { @class = "form-control" })
+        </div>
+    </div>
+    <br>
+
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+    <Hr />
+    <div class="form-group">
+        <li class="btn btn-success btn-sm col-md-2">
+            @Html.ActionLink("start creating treatments", "Create", "TreatmentsManagement", null, new { Style = "color: white;" })
+        </li>
+    </div>
+</div>
 }
+
 
 <div>
     @Html.ActionLink("Back to List", "List")

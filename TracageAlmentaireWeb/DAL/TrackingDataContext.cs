@@ -55,7 +55,7 @@ namespace TracageAlmentaireWeb.DAL
             modelBuilder.Entity<Product>().HasKey(p => p.Id);
             modelBuilder.Entity<Role>().HasKey(r => r.Id);
             modelBuilder.Entity<User>().HasKey(u => u.Id);
-            modelBuilder.Entity<Scan>().HasKey(s => new{s.TreatmentId,s.UserId});
+            modelBuilder.Entity<Scan>().HasKey(s => s.Id);
             modelBuilder.Entity<ProductStateDefinition>().HasKey(psd => new {psd.ProductId,psd.StateId});
             modelBuilder.Entity<SubContractor>().HasKey(sc => sc.Id);
             modelBuilder.Entity<State>().HasKey(s => s.Id);

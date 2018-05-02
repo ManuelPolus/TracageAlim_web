@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Windows.Forms;
 using Microsoft.AspNetCore.Mvc;
 using Tracage.Models;
 using TracageAlmentaireWeb.DAL;
@@ -43,6 +44,7 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         public ActionResult Create(Step s)
         {
             mapper.CreateStep(s);
+            
             return RedirectToAction("Create");
 
         }

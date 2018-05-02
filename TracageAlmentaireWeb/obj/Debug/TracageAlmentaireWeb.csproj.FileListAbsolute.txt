@@ -625,3 +625,5 @@ C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageA
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Microsoft.Extensions.Hosting.Abstractions.xml
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\Newtonsoft.Json.Bson.xml
 C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\System.Buffers.xml
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\AlimBlockChain.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\TracageAlmentaireWeb\bin\AlimBlockChain.pdb
