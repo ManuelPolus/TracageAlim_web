@@ -21,8 +21,7 @@ namespace AlimBlockChain
                 string text = block.Str();
 
                 byte[] bytes = Encoding.UTF8.GetBytes(text);
-                SHA256Managed sha256Hasher = new SHA256Managed()
-                    ;
+                SHA256Managed sha256Hasher = new SHA256Managed();
                 byte[] hash = sha256Hasher.ComputeHash(bytes);
 
 

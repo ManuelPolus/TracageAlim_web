@@ -1,38 +1,67 @@
-﻿<!DOCTYPE html>
+﻿@using Tracage.Models
+@using TracageAlmentaireWeb.DAL
+@using Microsoft.AspNetCore.Mvc.Rendering
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        @if (ViewContext.RouteData.Values["action"].ToString() != "LoginPage")
-        {
-            <div class="text-left ">
-                <a href="@Url.Action("Index","Home")"><img src="@Url.Content("../../Content/images/home.png")" alt="Home" height="35" width="35"/></a>
-            </div>
-            <asp:LinkButton ID="btnRandom"
-                            runat="server"
-                            CssClass="btn btn-primary"
-                            OnClick="">
-                <span aria-hidden="true" class="glyphicon glyphicon-refresh"></span>
-            </asp:LinkButton>
-        }
+<body style="margin-top: -3.5%;" >
+<div class="navbar navbar-inverse navbar-fixed-top">
+    @if (ViewContext.RouteData.Values["action"].ToString() != "LoginPage")
+    {
+        <div class="text-left ">
+            <a href="@Url.Action("Index","Home")"><img src="@Url.Content("../../Content/images/home.png")" alt="Home" height="35" width="35" /></a>
+        </div>
+        <div class=" text-right">
+            @try
+            {
+                if (HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    Mapper mapper = new Mapper("FTDb");
+                    User bob = mapper.GetUser(long.Parse(HttpContext.Current.User.Identity.Name));
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #006622;">
+                            @bob.Email
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-item">
+                                @Html.ActionLink("Deconnexion", "Deconnexion", "Connection",null,null)
+                            </div>
 
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Alimentary Tracing label</p>
-        </footer>
-    </div>
+                        </div>
+                    </div>
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+        </div>
+    }
+       
+</div>
+
+<div class="container body-content">
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Alimentary Tracing label</p>
+    </footer>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
 </body>
 </html>

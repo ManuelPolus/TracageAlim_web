@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Routing;
 using System.Windows.Forms;
 using Microsoft.AspNetCore.Mvc;
 using Tracage.Models;
@@ -12,7 +13,7 @@ using Controller = System.Web.Mvc.Controller;
 namespace TracageAlmentaireWeb.Controllers.ManagementController
 {
     [AutoValidateAntiforgeryToken]
-    public class StepsManagementController : Controller, IControlManagement
+    public class StepsManagementController : Controller
     {
 
         private Mapper mapper = new Mapper("FTDb");
@@ -29,10 +30,13 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
             return RedirectToAction("LoginPage", "Connection");
         }
 
-        public ActionResult Create()
+        public ActionResult Create(Process p)
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
+                p = mapper.GetProcess(p.Id);
+                ViewBag.Process = p;
+                TempData["Process"] = p;
                 return View();
             }
             return RedirectToAction("LoginPage", "Connection");
@@ -43,9 +47,10 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         [System.Web.Mvc.ValidateAntiForgeryToken]
         public ActionResult Create(Step s)
         {
+
             mapper.CreateStep(s);
-            
-            return RedirectToAction("Create");
+            Process p = mapper.GetProcess(s.Process_Id);
+            return RedirectToAction("Create", p);
 
         }
 
@@ -87,6 +92,14 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
             }
             return RedirectToAction("LoginPage", "Connection");
 
+        }
+
+        public ActionResult GotoTreatmentsCreation()
+        {
+            Process p = (Process)TempData["Process"];
+            p = mapper.GetProcess(p.Id);
+            Step s = p.Steps.ElementAt(0);
+            return RedirectToAction("Create", "TreatmentsManagement",p);
         }
     }
 }

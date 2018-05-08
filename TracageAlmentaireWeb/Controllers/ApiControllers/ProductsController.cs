@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
@@ -7,6 +8,7 @@ using System.Web.Http;
 using AlimBlockChain;
 using AlimBlockChain.BlocksAndUtilities;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Tracage.Models;
 using TracageAlmentaireWeb.BL.RESTSecurityLayer;
 using TracageAlmentaireWeb.DAL;
@@ -48,18 +50,13 @@ namespace TracageAlmentaireWeb.Controllers
                     #region bc test
 
                     if (result.CurrentTreatment != null && result.CurrentTreatment.OutgoingState.Final)
-                    {
-                        Dictionary<string, string> data2 = new Dictionary<string, string>();
+                    {                    
                         BlockChain bc = new BlockChain(2);
-                        int i = 1;
-                        foreach (var state in result.States)
-                        {
-                            data2.Add(result.QRCode+"- state  #"+i+" : " , state.Status);
-                            i++;
-                        }
+                        string productAstring = JsonConvert.SerializeObject(result);
 
-                        Block b = bc.NewBlock(data2);
+                        Block b = bc.NewBlock(productAstring);
                         bc.AddBlock(b);
+                        Miner.MineBlock(1,bc.Blocks.ElementAt(0));
                         Miner.MineBlock(1, b);
                         FileDistributor fd = new FileDistributor();
                         fd.SaveBlockChain(bc, result.QRCode);

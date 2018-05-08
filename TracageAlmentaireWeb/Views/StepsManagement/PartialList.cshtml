@@ -1,0 +1,68 @@
+﻿    @model IEnumerable<Tracage.Models.Treatment>
+
+<p class="font-weight-bold">
+   Treatments List
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+        <th></th>
+    </tr>
+    @{ int i = 1;}
+
+    @foreach (var item in Model)
+    {
+
+        if (i % 2 == 0)
+        {
+            <tr style="background:rgba(0,66,22,0.1); ">
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Details", "Details", "TreatmentsManagement", new { id = item.Id }, new { @style = "color:#00cc00;" })
+                </td>
+            </tr>
+            i++;
+        }
+        if (i % 2 != 0)
+        {
+            <tr style="background-color: white">
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Details", "Details", "TreatmentsManagement", new { id = item.Id }, new { @style = "color:#00cc00;" })
+                </td>
+            </tr>
+            i++;
+        }
+      
+    }
+
+</table>

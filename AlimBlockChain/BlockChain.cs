@@ -16,10 +16,9 @@ namespace AlimBlockChain
         {
             this.Difficulty = difficulty;
             Blocks = new List<Block>();
-            Dictionary<string,string> data = new Dictionary<string, string>();
-            data.Add("first block"," new block chain");
+            
             // create the first block
-            Block b = new Block(0, null, data);
+            Block b = new Block(0, null,"first Block");
             Miner.MineBlock(difficulty,b);
             Blocks.Add(b);
         }
@@ -30,7 +29,7 @@ namespace AlimBlockChain
             return Blocks.ElementAt(Blocks.Count - 1);
         }
 
-        public Block NewBlock(Dictionary<string, string> data)
+        public Block NewBlock( string data)
         {
             var timeStamp = DateTime.Now;
             Block last = LatestBlock();

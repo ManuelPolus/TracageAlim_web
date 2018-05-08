@@ -35,9 +35,9 @@
             @Html.DisplayFor(modelItem => item.Workers)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Update", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink("Edit", "Update", new { id = item.Id }, new { @style = "color:#00cc00;" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @style = "color:#00cc00;" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @style = "color:#00cc00;" })
         </td>
     </tr>
 }

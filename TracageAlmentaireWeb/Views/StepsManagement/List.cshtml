@@ -19,30 +19,77 @@
         </th>
         <th></th>
     </tr>
+    @{ int i = 1;}
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Position)
-            </td>
-            <td>
-                @{
 
-                    Process p = mapper.GetProcess(item.Process_Id);
+        if (i % 2 == 0)
+        {
+            <tr style="background-color: white">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+                <td>
+                    @{
+                        try
+                        {
+                            Process p = mapper.GetProcess(item.Process_Id);
+                            Html.Label(p.Name);
+                        }
+                        catch (NullReferenceException nullex)
+                        {
 
-                }
-                @Html.Label(p.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Update", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+                        }
+
+                    }
+
+
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Update", new { id = item.Id }, new { @style = "color:#00cc00;" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @style = "color:#00cc00;" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @style = "color:#00cc00;" })
+                </td>
+            </tr>
+            i++;
+        }
+        if (i % 2 != 0)
+        {
+            <tr style="background: rgba(0,66,22,0.1); ">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+                <td>
+                    @{
+                        try
+                        {
+                            Process p = mapper.GetProcess(item.Process_Id);
+                            Html.Label(p.Name);
+                        }
+                        catch (NullReferenceException nullex)
+                        {
+
+                        }
+
+                    }
+
+
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Update", new { id = item.Id },new {@style= "color:#00cc00;" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @style = "color:#00cc00;" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @style = "color:#00cc00;" })
+                </td>
+            </tr>
+            i++;
+        }
     }
 
 </table>

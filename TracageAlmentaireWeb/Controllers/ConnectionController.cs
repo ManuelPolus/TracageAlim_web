@@ -45,6 +45,12 @@ namespace TracageAlmentaireWeb.Controllers
             return RedirectToAction("LoginPage");
         }
 
+        public ActionResult Deconnexion()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("LogInPage");
+        }
+
 
     }
 }

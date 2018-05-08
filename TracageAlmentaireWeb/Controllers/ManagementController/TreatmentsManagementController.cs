@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using iTextSharp.text;
-using Microsoft.AspNetCore.Mvc;
+using System.Web.Mvc;
+using System.Web.Routing;
 using Tracage.Models;
+using TracageAlmentaireWeb.Controllers.ApiControllers;
 using TracageAlmentaireWeb.DAL;
 using TracageAlmentaireWeb.Models;
-using ActionResult = System.Web.Mvc.ActionResult;
-using Controller = System.Web.Mvc.Controller;
+
 
 namespace TracageAlmentaireWeb.Controllers.ManagementController
 {
-    [AutoValidateAntiforgeryToken]
-    public class TreatmentsManagementController : Controller, IControlManagement
+    public class TreatmentsManagementController : Controller
     {
         private Mapper mapper = new Mapper("FTDb");
 
@@ -28,8 +25,20 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
             return RedirectToAction("LoginPage", "Connection");
         }
 
-        public ActionResult Create()
+        
+        public ActionResult Create(Process p)
         {
+            p = mapper.GetProcess(p.Id);
+            TempData["process"] = p;
+            var s = TempData["SelectedStep"];
+            if (s == null)
+            {
+                TempData["SelectedStep"] = p.Steps.ElementAt(0);
+            }
+            else
+            {
+                TempData["SelectedStep"]= s;
+            }
 
             if (HttpContext.User.Identity.IsAuthenticated)
             {
@@ -38,23 +47,28 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
             return RedirectToAction("LoginPage", "Connection");
         }
 
-        [System.Web.Mvc.HttpPost]
+
+
+        [HttpPost]
         public ActionResult Create(Treatment t,State s)
         {
             t.OutgoingState = s;
             mapper.CreateTreatment(t);
+            Step step = mapper.GetStep(t.StepId);
+            TempData["SelectedStep"] = step;
+            Process p = mapper.GetProcess(step.Process_Id);
+            TempData["process"] = p;
             if (t.OutgoingState.Final)
             {
                 return RedirectToAction("Index","Home");
             }
-            return RedirectToAction("Create");
-
+            return RedirectToAction("Create",p);
         }
+        
 
         
         public ActionResult Update(long id) // Normalement id passé automatiquement à la vue.
         {
-
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 Treatment t = mapper.GetTreatment(id);
@@ -90,6 +104,14 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
                 return RedirectToAction("List");
             }
             return RedirectToAction("LoginPage", "Connection");
+        }
+
+        public ActionResult ChangeStep(Step st)
+        {
+            
+            Process p = mapper.GetProcess(st.Process_Id);
+            TempData["SelectedStep"] = st;
+            return RedirectToAction("Create",p);
         }
     }
 }

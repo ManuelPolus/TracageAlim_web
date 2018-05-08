@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
-using System.Web.ApplicationServices;
-using System.Web.Http.ModelBinding;
-using LinqToDB;
-using LinqToDB.Configuration;
-using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Tracage.Models;
 using TracageAlmentaireWeb.BL.Components;
 using TracageAlmentaireWeb.Models;
 using TracageAlmentaireWeb.ViewModels;
-using ModelState = System.Web.Mvc.ModelState;
 
 namespace TracageAlmentaireWeb.DAL
 {
@@ -481,7 +471,7 @@ namespace TracageAlmentaireWeb.DAL
         {
             List<Treatment> treatements = new List<Treatment>();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -541,7 +531,7 @@ namespace TracageAlmentaireWeb.DAL
         {
             Treatment treatment = new Treatment();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -570,7 +560,7 @@ namespace TracageAlmentaireWeb.DAL
 
         public void DeleteTreatment(long id)
         {
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -593,7 +583,7 @@ namespace TracageAlmentaireWeb.DAL
         {
             List<Step> steps = new List<Step>();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -612,11 +602,16 @@ namespace TracageAlmentaireWeb.DAL
         {
             Step step = new Step();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
                     step = context.Steps.FirstOrDefault(s => s.Id == id);
+                    step.Treatments = context.Treatements.Where(t => t.StepId == step.Id).ToList();
+                    foreach (var t in step.Treatments)
+                    {
+                        t.OutgoingState = context.States.FirstOrDefault(s => s.Id == t.OutgoingStateId);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -629,7 +624,7 @@ namespace TracageAlmentaireWeb.DAL
 
         public void CreateStep(Step newStep)
         {
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -674,7 +669,7 @@ namespace TracageAlmentaireWeb.DAL
 
         public void DeleteStep(long id)
         {
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {
@@ -697,7 +692,7 @@ namespace TracageAlmentaireWeb.DAL
         {
             List<SubContractor> subContractors = new List<SubContractor>();
 
-            using (context)
+            using (context = new TrackingDataContext("FTDb"))
             {
                 try
                 {

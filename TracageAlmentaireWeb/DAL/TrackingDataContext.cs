@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using AlimBlockChain;
 using Tracage.Models;
 using TracageAlmentaireWeb.Models;
 
@@ -25,6 +26,12 @@ namespace TracageAlmentaireWeb.DAL
         public DbSet<ProductStateDefinition> ProductStateDefinitions { get; set; }
         public DbSet<SubContractor> SubContractors { get; set; }
 
+        //public DbSet<Block> Blocks { get; set; }
+
+        //public DbSet<BlockChain> BlockChains { get; set; }
+
+
+
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -46,6 +53,9 @@ namespace TracageAlmentaireWeb.DAL
             modelBuilder.Entity<Scan>().ToTable("Scanner");
             modelBuilder.Entity<ProductStateDefinition>().ToTable("posseder");
             modelBuilder.Entity<SubContractor>().ToTable("SubContractors");
+            //modelBuilder.Entity<BlockChain>().ToTable("BlockChains");
+            //modelBuilder.Entity<Block>().ToTable("Blocks");
+
 
             //keys
 
@@ -59,6 +69,8 @@ namespace TracageAlmentaireWeb.DAL
             modelBuilder.Entity<ProductStateDefinition>().HasKey(psd => new {psd.ProductId,psd.StateId});
             modelBuilder.Entity<SubContractor>().HasKey(sc => sc.Id);
             modelBuilder.Entity<State>().HasKey(s => s.Id);
+
+            modelBuilder.Entity<Block>().HasKey(b => b.Hash);          
 
             //Required
             modelBuilder.Entity<Address>().Property(a => a.Number).IsRequired();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 
 
 namespace AlimBlockChain
@@ -16,11 +17,11 @@ namespace AlimBlockChain
 
         public string PreviousHash { get; set; }
 
-        public Dictionary<string,string> Data { get; set; }
+        public string Data { get; set; }
 
         public int Nonce { get; set; }
 
-        public Block(int index, string previousHash, Dictionary<string, string> data)
+        public Block(int index, string previousHash, string data)
         {
             Index = index;
             TimeStamp = DateTime.Now.ToString("g");
@@ -30,21 +31,10 @@ namespace AlimBlockChain
             Hash = BlockHasher.calculateHash(this);
         }
 
-        private string getData()
-        {
-            string dataAssembled = string.Empty;
-            foreach (var values in Data)
-            {
-                dataAssembled += values.Key + ":" + values.Value + ",";
-            }
-
-            return dataAssembled;
-        }
-
 
         public string Str()
         {
-            return Index + TimeStamp + PreviousHash + getData() + Nonce;
+            return Index + TimeStamp + PreviousHash + Data + Nonce;
         }
 
        
@@ -54,10 +44,16 @@ namespace AlimBlockChain
             StringBuilder builder = new StringBuilder();
 
             builder.Append("Block #").Append(Index).Append(" [previousHash : ").Append(PreviousHash).Append("; ").
-                Append("timestamp : ").Append(TimeStamp).Append("; ").Append("data : ").Append(getData()).Append("; ").
+                Append("timestamp : ").Append(TimeStamp).Append("; ").Append("data : \n").Append(Data).Append(";\n ").
                 Append("hash : ").Append(Hash).Append("]");
 
             return builder.ToString();
+        }
+
+        public object GetData()
+        {
+            var item = JsonConvert.DeserializeObject<object>(Data);
+            return item;
         }
 
     }

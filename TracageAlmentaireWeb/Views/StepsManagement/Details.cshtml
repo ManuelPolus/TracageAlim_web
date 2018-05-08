@@ -1,4 +1,5 @@
-﻿@model Tracage.Models.Step
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model Tracage.Models.Step
 
 <div>
     <h4>Step</h4>
@@ -29,6 +30,9 @@
         </dd>
 
     </dl>
+
+    @Html.Partial("PartialList", Model.Treatments)
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Update", new { id = Model.Id }) |

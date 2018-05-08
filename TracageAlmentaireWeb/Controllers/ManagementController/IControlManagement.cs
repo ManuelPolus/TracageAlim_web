@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Windows.Forms;
 
 namespace TracageAlmentaireWeb.Controllers
 {
@@ -12,6 +13,7 @@ namespace TracageAlmentaireWeb.Controllers
 
         ActionResult List();
         ActionResult Create();
+
         ActionResult Update(long id);
         ActionResult Details(long id);
         ActionResult Delete(long id);
