@@ -25,9 +25,9 @@ namespace AlimBlockChain.BlocksAndUtilities
                 firstBlock.PreviousHash != null
                 ||
                 firstBlock.Hash == null
-                /*||
+                ||
                 !BlockHasher.calculateHash(firstBlock).Equals(firstBlock.Hash)
-                */
+                
             )
             {
                 return false;
@@ -47,8 +47,8 @@ namespace AlimBlockChain.BlocksAndUtilities
 
                 if (
                     newBlock.PreviousHash == null
-                    //||
-                    //!newBlock.PreviousHash.Equals(previousBlock.Hash)
+                    ||
+                    !newBlock.PreviousHash.Equals(previousBlock.Hash)
                     )
                 {
                     return false;

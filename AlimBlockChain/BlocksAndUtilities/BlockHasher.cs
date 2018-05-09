@@ -14,31 +14,34 @@ namespace AlimBlockChain
                 throw new NullReferenceException("Your block shouldn't be null");
             }
 
-            string hashedString = String.Empty;
+            string input = String.Empty;
 
             try
             {
-                string text = block.Str();
+                input = block.Str();
 
-                byte[] bytes = Encoding.UTF8.GetBytes(text);
-                SHA256Managed sha256Hasher = new SHA256Managed();
-                byte[] hash = sha256Hasher.ComputeHash(bytes);
+                SHA512 shaM = new SHA512Managed();
 
+                byte[] data = shaM.ComputeHash(Encoding.UTF8.GetBytes(input));
 
+                StringBuilder sBuilder = new StringBuilder();
 
-                foreach (byte b in hash)
+                for (int i = 0; i < data.Length; i++)
                 {
-                    hashedString += String.Format("{0:x2}", b);
+                    sBuilder.Append(data[i].ToString("x2"));
                 }
+
+                input = sBuilder.ToString();
+               
             }
             catch (Exception e)
             {
                 //Hashing went wrong
                 Console.WriteLine(e.StackTrace);
             }
-            
 
-            return hashedString;
+
+            return input;
         }
     }
 }

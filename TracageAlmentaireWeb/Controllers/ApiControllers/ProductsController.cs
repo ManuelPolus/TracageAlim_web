@@ -50,14 +50,16 @@ namespace TracageAlmentaireWeb.Controllers
                     #region bc test
 
                     if (result.CurrentTreatment != null && result.CurrentTreatment.OutgoingState.Final)
-                    {                    
+                    {
                         BlockChain bc = new BlockChain(2);
-                        string productAstring = JsonConvert.SerializeObject(result);
 
-                        Block b = bc.NewBlock(productAstring);
-                        bc.AddBlock(b);
-                        Miner.MineBlock(1,bc.Blocks.ElementAt(0));
-                        Miner.MineBlock(1, b);
+                        foreach (var step in result.Process.Steps)
+                        {
+                            string stateAsString = JsonConvert.SerializeObject(step);
+                            Block bs = bc.NewBlock(stateAsString);
+                            bc.AddBlock(bs);
+                        }
+
                         FileDistributor fd = new FileDistributor();
                         fd.SaveBlockChain(bc, result.QRCode);
                         fd.GetBlockChainFile(result.QRCode);
@@ -95,7 +97,7 @@ namespace TracageAlmentaireWeb.Controllers
                 {
                     data.CurrrentTreatmentId = data.CurrentTreatment.Id;
 
-                   
+
 
                 }
                 catch (Exception e)
