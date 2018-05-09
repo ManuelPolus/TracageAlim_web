@@ -53,7 +53,7 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         public ActionResult Create(Treatment t,State s)
         {
             t.OutgoingState = s;
-            mapper.CreateTreatment(t);
+            mapper.CreateTreatment(t);//            <-
             Step step = mapper.GetStep(t.StepId);
             TempData["SelectedStep"] = step;
             Process p = mapper.GetProcess(step.Process_Id);
