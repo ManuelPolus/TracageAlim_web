@@ -8,7 +8,7 @@ namespace NodeApp
     class RestClient
     {
         private readonly HttpClient _client;
-        private const string Resturl = " https://a788fb5a.ngrok.io/api/node/begin"; //TODO replace with real 
+        private const string Resturl = "https://e30d5cbd.ngrok.io/api/node/begin"; //TODO replace with real 
 
 
         public RestClient()
@@ -28,6 +28,20 @@ namespace NodeApp
             }
 
             return items;
+        }
+
+        public string GetDataAsync(string resource)
+        {
+            string item = string.Empty;
+            var uri = new Uri(string.Format(Resturl+"/"+resource+"/", string.Empty));
+            var response = _client.GetAsync(uri).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var content = response.Content.ReadAsStringAsync().Result;
+                item = JsonConvert.DeserializeObject<string>(content);
+            }
+
+            return item;
         }
     }
 }

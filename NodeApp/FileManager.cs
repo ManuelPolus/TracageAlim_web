@@ -31,8 +31,27 @@ namespace NodeApp
 
         }
 
+        public string ReadFile(string fileName)
+        {
+            string path = repository + "\\" + fileName + ".txt";
+            return File.ReadAllText(path);
+        }
 
+        public List<string> GetBlockChains()
+        {
+            List<string> bcList = new List<string>();
+            foreach (string file in Directory.EnumerateFiles(repository, "*.txt"))
+            {
+                string contents = File.ReadAllText(file);
+                bcList.Add(contents);
+            }
+            return bcList;
+        }
 
+        public bool CheckFileExist(string fileName)
+        {
+            return File.Exists(repository +"\\"+fileName+".txt");
+        }
 
         private void TryCreateDirectory()
         {
