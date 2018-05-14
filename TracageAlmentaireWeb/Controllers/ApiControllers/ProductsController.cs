@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web;
-using System.Web.Http;
-using AlimBlockChain;
+﻿using AlimBlockChain;
 using AlimBlockChain.BlocksAndUtilities;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
+using System.Web.Http;
 using Tracage.Models;
 using TracageAlmentaireWeb.BL.RESTSecurityLayer;
 using TracageAlmentaireWeb.DAL;
-using TracageAlmentaireWeb.Models;
 
 namespace TracageAlmentaireWeb.Controllers
 {
@@ -32,7 +25,7 @@ namespace TracageAlmentaireWeb.Controllers
             return Ok(mapper.GetProducts());
         }
 
-        [System.Web.Http.Route("api/products/{qr}")]
+        [Route("api/products/{qr}")]
         public IHttpActionResult Get(string qr)
         {
 
@@ -40,13 +33,16 @@ namespace TracageAlmentaireWeb.Controllers
             {
                 return new ForbiddenActionResult(Request, "access denied");
             }
+
             try
             {
                 var result = mapper.GetProductByQr(qr);
-                result.Process = mapper.GetProcess(result.ProcessId);
-                result.CurrentTreatment = mapper.GetTreatment(result.CurrrentTreatmentId);
+
                 if (result != null)
                 {
+                    result.Process = mapper.GetProcess(result.ProcessId);
+                    result.CurrentTreatment = mapper.GetTreatment(result.CurrrentTreatmentId);
+
                     #region bc test
 
                     if (result.CurrentTreatment != null && result.CurrentTreatment.OutgoingState.Final)
@@ -62,10 +58,10 @@ namespace TracageAlmentaireWeb.Controllers
 
                         FileDistributor fd = new FileDistributor();
                         fd.SaveBlockChain(bc, result.QRCode);
-                        fd.GetBlockChainFile(result.QRCode);
                     }
 
                     #endregion
+
                     return Ok(result);
                 }
 
@@ -73,9 +69,8 @@ namespace TracageAlmentaireWeb.Controllers
             }
             catch (Exception e)
             {
-                return NotFound();
+                return BadRequest();
             }
-
         }
 
 
@@ -120,3 +115,4 @@ namespace TracageAlmentaireWeb.Controllers
         }
     }
 }
+

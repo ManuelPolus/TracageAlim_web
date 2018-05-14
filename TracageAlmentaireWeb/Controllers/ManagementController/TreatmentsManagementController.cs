@@ -13,6 +13,7 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
     public class TreatmentsManagementController : Controller
     {
         private Mapper mapper = new Mapper("FTDb");
+        private Step selected;
 
         public ActionResult List()
         {
@@ -30,13 +31,17 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         {
             p = mapper.GetProcess(p.Id);
             TempData["process"] = p;
-            var s = TempData["SelectedStep"];
+            Step s = (Step) TempData["SelectedStep"];
+            
             if (s == null)
             {
-                TempData["SelectedStep"] = p.Steps.ElementAt(0);
+                s = p.Steps.ElementAt(0);
+                s.Treatments = mapper.GetTreatmentsByStep(s.Id);
+                TempData["SelectedStep"] = s;
             }
             else
             {
+                s.Treatments = mapper.GetTreatmentsByStep(s.Id);
                 TempData["SelectedStep"]= s;
             }
 
@@ -55,7 +60,10 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
             t.OutgoingState = s;
             mapper.CreateTreatment(t);//            <-
             Step step = mapper.GetStep(t.StepId);
+           
             TempData["SelectedStep"] = step;
+           
+
             Process p = mapper.GetProcess(step.Process_Id);
             TempData["process"] = p;
             if (t.OutgoingState.Final)
@@ -107,10 +115,10 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         }
 
         public ActionResult ChangeStep(Step st)
-        {
-            
+        {           
             Process p = mapper.GetProcess(st.Process_Id);
             TempData["SelectedStep"] = st;
+            selected = st;
             return RedirectToAction("Create",p);
         }
     }

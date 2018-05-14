@@ -59,8 +59,8 @@
                 <div class="form-group">
                     @Html.Label("Position in selected step :", null, new { @style = "margin-left:4%;" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control", @Value = step.Treatments.Count + 1 } })
+                        @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger"})
                     </div>
                 </div>
                 @Html.HiddenFor(model => model.StepId, new { @Value = step.Id })
@@ -154,14 +154,4 @@
 <div>
     @Html.ActionLink("Back to List", "List")
 </div>
-@functions{
 
-    object Go(long id)
-    {
-        Mapper mapper = new Mapper("FTDb");
-        ViewBag.Step = mapper.GetStep(id);
-        TempData["SelectedStep"] = ViewBag.Step;
-        return null;
-    }
-
-}

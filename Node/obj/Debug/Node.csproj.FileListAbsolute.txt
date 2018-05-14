@@ -1,0 +1,17 @@
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\bin\Node.dll.config
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\bin\Node.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\bin\Node.pdb
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\bin\Newtonsoft.Json.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\bin\System.Net.Http.Formatting.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\bin\System.Web.Http.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\bin\System.Web.Http.WebHost.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\bin\Newtonsoft.Json.xml
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\bin\System.Net.Http.Formatting.xml
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\bin\System.Web.Http.xml
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\bin\System.Web.Http.WebHost.xml
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\obj\Debug\Node.csprojResolveAssemblyReference.cache
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\obj\Debug\Node.csproj.CoreCompileInputs.cache
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\obj\Debug\Node.dll
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\Node\obj\Debug\Node.pdb

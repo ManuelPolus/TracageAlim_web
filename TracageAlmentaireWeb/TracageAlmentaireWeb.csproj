@@ -428,6 +428,7 @@
     <Compile Include="BL\RESTSecurityLayer\APIKeyMessageHandler.cs" />
     <Compile Include="Controllers\ApiControllers\AddressesController.cs" />
     <Compile Include="BL\RESTSecurityLayer\ForbiddenActionResult.cs" />
+    <Compile Include="Controllers\ApiControllers\BlockChainController.cs" />
     <Compile Include="Controllers\ApiControllers\OrganizationsController.cs" />
     <Compile Include="Controllers\ApiControllers\ProcessesController.cs" />
     <Compile Include="Controllers\ApiControllers\ProductsController.cs" />

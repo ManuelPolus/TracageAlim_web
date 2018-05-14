@@ -488,6 +488,29 @@ namespace TracageAlmentaireWeb.DAL
 
         }
 
+
+        public List<Treatment> GetTreatmentsByStep(long stepId)
+        {
+            List<Treatment> treatments = new List<Treatment>();
+
+            using (context = new TrackingDataContext("FTDb"))
+            {
+                try
+                {
+                    treatments = context.Treatements.Where(t => t.StepId == stepId).ToList();
+                    foreach(Treatment treatment in treatments)
+                    treatment.OutgoingState = context.States.FirstOrDefault(s => s.Id == treatment.OutgoingStateId);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
+
+                return treatments;
+            }
+
+        }
+
         public Treatment GetTreatment(long id)
         {
             Treatment treatment = new Treatment();
