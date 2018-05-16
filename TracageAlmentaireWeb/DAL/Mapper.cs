@@ -540,7 +540,8 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
-                    context.UserScanRights.Add(new UserScanRights { RoleId = 1,TreatmentId = newTreatment.Id});
+                    Role rl = context.Roles.FirstOrDefault(r => r.Name == "Administrator");
+                    context.UserScanRights.Add(new UserScanRights { RoleId = rl.Id,TreatmentId = newTreatment.Id});
                     context.Treatements.Add(newTreatment);
                     context.SaveChanges();
                 }
@@ -1297,6 +1298,7 @@ namespace TracageAlmentaireWeb.DAL
                 return role;
             }
         }
+
 
         public void CreateRole(Role newRole)
         {
