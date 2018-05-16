@@ -159,9 +159,16 @@ namespace NodeApp
                 foreach (var bc in serverDictionary)
                 {
                     var foundElement = localDictionary.First(o => o.Key == bc.Key);
+
+                    //Case they are missing files
+                    if (foundElement.Key == null && foundElement.Value ==null)
+                    {
+                        
+                    }
+
                     if (!(bc.Value == foundElement.Value))
                     {
-                        Console.WriteLine("--/!\\-- Blockchain corrupted : " + foundElement.Key);
+                        Console.WriteLine(" Blockchain corrupted : " + foundElement.Key);
                         i++;
                     }
 
@@ -182,6 +189,10 @@ namespace NodeApp
             }
             catch (Exception e)
             {
+                Console.WriteLine();
+                Console.WriteLine("--/!\\-- They are missing files on your computer. Your blockchain is not up-to-date");
+                Console.WriteLine("------- try updating your data by using the 'update' cmd line or by using the '-u' option on the 'check' cmd line");
+                Console.WriteLine();
                 return false;
             }
         }

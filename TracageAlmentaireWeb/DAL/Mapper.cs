@@ -319,7 +319,7 @@ namespace TracageAlmentaireWeb.DAL
                     if (!product.Equals(updatedProduct))
                     {
 
-                            try
+                        try
                         {
                             if (product.Process == null)
                             {
@@ -393,9 +393,9 @@ namespace TracageAlmentaireWeb.DAL
                                     step.Treatments = context.Treatements.Where(t => t.StepId == step.Id).ToList();
                                 }
 
-                               
+
                                 product.ProcessId = updatedProduct.ProcessId;
-                                
+
                                 product.CurrentTreatment = new Treatment();
                                 product.CurrentTreatment = process.Steps.ElementAt(0).Treatments.ElementAt(0);
                                 product.CurrentTreatment.OutgoingState = context.States.FirstOrDefault(s => s.Id == product.CurrentTreatment.OutgoingStateId);
@@ -498,8 +498,9 @@ namespace TracageAlmentaireWeb.DAL
                 try
                 {
                     treatments = context.Treatements.Where(t => t.StepId == stepId).ToList();
-                    foreach(Treatment treatment in treatments)
-                    treatment.OutgoingState = context.States.FirstOrDefault(s => s.Id == treatment.OutgoingStateId);
+
+                    foreach (Treatment treatment in treatments)
+                        treatment.OutgoingState = context.States.FirstOrDefault(s => s.Id == treatment.OutgoingStateId);
                 }
                 catch (Exception e)
                 {
@@ -539,6 +540,7 @@ namespace TracageAlmentaireWeb.DAL
             {
                 try
                 {
+                    context.UserScanRights.Add(new UserScanRights { RoleId = 1,TreatmentId = newTreatment.Id});
                     context.Treatements.Add(newTreatment);
                     context.SaveChanges();
                 }
@@ -1379,7 +1381,7 @@ namespace TracageAlmentaireWeb.DAL
             }
         }
 
-        public Scan GetScan(long iduser, long idTreatement,long idProduct)
+        public Scan GetScan(long iduser, long idTreatement, long idProduct)
         {
             Scan scan = new Scan();
 
@@ -1596,6 +1598,30 @@ namespace TracageAlmentaireWeb.DAL
 
         #endregion
 
+        #region Rights
 
+        public List<UserScanRights> GetRightsByRole(long roleId)
+        {
+            try
+            {
+                List<UserScanRights> usr = new List<UserScanRights>();
+
+                usr = context.UserScanRights.Where(us => us.RoleId == roleId).ToList();
+
+                return usr;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+
+        public void CreateUserScanRights(long roleId,long treatmentId)
+        {
+            context.UserScanRights.Add(new UserScanRights {RoleId = roleId, TreatmentId = treatmentId});
+        }
+
+        #endregion
     }
 }

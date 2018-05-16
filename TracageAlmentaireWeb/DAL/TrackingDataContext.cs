@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Linq.Expressions;
 using AlimBlockChain;
 using Tracage.Models;
 using TracageAlmentaireWeb.Models;
@@ -25,6 +26,9 @@ namespace TracageAlmentaireWeb.DAL
         public DbSet<Scan> Scans { get; set; }
         public DbSet<ProductStateDefinition> ProductStateDefinitions { get; set; }
         public DbSet<SubContractor> SubContractors { get; set; }
+        public DbSet<UserScanRights> UserScanRights { get; set; }
+
+        
 
         //public DbSet<Block> Blocks { get; set; }
 
@@ -53,9 +57,7 @@ namespace TracageAlmentaireWeb.DAL
             modelBuilder.Entity<Scan>().ToTable("Scanner");
             modelBuilder.Entity<ProductStateDefinition>().ToTable("posseder");
             modelBuilder.Entity<SubContractor>().ToTable("SubContractors");
-            //modelBuilder.Entity<BlockChain>().ToTable("BlockChains");
-            //modelBuilder.Entity<Block>().ToTable("Blocks");
-
+            modelBuilder.Entity<UserScanRights>().ToTable("UserScanRights");
 
             //keys
 
@@ -70,7 +72,8 @@ namespace TracageAlmentaireWeb.DAL
             modelBuilder.Entity<SubContractor>().HasKey(sc => sc.Id);
             modelBuilder.Entity<State>().HasKey(s => s.Id);
 
-            modelBuilder.Entity<Block>().HasKey(b => b.Hash);          
+            modelBuilder.Entity<Block>().HasKey(b => b.Hash);
+            modelBuilder.Entity<UserScanRights>().HasKey(u => new {u.TreatmentId,u.RoleId});
 
             //Required
             modelBuilder.Entity<Address>().Property(a => a.Number).IsRequired();

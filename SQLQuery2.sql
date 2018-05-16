@@ -1,1 +1,4 @@
-﻿INSERT INTO Roles (Name,Description) VALUES ('default', 'default origanisation')
+﻿SELECT * FROM userscanrights;
+SELECT * FROM treatments;
+
+

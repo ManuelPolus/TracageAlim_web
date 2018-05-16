@@ -16,6 +16,11 @@ namespace TracageAlmentaireWeb.Controllers
             try
             {
                 u = mapper.GetUser(long.Parse(HttpContext.User.Identity.Name));
+                
+                if (mapper.GetRole(1) == null)
+                {
+                    mapper.CreateRole(new Role{Name = "Adminisatrator", Description = "default admin role have all rights of scan  and so on"});
+                }
                 return View(u);
             }
             catch (System.FormatException fex)

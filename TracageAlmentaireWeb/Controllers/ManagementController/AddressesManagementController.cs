@@ -20,7 +20,7 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                return View();
+                return PartialView();
             }
 
             return RedirectToAction("LoginPage", "Connection");

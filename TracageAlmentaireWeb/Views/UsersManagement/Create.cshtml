@@ -1,5 +1,7 @@
 ﻿@using Tracage.Models
 @using TracageAlmentaireWeb.DAL
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using SelectListItem = System.Web.Mvc.SelectListItem
 @model Tracage.Models.User
 
 @using (Html.BeginForm())
@@ -64,7 +66,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.Partial("~/Views/AddressesManagement/'égb"aetnyzr,etu;yri")
+                @Html.Partial("~/Views/AddressesManagement/Create.cshtml")
             </div>
         </div>
 
