@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Web;
+﻿using System.IO;
+using System.Runtime.Remoting.Channels;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using iTextSharp.text.pdf.interfaces;
 using Tracage.Models;
 
 namespace TracageAlmentaireWeb.BL.Components.PDF
@@ -51,16 +45,16 @@ namespace TracageAlmentaireWeb.BL.Components.PDF
         {
             this.document = new Document();
             document.AddAuthor("alimTracingLabel");
-            if (!Directory.Exists("C:\\\\TEMP\\"))
+            if (!Directory.Exists("~/PDF_Files"))
             {
-                Directory.CreateDirectory("C:\\\\TEMP\\");
+                Directory.CreateDirectory("~/PDF_Files");
             }
             int i = 0;
-            string path = "C:\\\\TEMP\\qrBatch" + i + ".pdf";
+            string path = "~/PDF_Files/qrBatch" + i + ".pdf";
             while (File.Exists(path))
             {
                 i++;
-                path = "C:\\\\TEMP\\qrBatch" + i + ".pdf";
+                path = "~/PDF_Files/qrBatch" + i + ".pdf";
             }
 
             fs = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Tracage.Models;
 using TracageAlmentaireWeb.DAL;
 using TracageAlmentaireWeb.Models;
 using ActionResult = System.Web.Mvc.ActionResult;

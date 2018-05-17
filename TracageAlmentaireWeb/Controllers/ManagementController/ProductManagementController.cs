@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Tracage.Models;
 using TracageAlmentaireWeb.BL.Components;

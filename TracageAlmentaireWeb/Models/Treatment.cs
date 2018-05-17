@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TracageAlmentaireWeb.Models;
+﻿using TracageAlmentaireWeb.Models;
 
 namespace Tracage.Models
 {

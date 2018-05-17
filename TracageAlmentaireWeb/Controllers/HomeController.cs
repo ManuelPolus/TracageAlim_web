@@ -13,14 +13,16 @@ namespace TracageAlmentaireWeb.Controllers
         
         public ActionResult Index(User u)
         {
+
             try
             {
-                u = mapper.GetUser(long.Parse(HttpContext.User.Identity.Name));
-                
                 if (mapper.GetRole("Administrator") == null)
                 {
-                    mapper.CreateRole(new Role{Name = "Adminisatrator", Description = "default admin role have all rights of scan  and so on"});
+                    mapper.CreateRole(new Role { Name = "Administrator", Description = "default admin role have all rights of scan  and so on" });
                 }
+                u = mapper.GetUser(long.Parse(HttpContext.User.Identity.Name));
+                
+               
                 return View(u);
             }
             catch (System.FormatException fex)

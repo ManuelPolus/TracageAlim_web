@@ -1,0 +1,36 @@
+﻿@model TracageAlmentaireWeb.ViewModels.AuthenticationViewModel
+
+@{
+    ViewBag.Title = "logIn";
+}
+
+<h2>logIn</h2>
+
+using (Html.BeginForm())
+{<div align="center">
+
+    <div class="form-group">
+        <label>login </label><br>
+
+        @Html.LabelFor(m => m.Password)
+        <br>
+        @Html.TextBoxFor(m => m.Email)
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        <br>
+        @Html.PasswordFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password)
+        <br>
+        <div style="color: red">
+            @Html.ValidationMessage("WrongLogin")
+        </div>
+    </div>
+
+    <br/>
+    <input type="submit" value="Log in"/>
+    <br/>
+</div>
+}
+

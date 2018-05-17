@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Tracage.Models;
-using TracageAlmentaireWeb.Controllers.ApiControllers;
 using TracageAlmentaireWeb.DAL;
 using TracageAlmentaireWeb.Models;
 
@@ -60,7 +58,7 @@ namespace TracageAlmentaireWeb.Controllers.ManagementController
             t.OutgoingState = s;
             mapper.CreateTreatment(t);//            <-
             Step step = mapper.GetStep(t.StepId);
-           
+            
             TempData["SelectedStep"] = step;
            
 

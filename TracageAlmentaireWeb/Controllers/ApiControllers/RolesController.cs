@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Security.Authentication.ExtendedProtection;
-using System.Web.Http;
-using Microsoft.Ajax.Utilities;
+﻿using System.Web.Http;
 using Tracage.Models;
 using TracageAlmentaireWeb.BL.RESTSecurityLayer;
 using TracageAlmentaireWeb.DAL;

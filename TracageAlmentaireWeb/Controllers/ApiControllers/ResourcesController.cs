@@ -1,9 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Web.Http;
-using System.Web.Http.Results;
 using TracageAlmentaireWeb.Models;
 
 namespace TracageAlmentaireWeb.Controllers.ApiControllers

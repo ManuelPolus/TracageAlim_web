@@ -1,6 +1,4 @@
 ﻿using System.Data.Entity;
-using System.Linq.Expressions;
-using AlimBlockChain;
 using Tracage.Models;
 using TracageAlmentaireWeb.Models;
 
@@ -72,7 +70,6 @@ namespace TracageAlmentaireWeb.DAL
             modelBuilder.Entity<SubContractor>().HasKey(sc => sc.Id);
             modelBuilder.Entity<State>().HasKey(s => s.Id);
 
-            modelBuilder.Entity<Block>().HasKey(b => b.Hash);
             modelBuilder.Entity<UserScanRights>().HasKey(u => new {u.TreatmentId,u.RoleId});
 
             //Required

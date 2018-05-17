@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Tracage.Models;
-
-namespace TracageAlmentaireWeb.Models
+﻿namespace TracageAlmentaireWeb.Models
 {
     public class State
     {

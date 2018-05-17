@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Security;
-using Microsoft.AspNet.Identity;
 using Tracage.Models;
-using TracageAlmentaireWeb.BL;
 using TracageAlmentaireWeb.DAL;
 using TracageAlmentaireWeb.ViewModels;
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Ajax.Utilities;
-
-namespace Tracage.Models
+﻿namespace Tracage.Models
 {
     public class Role
     {

@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc.Async;
-using Microsoft.AspNet.Identity;
 using PasswordHasher = TracageAlmentaireWeb.BL.Components.PasswordHasher;
 
 namespace TracageAlmentaireWeb.BL.RESTSecurityLayer

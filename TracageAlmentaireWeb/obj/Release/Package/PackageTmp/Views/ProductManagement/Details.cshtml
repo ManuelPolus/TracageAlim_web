@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@using Tracage.Models
+@using TracageAlmentaireWeb.DAL
+@model Tracage.Models.Product
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.QRCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QRCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Process)
+        </dt>
+        @{
+            Mapper mapper = new Mapper("FTDb");
+            Process processForDetails = new Process();
+            processForDetails = mapper.GetProcess(Model.ProcessId);
+        }
+        <dd>
+            @Html.DisplayFor(nameOfProcess => processForDetails.Name)
+        </dd>
+
+        <dt>
+            @Html.Label("Current Treatement")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentTreatment.Name)
+        </dd>
+    </dl>
+</div>
+
+<button class="btn btn-dark btn-lg col-md-4" style="margin: 1%;">
+    @Html.ActionLink("Generate PDF for product", "GeneratePdfWithPRoductInformation", "ProductManagement", Model, new { Style = "color: white;" })
+</button>
+
+<p>
+    @Html.ActionLink("Edit", "Update", new { id = Model.Id }) |
+</p>

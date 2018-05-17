@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model Tracage.Models.User
+
+
+<h1 class="text-center">
+    Welcome
+    @Html.DisplayTextFor(model => model.Name)
+    !
+</h1>
+<hr />
+<div class="jumbotron" style="background-color: #f2f2f2; background-image: url(../../Resources/Images/connexionfruits.jpg); background-repeat: no-repeat; background-size:cover;">
+    <br />
+    <br />
+    <nav>
+        <ul class="navbar navbar-collapse text-center">
+
+            <li class="btn btn-dark btn-lg col-md-4" style="margin: 1.5%; background-color: #006622;">
+                @Html.ActionLink("Products Management", "List", "ProductManagement", null, new { Style = "color: white;" })
+            </li>
+
+            <li class="btn btn-dark btn-lg col-md-4" style="margin: 1.5%; background-color: #006622;">
+                @Html.ActionLink("Users Management", "List", "UsersManagement", null, new { Style = "color: white;" })
+            </li>
+
+            <li class="btn btn-dark btn-lg col-md-4" style="margin: 1.5%; background-color: #006622;">
+                @Html.ActionLink("Processes Management", "List", "ProcessesManagement", null, new { Style = "color: white;" })
+            </li>
+
+            <li class="btn btn-dark btn-lg col-md-4" style="margin: 1.5%; background-color: #006622;">
+                @Html.ActionLink("SubContractors Management", "List", "SubContractorsManagement", null, new { Style = "color: white;" })
+            </li>
+
+            <li class="btn btn-dark btn-lg col-md-4" style="margin: 1.5%; background-color: #006622;">
+                @Html.ActionLink("Roles Management", "List", "RolesManagement", null, new { Style = "color: white;" })
+            </li>
+
+            <li class="btn btn-dark btn-lg col-md-4" style="margin: 1.5%; background-color: #006622;">
+                @Html.ActionLink("Organizations Management", "List", "OrganizationsManagement", null, new { Style = "color: white;" })
+            </li>
+        </ul>
+    </nav>
+    <br />
+    <br />
+</div>

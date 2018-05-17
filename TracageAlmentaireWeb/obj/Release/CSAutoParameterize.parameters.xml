@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="FTDb-Web.config Connection String" description="FTDb Connection String used in web.config by the application to access the database." defaultValue="Server=tcp:foodtrackerserveur.database.windows.net,1433;Initial Catalog=FTDb;Persist Security Info=False;User ID=administrateur;Password=m@nuANDr0bin;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Manuel\ Polus\\source\\repos\\TracageAlmentaireWeb\\TracageAlim_web\\TracageAlmentaireWeb\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='FTDb']/@connectionString" />
+  </parameter>
+</parameters>

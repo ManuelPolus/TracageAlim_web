@@ -1,0 +1,4 @@
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\DAL\obj\Debug\netcoreapp2.0\DAL.csproj.CoreCompileInputs.cache
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\DAL\obj\Debug\netcoreapp2.0\DAL.AssemblyInfoInputs.cache
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\DAL\obj\Debug\netcoreapp2.0\DAL.AssemblyInfo.cs
+C:\Users\Manuel Polus\source\repos\TracageAlmentaireWeb\TracageAlim_web\DAL\obj\Debug\netcoreapp2.0\DAL.csprojResolveAssemblyReference.cache

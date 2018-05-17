@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tracage.Models;
 
 namespace TracageAlimentaireXamarin.BL.Components
 {

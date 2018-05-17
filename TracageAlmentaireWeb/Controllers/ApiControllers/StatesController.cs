@@ -1,6 +1,4 @@
-﻿
-using System.Collections.Generic;
-using System.Web.Http;
+﻿using System.Web.Http;
 using TracageAlmentaireWeb.BL.RESTSecurityLayer;
 using TracageAlmentaireWeb.DAL;
 using TracageAlmentaireWeb.Models;
